@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_users_academic_secretary,access.res.users.academic.secretary,base.model_res_users,group_academic_secretary,1,1,1,1
+access_res_partner_academic_secretary,access.res.partner.academic.secretary,base.model_res_partner,group_academic_secretary,1,1,1,0
+access_account_move_academic_secretary,access.account.move.academic.secretary,account.model_account_move,group_academic_secretary,1,0,0,0
+access_account_cash_rounding_accountant_assistant,access.account.cash.rounding.accountant.assistant,account.model_account_cash_rounding,group_accountant_assistant,1,0,0,0
+access_hr_contract_financial_admin,access.hr.contract.financial.admin,hr_contract.model_hr_contract,group_financial_admin,1,1,0,0
+access_hr_contract_adjustment_financial_admin,access.hr.contract.adjustment.financial.admin,hr_payroll_extends.model_hr_contract_adjustment,group_financial_admin,1,1,1,1
+access_hr_contract_contribution_financial_admin,access.hr.contract.contribution.financial.admin,hr_payroll_extends.model_hr_contract_contribution,group_financial_admin,1,0,0,0
+access_account_asset_financial_admin,access.account.asset.financial.admin,account_asset.model_account_asset,group_financial_admin,1,1,1,0

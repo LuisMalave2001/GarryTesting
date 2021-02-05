@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paper_format_attendance" model="report.paperformat">
+        <field name="name">Attendance Report Paper Format</field>
+        <field name="default" eval="True"/>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report
+        id="action_hr_employee_report_attendance"
+        model="hr.employee"
+        string="Attendance"
+        report_type="qweb-pdf"
+        name="hr_attendance_report.hr_employee_report_attendance"
+        file="hr_attendance_report.hr_employee_report_attendance"
+        paperformat="paper_format_attendance"
+        menu="False"/>
+</odoo>

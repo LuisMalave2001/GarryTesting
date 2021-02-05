@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_cron" model="ir.cron">
+        <field name="name">Notify School Misconfigurations</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="state">code</field>
+        <field name="code">
+no_invoice_address = env["res.partner"].search([("is_family","=",True),("invoice_address_id","=",False)])
+all_students = env["res.partner"].search([("person_type","=","student")])
+
+no_responsible = {}
+categories = env["product.category"].search([("exclude_from_config_check","=",False)])
+for category in categories:
+    responsibles = env["school_finance.financial.res.percent"].search([("category_id","parent_of",category.id)])
+    students = all_students - responsibles.partner_id
+    no_responsible[category] = students
+
+if no_invoice_address or no_responsible:
+    env.ref("school_config_checker.res_partner_mail_template").with_context(
+        no_invoice_address=no_invoice_address,
+        no_responsible=no_responsible
+    ).send_mail(env.user.partner_id.id)
+        </field>
+    </record>
+</odoo>

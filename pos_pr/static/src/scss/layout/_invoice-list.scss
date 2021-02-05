@@ -1,0 +1,81 @@
+@import "../abstract/colors";
+
+.invoice-list {
+
+    font-size: 16px;
+
+    width: 100%;
+    line-height: 40px;
+
+    thead {
+        tr {
+            position: sticky;
+            top: 0;
+            height: 60px;
+
+            &.js_change {
+                top: 60px;
+            }
+        }
+    }
+
+    th, td {
+        padding: 0 8px;
+    }
+
+    &__container {
+        position: relative;
+        height: 100%;
+    }
+
+    &__message {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        background-color: $invoice-message-background;
+    }
+
+    .invoice-list__content-line {
+        transition: all 150ms linear;
+        background: $invoice-row-dark;
+        cursor: pointer;
+
+        &:nth-child(even) {
+            background: $invoice-row-light;
+        }
+
+        &:hover {
+            background-color: #6f6f6f;
+            color: #dedede;
+        }
+
+
+        &.overdue {
+            color: red;
+        }
+
+        &.overdue--surcharge-paid {
+            color: $invoice-row-orange;
+        }
+
+        &--selected {
+            background: rgb(117, 208, 165) !important;
+
+            &:hover {
+                background: rgb(74, 143, 110) !important;;
+            }
+        }
+    }
+
+    .invoice-list__column-names {
+        background: rgb(247, 247, 247);
+        box-shadow: 0 -10px 50px black;
+    }
+
+
+}

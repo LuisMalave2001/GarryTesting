@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="adm.report_default" >
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+
+                    <!-- DIVS PARA OBTENER COLORES .o_company_1_layout.o_report_layout_clean h3{color: #355787;} -->
+                    <div class="o_company_1_layout d-none">
+                    <div class="o_report_layout_boxed">
+                        <h2>
+                            <span  id="primary-color">
+                                color primario
+                            </span>
+                        </h2>
+                    </div>
+                    </div>
+
+<!--   .o_company_1_layout.o_clean_footer h4{color: #99a2af;}              -->
+                    <div class="o_company_1_layout d-none">
+                    <div class="o_report_layout_boxed">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th id="secondary-color">
+                                        color secundario
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    </div>
+                    <!-- DIVS PARA OBTENER COLORES -->
+
+
+
+                    <div class="page">
+
+<style>
+
+
+    img{
+        max-width: 150px;
+        border: solid 1px gray;
+    }
+    row:nth-child(odd) {
+        background-color: #fbfbfb;
+    }
+    .div-break-inside-avoid .h5{
+        height: min-content;
+    }
+    .imgFamilia{
+        width: 100px;
+        height: 100px;
+
+    }
+    hr {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      border: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .secondary-aux-color{
+        color: #909090;
+    }
+    .imgFirma{
+        max-width: 300px;
+        border: none;
+    }
+    .page.lblSignature{
+        text-align: end;
+        margin-right: 93.5px;
+    }
+    .col-xs-12{
+        width: 100%;
+    }
+    @media print {
+        .div-break-inside-avoid {page-break-inside: avoid ;}
+        .div-break-before-avoid {page-break-before: always ;}
+    }
+</style>
+                        <h2 class="primary-bg text-light text-center" t-field="o.name"></h2>
+
+                        <row class="d-flex flex-wrap mt-3 pb-2">
+                            <div class="col-xs-12 col-md-9 d-flex flex-wrap">
+                                <div class="col-12 h5 primary-color p-0">
+                                  <strong>Personal Information</strong>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <label><strong>First Name:</strong></label>
+                                    <span class="ml-1" type="text" t-field="o.first_name"/>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <label><strong>Middle Name:</strong></label>
+                                    <span class="ml-1" type="text" t-field="o.middle_name"/>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <label><strong>Last Name:</strong></label>
+                                    <span class="ml-1" type="text" t-field="o.last_name"/>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <label><strong>Date of Birth:</strong></label>
+                                    <span class="ml-1" type="text" t-field="o.date_of_birth"/>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <label><strong>Identification:</strong></label>
+                                    <span class="ml-1" type="text" t-field="o.identification"/>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <label><strong>Home Phone:</strong></label>
+                                    <span class="ml-1" type="text" t-field="o.home_phone"/>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <label><strong>Grade Level:</strong></label>
+                                    <span class="ml-1" type="text" t-field="o.grade_level.name"/>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <label><strong>Address:</strong></label>
+                                    <span class="ml-1" type="text" t-field="o.street"/>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <label><strong>Email:</strong></label>
+                                    <span class="ml-1" type="text" t-field="o.email"/>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <label><strong>Birth Country:</strong></label>
+                                    <span class="ml-1" type="text" t-field="o.birth_country"/>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <label><strong>Birth City:</strong></label>
+                                    <span class="ml-1" type="text" t-field="o.birth_city"/>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <img class="w-100 rounded-circle" t-if="o.image" t-att-src="image_data_uri(o.image)" />
+                            </div>
+                        </row>
+
+                        <row class="d-flex flex-wrap mt-2 pt-3 rowBgSecondary pb-2">
+                            <div class="col-12 d-flex flex-wrap">
+                                <div class="col-12 h5 primary-color p-0">
+                                  <strong>Academic Information</strong>
+                                </div>
+                                <t t-set="rowCount" t-value="0"/>
+                                <t t-foreach="o.previous_school_ids" t-as="previous_school">
+                                    <div class="col-12 d-flex flex-wrap flex-md-row-reverse p-0 div-break-inside-avoid mt-2">
+                                        <div class="col-12 d-flex flex-wrap p-0 ">
+                                            <div class="col-12 h5 secondary-color ml-1 pl-2">
+                                                <strong t-field="previous_school.from_date"></strong>
+                                                <strong>-</strong>
+                                                <strong t-field="previous_school.to_date"></strong>
+                                            </div>
+                                            <div class="col-8 d-flex">
+                                                <label><strong>Name:</strong></label>
+                                                <span class="ml-1" type="text" t-field="previous_school.name"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Grade Level:</strong></label>
+                                                <span class="ml-1" type="text" t-field="previous_school.grade_completed"/>
+                                            </div>
+                                            <div class="col-12 d-flex">
+                                                <label><strong>School Address:</strong></label>
+                                                <span class="ml-1" type="text" t-field="previous_school.street"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>City:</strong></label>
+                                                <span class="ml-1" type="text" t-field="previous_school.city"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>State:</strong></label>
+                                                <span class="ml-1" type="text" t-field="previous_school.state_id.name"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Country:</strong></label>
+                                                <span class="ml-1" type="text" t-field="previous_school.country_id.name"/>
+                                            </div>
+                                            <t t-if="rowCount != len(o.previous_school_ids)-1">
+                                                <hr class="col-12"/>
+                                            </t>
+                                            <t t-set="rowCount" t-value="rowCount+1"/>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </row>
+
+                        <row class="d-flex flex-wrap mt-2 pt-3 pb-2">
+                            <div class="col-12 d-flex flex-wrap">
+                                <div class="col-12 h5 primary-color p-0">
+                                  <strong>Languages</strong>
+                                </div>
+                                <div class="col d-flex flex-wrap flex-md-row-reverse p-0 div-break-inside-avoid mt-2">
+                                    <div class="col-12 d-flex flex-wrap p-0 ">
+                                        <div class="col-12 h5 secondary-color ml-1 pl-2">
+                                          <strong t-field="o.first_language">First Language</strong>
+                                        </div>
+                                        <div class="col-12 d-flex">
+                                            <label><strong>Level:</strong></label>
+                                            <span class="ml-1" type="text" t-field="o.first_level_language"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <t t-if="o.second_language">
+                                    <div class="col d-flex flex-wrap flex-md-row-reverse p-0 div-break-inside-avoid mt-2">
+                                        <div class="col-12 d-flex flex-wrap p-0 ">
+                                            <div class="col-12 h5 secondary-color ml-1 pl-2">
+                                              <strong t-field="o.second_language">First Language</strong>
+                                            </div>
+                                            <div class="col-12 d-flex">
+                                                <label><strong>Level:</strong></label>
+                                                <span class="ml-1" type="text" t-field="o.second_level_language"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                                <t t-if="o.third_language">
+                                    <div class="col d-flex flex-wrap flex-md-row-reverse p-0 div-break-inside-avoid mt-2">
+                                        <div class="col-12 d-flex flex-wrap p-0 ">
+                                            <div class="col-12 h5 secondary-color ml-1 pl-2">
+                                              <strong t-field="o.third_language">First Language</strong>
+                                            </div>
+                                            <div class="col-12 d-flex">
+                                                <label><strong>Level:</strong></label>
+                                                <span class="ml-1" type="text" t-field="o.third_level_language"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+
+                            </div>
+                        </row>
+
+                        <row class="d-flex flex-wrap mt-2 pt-3 pb-2 rowBgSecondary">
+                            <div class="col-12 d-flex flex-wrap">
+                                <div class="col-12 h5 primary-color p-0">
+                                  <strong>House Address Information</strong>
+                                </div>
+                                <t t-set="rowCount" t-value="0"/>
+                                <t t-foreach="o.house_address_ids" t-as="house_address">
+                                    <div class="col-12 d-flex flex-wrap flex-md-row-reverse p-0 div-break-inside-avoid mt-2">
+                                        <div class="col-12 d-flex flex-wrap p-0 ">
+                                            <div class="col-12 h5 secondary-color ml-1 pl-2">
+                                              <strong t-field="house_address.name">House Address type</strong>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Country:</strong></label>
+                                                <span class="ml-1" type="text" t-field="house_address.country_id.name"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>City:</strong></label>
+                                                <span class="ml-1" type="text" t-field="house_address.city"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>State:</strong></label>
+                                                <span class="ml-1" type="text" t-field="house_address.state_id.name"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Zip:</strong></label>
+                                                <span class="ml-1" type="text" t-field="house_address.zip"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Street:</strong></label>
+                                                <span class="ml-1" type="text" t-field="house_address.street"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Homephone:</strong></label>
+                                                <span class="ml-1" type="text" t-field="house_address.phone"/>
+                                            </div>
+                                            <t t-if="rowCount != len(o.house_address_ids)-1">
+                                                <hr class="col-12"/>
+                                            </t>
+                                            <t t-set="rowCount" t-value="rowCount+1"/>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </row>
+                        <row class="d-flex flex-wrap mt-2 pt-3 pb-2 div-break-inside-avoid">
+                            <div class="col-12 ">
+                                <div class="col-12 h5 primary-color p-0 mb-4">
+                                  <strong>Family Information</strong>
+                                </div>
+                                <t t-set="rowCount" t-value="0"/>
+                                <t t-foreach="o.sudo().relationship_ids" t-as="relationship">
+                                    <div class="col-12 d-flex flex-wrap flex-md-row-reverse p-0 div-break-inside-avoid mt-2">
+                                        <div class="col-10 d-flex flex-wrap p-0">
+                                            <div class="col-12 h5 secondary-color ml-1 pl-2">
+                                              <strong t-field="relationship.relationship_type">Parent type</strong>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Name:</strong></label>
+                                                <span class="ml-1" type="text" t-field="relationship.partner_2.name"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Mobile:</strong></label>
+                                                <span class="ml-1" type="text" t-field="relationship.partner_2.mobile"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Phone:</strong></label>
+                                                <span class="ml-1" type="text" t-field="relationship.partner_2.phone"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Email:</strong></label>
+                                                <span class="ml-1" type="text" t-field="relationship.partner_2.email"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Nationality:</strong></label>
+                                                <span class="ml-1" type="text" t-field="relationship.partner_2.citizenship.name"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Marital Status:</strong></label>
+                                                <span class="ml-1" type="text" t-field="relationship.partner_2.marital_status"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Identification:</strong></label>
+                                                <span class="ml-1" type="text" t-field="relationship.partner_2.identification"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>House:</strong></label>
+                                                <span class="ml-1" type="text" t-field="relationship.partner_2.house_address_id.name"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Occupation:</strong></label>
+                                                <span class="ml-1" type="text" t-field="relationship.partner_2.occupation"/>
+                                            </div>
+                                            <div class="col-4 d-flex">
+                                                <label><strong>Office Phone:</strong></label>
+                                                <span class="ml-1" type="text" t-field="relationship.partner_2.work_phone"/>
+                                            </div>
+                                            <div class="col-8 d-flex">
+                                                <label><strong>Office Address:</strong></label>
+                                                <span class="ml-1" type="text" t-field="relationship.partner_2.work_address"/>
+                                            </div>
+
+                                            <div class="col-6 d-flex">
+                                                <label><strong>Parental Responsability:</strong></label>
+                                                <t t-if="relationship.partner_2.parental_responsability is True">
+                                                    <span class="ml-1" type="text">Yes</span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span class="ml-1" type="text">No</span>
+                                                </t>
+                                            </div>
+                                            <div class="col-6 d-flex"> <!-- HAY QUE TOMAR ESTO DE LA PROPIA APPLICATION-->
+                                                <label><strong>Emergency Contact:</strong></label>
+                                                <t t-if="relationship.partner_2.parental_responsability is True">
+                                                    <span class="ml-1" type="text">Yes</span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span class="ml-1" type="text">No</span>
+                                                </t>
+                                            </div>
+                                            <t t-if="rowCount != len(o.relationship_ids)-1">
+                                                <hr class="col-12"/>
+                                            </t>
+                                            <t t-set="rowCount" t-value="rowCount+1"/>
+                                        </div>
+                                        <div class="col-2">
+                                          <img class="imgFamilia rounded-circle" t-if="relationship.partner_2.image_1920" t-att-src="image_data_uri(relationship.partner_2.image_1920)" />
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </row>
+
+                        <row class="d-flex flex-wrap mt-2 pt-3 pb-2 rowBgSecondary div-break-inside-avoid">
+                            <div class="col-12 d-flex flex-wrap">
+                                <div class="col-12 h5 primary-color p-0 mb-4">
+                                  <strong>Medical Information</strong>
+                                </div>
+                                <div class="col-12 d-flex flex-wrap p-0 ">
+                                    <div class="col-4 d-flex">
+                                        <label><strong>Doctor Name:</strong></label>
+                                        <span class="ml-1" type="text" t-field="o.doctor_name"/>
+                                    </div>
+                                    <div class="col-4 d-flex">
+                                        <label><strong>Doctor Phone:</strong></label>
+                                        <span class="ml-1" type="text" t-field="o.doctor_phone"/>
+                                    </div>
+                                    <div class="col-4 d-flex">
+                                                <label><strong>Permission to Treat:</strong></label>
+                                                <t t-if="o.permission_to_treat is True">
+                                                    <span class="ml-1" type="text">Yes</span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span class="ml-1" type="text">No</span>
+                                                </t>
+                                            </div>
+                                    <div class="col-12 d-flex">
+                                        <label><strong>Doctor Direction:</strong></label>
+                                        <span class="ml-1" type="text" t-field="o.doctor_address"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 p-0">
+                                    <div class="col-12 h5 secondary-color ml-1 pl-2 mt-2">
+                                        <strong>Conditions</strong>
+                                    </div>
+                                    <t t-set="rowCount" t-value="0"/>
+                                    <t t-foreach="o.medical_conditions_ids" t-as="condition">
+                                        <div class="col-12 d-flex flex-wrap flex-md-row-reverse p-0  ml-3">
+                                            <div class="col-12 d-flex flex-wrap p-0 div-break-inside-avoid">
+                                                <div class="col-12 h6 secondary-aux-color ml-1 pl-2">
+                                                  <strong t-field="condition.name">Condition name</strong>
+                                                </div>
+                                                <div class="col-12 d-flex">
+                                                    <label><strong>Comment:</strong></label>
+                                                    <span class="ml-1" type="text" t-field="condition.comment"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                                <div class="col-12 p-0 ">
+                                    <div class="col-12 h5 secondary-color ml-1 pl-2 mt-2">
+                                        <strong>Allergies</strong>
+                                    </div>
+                                    <t t-set="rowCount" t-value="0"/>
+                                    <t t-foreach="o.medical_allergies_ids" t-as="allergy">
+                                        <div class="col-12 d-flex flex-wrap flex-md-row-reverse p-0 ml-3">
+                                            <div class="col-12 d-flex flex-wrap p-0 div-break-inside-avoid">
+                                                <div class="col-12 h6 secondary-aux-color ml-1 pl-2">
+                                                  <strong t-field="allergy.name">Allergy Name</strong>
+                                                </div>
+                                                <div class="col-4 d-flex">
+                                                    <label><strong>Comment:</strong></label>
+                                                    <span class="ml-1" type="text" t-field="allergy.comment"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                                <div class="col-12 p-0 ">
+                                    <div class="col-12 h5 secondary-color ml-1 pl-2 mt-2">
+                                        <strong>Medications</strong>
+                                    </div>
+                                    <t t-set="rowCount" t-value="0"/>
+                                    <t t-foreach="o.medical_medications_ids" t-as="medication">
+                                        <div class="col-12 d-flex flex-wrap flex-md-row-reverse p-0 ml-3">
+                                            <div class="col-12 d-flex flex-wrap p-0 div-break-inside-avoid">
+                                                <div class="col-12 h6 secondary-aux-color ml-1 pl-2">
+                                                  <strong t-field="medication.name">Medication Name</strong>
+                                                </div>
+                                                <div class="col-4 d-flex">
+                                                    <label><strong>Comment:</strong></label>
+                                                    <span class="ml-1" type="text" t-field="medication.comment"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </row>
+                        <div class="col-12 p-0 d-flex flex-column align-items-end">
+                            <img class="col-12 imgFirma" t-att-src="o.signature_attach_url"/>
+                            <span class="col-12 lblSignature text-right" style="padding-right: 93.5px;"><strong>Parent Signature</strong></span>
+                        </div>
+
+                    </div>
+                    <script>
+                        $( document ).ready(function() {
+                            //AÑADO LOS COLORES SELECCIONADO POR EL COLEGIO EN LA CONFIGURACION DEL EXTERN LAYOUT
+                            var style = $('<style>.primary-color { color: '+$("#primary-color").css("color")+'; }.primary-bg { background-color: '+$("#primary-color").css("color")+'; }.secondary-color { color: '+$("#secondary-color").css("color")+'; }.secondary-bg { background-color: '+$("#secondary-color").css("color")+'; }</style>');
+                            $('html > head').append(style);
+                        });
+                    </script>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

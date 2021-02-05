@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sale_order_view_gantt" model="ir.ui.view">
+        <field name="name">sale.order.view.gantt</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <gantt string="Sales Order Gantt" date_start="period_start" date_stop="period_end" color="invoice_status_color" default_group_by="student_id" total_row="1" plan="0" create="0" default_scale="year" thumbnails="{'student_id': 'image_128'}">
+                <field name="invoice_status_color" invisible="1"/>
+            </gantt>
+        </field>
+    </record>
+
+    <record id="sale_order_school_addon" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="student_id"/>
+                <field name="family_id"/>
+            </field>
+            <div class="oe_title" position="inside">
+                <group><field name="journal_id"/></group>
+            </div>
+            <field name="payment_term_id" position="replace">
+                <field name="invoice_date" attrs="{}"/>
+                <label for="payment_term_id"/>
+                <div class="d-flex">
+                    <field name="payment_term_id" placeholder="Terms" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    <span class="o_form_label mx-3 oe_edit_only" attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('payment_term_id', '!=', False)]}"> or </span>
+                    <field name="invoice_date_due" force_save="1" placeholder="Date" attrs="{'invisible': ['|', ('payment_term_id', '!=', False)]}"/>
+                </div>
+                <label for="period_start" string="Period"/>
+                <div class="d-flex">
+                    <field name="period_start"/><span class="mx-3"> - </span><field name="period_end"/>
+                </div>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,gantt,activity</field>
+    </record>
+</odoo>

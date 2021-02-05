@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_move_view_gantt" model="ir.ui.view">
+        <field name="name">account.move.view.gantt</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <gantt string="Invoice Gantt" date_start="period_start" date_stop="period_end" color="invoice_payment_state_color" default_group_by="student_id" total_row="1" plan="0" create="0" default_scale="year" thumbnails="{'student_id': 'image_128'}">
+                <field name="invoice_payment_state_color" invisible="1"/>
+            </gantt>
+        </field>
+    </record>
+
+    <record id="account_family_selection_form_view" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <button name="action_invoice_register_payment" position="after">
+                <button name="compute_grade_and_homeroom" type="object" string="Compute grade and homeroom"/>
+            </button>
+            <group id="header_left_group" position="inside">
+                <field name="family_members_ids" invisible="1"/>
+                <field name="student_id" domain="['&amp;', ('id', 'in', family_members_ids), ('person_type', '=', 'student')]" />
+                <field name="family_id" />
+            </group>
+            <group id="header_right_group">
+                <field name="is_in_debug_mode" invisible="1"/>
+                <field name="student_grade_level" attrs="{'readonly': [('is_in_debug_mode', '!=', True)]}" force_save="1"/>
+                <field name="student_homeroom" attrs="{'readonly': [('is_in_debug_mode', '!=', True)]}"/>
+            </group>
+            <xpath expr="//field[@name='invoice_payment_term_id']/.." position="after">
+                <label for="period_start" string="Period"/>
+                <div class="d-flex">
+                    <field name="period_start"/><span class="mx-3"> - </span><field name="period_end"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account.action_move_out_invoice_type" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,gantt,form</field>
+    </record>
+</odoo>

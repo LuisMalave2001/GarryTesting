@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="res_partner_mail_template" model="mail.template">
+            <field name="name">Notify School Misconfigurations</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="subject">Possible School Misconfigurations</field>
+            <field name="body_html" type="html">
+                <div>
+                    % set no_invoice_address = ctx.get("no_invoice_address")
+                    % set no_reponsible = ctx.get("no_responsible")
+                    % if no_invoice_address:
+                        <strong>Families with NO Invoice Address</strong><br/>
+                        <ul>
+                            % for partner in no_invoice_address:
+                                <li>
+                                    ${partner.name}
+                                </li>
+                            % endfor
+                        </ul>
+                    % endif
+                    % if no_reponsible:
+                        <strong>Students with NO Responsible for Category</strong><br/>
+                        % for category, students in no_reponsible.items():
+                            ${category.complete_name}
+                            <ul>
+                                % for student in students:
+                                    <li>
+                                        ${student.name}
+                                    </li>
+                                % endfor
+                            </ul>
+                        % endfor
+                    % endif
+                </div>
+            </field>
+            <field name="email_from">"${user.company_id.name | safe}" &lt;${(user.company_id.email or user.email) | safe}&gt;</field>
+            <field name="email_to">${object.env.ref('base.user_admin').email}</field>
+        </record>
+    </data>
+</odoo>

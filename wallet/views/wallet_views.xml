@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="wallet_category_tree">
+        <field name="name">wallet.category.tree</field>
+        <field name="model">wallet.category</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="journal_category_id"/>
+                <field name="is_default_wallet" invisible="1"/>
+                <field name="company_id" readonly="1"/>
+                <field name="category_id" attrs="{'readonly': [('is_default_wallet', '=', True)]}"/>
+                <field name="account_id"/>
+                <field name="credit_limit"/>
+                <field name="product_id" groups="base.group_no_one"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

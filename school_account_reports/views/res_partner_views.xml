@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account_reports.partner_view_buttons"/>
+        <field name="arch" type="xml">
+            <button name="open_partner_ledger" position="before">
+                <button type="object" class="oe_stat_button" id="student_ledger_button" icon="fa-pencil-square-o" name="open_student_ledger" string="Student Ledger" attrs="{'invisible': [('person_type','!=','student')]}"/>
+                <button type="object" class="oe_stat_button" id="family_ledger_button" icon="fa-pencil-square-o" name="open_family_ledger" string="Family Ledger" attrs="{'invisible': [('is_family','=',False)]}"/>
+            </button>
+        </field>
+    </record>
+</odoo>

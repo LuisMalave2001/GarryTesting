@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template">
+
+
+    <!-- Partner Screen -->
+    <div owl="1" t-name="PosWalletPartnerScreenComponent" class='subwindow collapsed'>
+        <div class='subwindow-container'>
+            <div class='subwindow-container-fix pos_wallet'>
+                <div class="autocomplete">
+                    <input type="text" id="client_selection__input" class="client_selection__input"
+                           placeholder="Client name, id, email, barcode..."/>
+                </div>
+
+                <div class="js_selection_filters">
+                    <!-- All filters you want :) -->
+                </div>
+
+                <t t-if="partner.id">
+                    <div class="clientlist-screen">
+                        <div class="client-picture">
+                            <img alt="Partner logo" class="js-partner-image"
+                                 style="width: 64px; height: 64px; object-fit: cover;"
+                                 t-attf-src="/web/image?model=res.partner&amp;id={{ partner ? partner.id : ''}}&amp;field=image_128"/>
+                        </div>
+                    </div>
+                    <div class="clientlist-screen">
+                        <div class="client-name font-small-client-title">
+                            <t t-if="partner" t-esc="partner.name"/>
+                            <t t-else="">Customer</t>
+                        </div>
+                    </div>
+                </t>
+                <h2 t-else="">
+                    No customer selected
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <t t-name="PosWalletCustomerScreenWidget">
+        <!--        <div class='subwindow collapsed'>-->
+        <!--            <div class='subwindow-container'>-->
+        <!--                <div class='subwindow-container-fix pos_wallet'>-->
+        <!--                    <t t-set="client" t-value="widget.pos.get_client()"/>-->
+        <!--                    <div class="autocomplete">-->
+        <!--                        <input type="text" class="client_selection__input"-->
+        <!--                               placeholder="Client name, id, email, barcode..."/>-->
+        <!--                    </div>-->
+        <!--                    <div class="clientlist-screen">-->
+        <!--                        <div class="client-picture">-->
+        <!--                            <img alt="Partner logo" class="js-partner-image"-->
+        <!--                                 style="width: 64px; height: 64px; object-fit: cover;"-->
+        <!--                                 t-attf-src="/web/image?model=res.partner&amp;id=#{client.id}&amp;field=image_128"/>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    <div class="clientlist-screen">-->
+        <!--                        <div class="client-name">-->
+        <!--                            <t t-if="client" t-esc="client.name"/>-->
+        <!--                            <t t-else="">Customer</t>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+
+        <!--                    <button class="button-load-wallet js_btn_popup_wallet">Load wallet</button>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+    </t>
+</templates>

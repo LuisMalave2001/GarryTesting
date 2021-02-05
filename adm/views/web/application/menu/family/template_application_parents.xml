@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="template_application_parents_form">
+        <div class="container" data-adm-model-fields="1"
+             t-att-data-adm-id="id"
+             data-adm-model="school_base.relationship">
+            <div t-attf-data-adm-field="#{parent_field_name}" data-adm-field-type="MANY2ONE">
+                <t t-if="guardian_relationship_id.id">
+                    <input type="hidden" t-att-value="guardian_relationship_id.id"
+                           data-adm-field="id" data-adm-field-type="INTEGER"/>
+                    <t t-if="guardian_relationship_id.partner_2.id">
+                        <div data-adm-field="partner_2" data-adm-field-type="MANY2ONE">
+                            <input type="hidden" t-att-value="guardian_relationship_id.partner_2.id"
+                                   data-adm-field="id" data-adm-field-type="INTEGER"/>
+                        </div>
+                    </t>
+                </t>
+                <div data-adm-field="partner_1" data-adm-field-type="MANY2ONE">
+                    <input type="hidden" t-att-value="application_id.partner_id.id"
+                           data-adm-field="id" data-adm-field-type="INTEGER"/>
+                </div>
+                <div data-adm-field="family_id" data-adm-field-type="MANY2ONE">
+                    <input type="hidden" t-att-value="application_id.family_id.id"
+                           data-adm-field="id" data-adm-field-type="INTEGER"/>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6 form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="js_existing form-control custom-control-input"
+                                   t-attf-id="#{parent_field_name}-existing"/>
+                            <label class="custom-control-label" t-attf-for="#{parent_field_name}-existing">Add existing
+                                one</label>
+                        </div>
+                    </div>
+                    <!--t-attf-data-adm-field="first_name"-->
+                    <!--t-att-value="guardian_relationship_id.partner_2.first_name"-->
+                    <div class="col-12 col-md-6 form-group js_existing_selection"
+                         data-adm-field="partner_2" data-adm-field-type="MANY2ONE"
+                         style="display: none;">
+                        <select class="form-control" type="text" name="id"
+                                disabled="disabled"
+                                data-adm-field="id" data-adm-field-type="INTEGER">
+                            <t t-foreach="application_id.sudo().partner_id.family_ids.member_ids.filtered(lambda m: m.person_type != 'student')"
+                               t-as="member">
+                                <option t-att-value="member.id"><t t-esc="member.name"/></option>
+                            </t>
+                        </select>
+                        <p><small>
+                            You need to save first to be able to edit this partner.
+                        </small></p>
+                    </div>
+                </div>
+
+                <!-- Photo -->
+                <div class="row js_invisible_existing">
+                    <div class="col-8 offset-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                        <div class="text-center" data-adm-field="partner_2" data-adm-field-type="MANY2ONE">
+
+                            <img t-attf-src="data:image/*;base64,{{guardian_relationship_id and guardian_relationship_id.partner_2.image_1920}}"
+                                 widget="image"
+                                 onerror="this.src = '/adm/static/img/contact_photo_placeholder.png';"
+                                 src="/adm/static/img/contact_photo_placeholder.png"
+                                 class="avatar rounded-circle" alt="avatar" width="175"/>
+                            <h6 class="mt-2 textUpload">Upload a different photo...</h6>
+
+                            <input required="required" type="file"
+                                   data-adm-field="image_1920"
+                                   class="form-control"/>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="row js_invisible_existing">
+                    <fieldset class="col-12 border">
+                        <legend class="w-auto">Demographics</legend>
+                        <section class="row" data-adm-field="partner_2" data-adm-field-type="MANY2ONE">
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>First name<span class="text-danger"> *</span></label>
+                                <input class="form-control" type="text"
+                                       t-attf-data-adm-field="first_name"
+                                       t-att-value="guardian_relationship_id.partner_2.first_name"
+                                       name="first_name"/>
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Last name<span class="text-danger"> *</span></label>
+                                <input class="form-control" type="text"
+                                       t-attf-data-adm-field="last_name"
+                                       t-att-value="guardian_relationship_id.partner_2.last_name"
+                                       name="last_name"/>
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Date of birth<span class="text-danger"> *</span></label>
+                                <input class="form-control" type="date"
+                                       name="date_of_birth"
+                                       t-attf-data-adm-field="date_of_birth"
+                                       t-att-value="guardian_relationship_id.partner_2.date_of_birth"
+                                />
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Gender<span class="text-danger"> *</span></label>
+                                <select required="required" class="form-control" name="gender"
+                                        data-adm-field="gender" data-adm-field-type="INTEGER">
+                                    <t t-foreach="gender_ids" t-as="gender_id">
+                                        <option t-att-selected="guardian_relationship_id.partner_2.gender == gender_id"
+                                                t-att-value="gender_id.id">
+                                            <t t-esc="gender_id.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Employer<span class="text-danger"> *</span></label>
+                                <input class="form-control" type="text"
+                                       name="employer"
+                                       t-attf-data-adm-field="c_aisj_employer"
+                                       t-att-value="guardian_relationship_id.partner_2.c_aisj_employer"
+
+                                />
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Occupation<span class="text-danger"> *</span></label>
+                                <input class="form-control" type="text" name="occupation"
+                                       t-attf-data-adm-field="occupation"
+                                       t-att-value="guardian_relationship_id.partner_2.occupation"/>
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Marital status<span class="text-danger"> *</span></label>
+                                <t t-foreach="marital_status_types" t-as="marital_status">
+                                    <div class="form-check">
+                                        <!--                                       t-attf-data-adm-field="last_name"-->
+                                        <input class="form-check-input" type="radio"
+                                               t-attf-data-adm-field="marital_status"
+                                               t-att-value="marital_status['value']"
+                                               t-attf-name="#{parent_field_name}.marital_status"
+                                               t-attf-id="#{parent_field_name}.marital_status_#{marital_status['value']}"
+                                               t-att-checked="guardian_relationship_id.partner_2.marital_status == marital_status['value']"
+                                        />
+                                        <label class="form-check-lavel"
+                                               t-attf-for="#{parent_field_name}.marital_status_#{marital_status['value']}">
+                                            <t t-esc="marital_status['name']"/>
+                                        </label>
+                                    </div>
+                                </t>
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Citizenship<span class="text-danger"> *</span></label>
+                                <select class="form-control"
+                                        data-adm-field="citizenship"
+                                        data-adm-field-type="INTEGER">
+                                    <option value="-1" selected="selected" disabled="disabled">
+                                        -Select a country-
+                                    </option>
+                                    <t t-foreach="country_ids" t-as="country">
+                                        <option t-att-selected="guardian_relationship_id.partner_2.citizenship == country"
+                                                t-att-value="country.id">
+                                            <t t-esc="country.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                        </section>
+                    </fieldset>
+
+                    <fieldset class="col-12 border">
+                        <legend class="w-auto">Relationship to application</legend>
+                        <section class="row">
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Relationship to applicant<span class="text-danger"> *</span></label>
+                                <select class="form-control" data-adm-field="relationship_type_id" data-adm-field-type="INTEGER">
+                                    <option value="-1" selected="selected" disabled="disabled">
+                                        -Select a relation type-
+                                    </option>
+                                    <t t-foreach="relationship_types" t-as="relationship_type">
+                                        <t t-if="relationship_type.key != 'sibling'">
+                                            <option t-att-selected="guardian_relationship_id.relationship_type_id == relationship_type"
+                                                    t-att-value="relationship_type.id">
+                                                <t t-esc="relationship_type.name"/>
+                                            </option>
+                                        </t>
+                                    </t>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group border-left pl-4">
+                                <div class="row">
+                                    <strong>Switch if applicable</strong>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" data-adm-field="custody"
+                                                   t-att-value="guardian_relationship_id.custody"
+                                                   t-attf-name="#{parent_field_name}_custody"
+                                                   t-attf-id="#{parent_field_name}_custodial_right"
+                                                   t-att-checked="guardian_relationship_id.custody"
+                                                   data-adm-field-type="BOOLEAN"
+                                                   class="custom-control-input"/>
+                                            <label class="custom-control-label"
+                                                   t-attf-for="#{parent_field_name}_custodial_right">
+                                                Custodial rights<span class="text-danger"> *</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" data-adm-field="financial_responsability"
+                                                   t-att-value="guardian_relationship_id.financial_responsability"
+                                                   t-attf-name="#{parent_field_name}_financial_responsability"
+                                                   t-attf-id="#{parent_field_name}_financial_responsability"
+                                                   t-att-checked="guardian_relationship_id.financial_responsability"
+                                                   data-adm-field-type="BOOLEAN"
+                                                   class="custom-control-input"/>
+                                            <label class="custom-control-label"
+                                                   t-attf-for="#{parent_field_name}_financial_responsability">
+                                                Financial Responsibility<span class="text-danger"> *</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </fieldset>
+
+                    <fieldset class="col-12 border" data-adm-field="partner_2" data-adm-field-type="MANY2ONE">
+                        <legend class="w-auto">Contact information</legend>
+                        <section class="row">
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Home phone<span class="text-danger"> *</span></label>
+                                <input class="form-control" type="text" name="home_phone"
+                                       data-adm-field="home_phone"
+                                       t-att-value="guardian_relationship_id.partner_2.home_phone"/>
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Email<span class="text-danger"> *</span></label>
+                                <input class="form-control" type="text" name="email"
+                                       data-adm-field="email"
+                                       t-att-value="guardian_relationship_id.partner_2.email"/>
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Work email</label>
+                                <input class="form-control" type="text" name="work_email"
+                                       data-adm-field="work_email"
+                                       t-att-value="guardian_relationship_id.partner_2.work_email"/>
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Mobile Phone</label>
+                                <input class="form-control" type="text" name="mobile_phone"
+                                       data-adm-field="phone"
+                                       t-att-value="guardian_relationship_id.partner_2.phone"/>
+                            </div>
+                        </section>
+                    </fieldset>
+
+                    <fieldset class="col-12 border">
+                        <legend class="w-auto">Education information</legend>
+                        <section class="row" data-adm-field="partner_2" data-adm-field-type="MANY2ONE">
+
+                            <!-- School information -->
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Education<span class="text-danger"> *</span></label>
+                                <input class="form-control" type="text" name="education"
+                                       data-adm-field="education"
+                                       t-att-value="guardian_relationship_id.partner_2.education"/>
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label>School name<span class="text-danger"> *</span></label>
+                                <input class="form-control" type="text" name="school_name"
+                                       data-adm-field="school_name"
+                                       t-att-value="guardian_relationship_id.partner_2.school_name"/>
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Degree<span class="text-danger"> *</span></label>
+                                <input class="form-control" type="text" name="degree"
+                                       data-adm-field="degree"
+                                       t-att-value="guardian_relationship_id.partner_2.degree"/>
+                            </div>
+                            <div class="col-12 col-md-6 form-group">
+                                <label>First language<span class="text-danger"> *</span></label>
+                                <input class="form-control" type="text" name="first_language"
+                                       data-adm-field="first_language"
+                                       t-att-value="guardian_relationship_id.partner_2.first_language"/>
+                            </div>
+                        </section>
+                    </fieldset>
+
+                    <hr class="w-100 mt-4"/>
+
+                    <hr class="w-100 mt-4"/>
+
+                    <!-- Just analyitics questions -->
+                    <div class="col-12 col-md-6 form-group" data-adm-field="partner_2" data-adm-field-type="MANY2ONE">
+                        <label>Interested in being an AISJ business partner donation<span class="text-danger">
+                            *</span></label>
+                        <input class="form-control" type="text" name="c_aisj_parent_question_1"
+                               data-adm-field="c_aisj_parent_question_1"
+                               t-att-value="guardian_relationship_id.partner_2.c_aisj_parent_question_1"/>
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group" data-adm-field="partner_2" data-adm-field-type="MANY2ONE">
+                        <label>
+                            May we provide your contact information to our Parent Teacher Student Association (PTSA)
+                            so that they might reach out to welcome you?<span class="text-danger"> *</span>
+                        </label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio"
+                                   data-adm-field="c_aisj_parent_question_2"
+                                   value="yes"
+                                   t-attf-name="c_aisj_parent_question_2"
+                                   t-attf-id="partner_2.c_aisj_parent_question_2_yes"
+                                   t-att-checked="guardian_relationship_id.partner_2.c_aisj_parent_question_2 == 'yes'"
+                            />
+                            <label class="form-check-lavel"
+                                   t-attf-for="partner_2.c_aisj_parent_question_2_yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio"
+                                   data-adm-field="c_aisj_parent_question_2"
+                                   value="no"
+                                   t-attf-name="partner_2.c_aisj_parent_question_2"
+                                   t-attf-id="partner_2.c_aisj_parent_question_2_no"
+                                   t-att-checked="guardian_relationship_id.partner_2.c_aisj_parent_question_2 == 'no'"
+                            />
+                            <label class="form-check-lavel"
+                                   t-attf-for="partner_2.c_aisj_parent_question_2_no">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row js_invisible_existing">
+                <!-- Uploads -->
+                <div class="col-12 col-md-6 form-group">
+                    <label t-attf-for="#{parent_field_name}_residency_permit_id_number" class="label">
+                        Residency Permit Id Number<span class="text-danger"> *</span>
+                    </label>
+                    <div class="form-upload">
+                        <label class="label-upload" t-attf-for="#{parent_field_name}_residency_permit_id_number">
+                            <i class="fa fa-upload"></i>
+                        </label>
+                        <input type="file" t-attf-id="#{parent_field_name}_residency_permit_id_number"
+                               t-attf-data-adm-field="#{parent_field_name}_residency_permit_id_number"
+                               data-adm-field-type="ATTACHMENT"/>
+                        <span class="js_input_file_label">
+                            <t t-if="application_id['%s_residency_permit_id_number' % parent_field_name]">
+                                <t t-esc="application_id['%s_residency_permit_id_number' % parent_field_name].name"/>
+                            </t>
+                            <t t-else="">
+                                No file uploaded
+                            </t>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 form-group">
+                    <label t-attf-for="#{parent_field_name}_parent_passport_upload" class="label">
+                        Parent passport upload<span class="text-danger"> *</span>
+                    </label>
+                    <div class="form-upload">
+                        <label class="label-upload" t-attf-for="#{parent_field_name}_parent_passport_upload"><i
+                                class="fa fa-upload"></i></label>
+                        <input type="file" t-attf-id="#{parent_field_name}_parent_passport_upload"
+                               t-attf-data-adm-field="#{parent_field_name}_parent_passport_upload"
+                               data-adm-field-type="ATTACHMENT"/>
+                        <span class="js_input_file_label">
+                            <t t-if="application_id['%s_parent_passport_upload' % parent_field_name]">
+                                <t t-esc="application_id['%s_parent_passport_upload' % parent_field_name].name"/>
+                            </t>
+                            <t t-else="">
+                                No file uploaded
+                            </t>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="template_application_parents_webpage" name="Student's parents">
+        <t t-call="adm.template_application_form_commons">
+            <t t-set="title">Parents</t>
+            <t t-set="head">
+                <!--<link rel="stylesheet" href="/adm/static/src/css/form_application_id..css"/>-->
+                <link rel="stylesheet" href="/adm/static/src/css/main.css"/>
+                <t t-call-assets="adm.assets_application_family_parents" defer_load="True"/>
+            </t>
+
+            <t t-set="url_prev" t-value="'/admission/applications/%s/schools' % application_id.id"/>
+            <t t-set="url_next" t-value="'/admission/applications/%s/family/siblings' % application_id.id"/>
+
+            <!-- Body -->
+            <div class="row">
+                <div class="col">
+                    <section class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block" type="button" data-toggle="collapse"
+                                        data-target="#parent1Collapse">
+                                    Parent 1/Guardian information
+                                </button>
+                            </h2>
+                            <button type="button"
+                                    class="btn btn-outline-danger remove-sibling position-absolute js_clean_parent"
+                                    data-target="#parent1Collapse"
+                                    style="top: 1em; right: 1em;"><i class="fa fa-repeat"></i>
+                                RESET</button>
+                        </div>
+                        <div class="collapse show" id="parent1Collapse">
+                            <div class="card-body">
+                                <t t-set="guardian_relationship_id"
+                                   t-value="application_id.guardian_relationship1_id"/>
+                                <t t-set="parent_field_name" t-value="'guardian_relationship1_id'"/>
+                                <t t-call="adm.template_application_parents_form"/>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <section class="card mt-2 mb-2">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block" type="button" data-toggle="collapse"
+                                        data-target="#parent2Collapse">
+                                    Parent 2/Guardian information
+                                </button>
+                            </h2>
+                            <button type="button"
+                                    class="btn btn-outline-danger remove-sibling position-absolute js_clean_parent"
+                                    data-target="#parent2Collapse"
+                                    style="top: 1em; right: 1em;"><i class="fa fa-repeat"></i>
+                                RESET</button>
+                        </div>
+                        <div class="collapse" id="parent2Collapse">
+                            <div class="card-body">
+                                <t t-set="guardian_relationship_id"
+                                   t-value="application_id.guardian_relationship2_id"/>
+                                <t t-set="parent_field_name" t-value="'guardian_relationship2_id'"/>
+                                <t t-call="adm.template_application_parents_form"/>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <section class="card mt-2 mb-2" data-adm-model-fields="1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-md-6 form-group">
+                                    <label>With whom does the applicant live<span class="text-danger">
+                                        *</span></label>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               data-adm-field="c_aisj_parent_q1"
+                                               value="father_and_mother"
+                                               t-att-checked="application_id.c_aisj_parent_q1 == 'father_and_mother'"
+                                               name="living_whom"/>
+                                        <label class="form-check-label">Father and mother</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               data-adm-field="c_aisj_parent_q1"
+                                               value="father_and_stepmother"
+                                               t-att-checked="application_id.c_aisj_parent_q1 == 'father_and_stepmother'"
+                                               name="living_whom"/>
+                                        <label class="form-check-label">Father and stepmother</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               data-adm-field="c_aisj_parent_q1"
+                                               value="father_only"
+                                               t-att-checked="application_id.c_aisj_parent_q1 == 'father_only'"
+                                               name="living_whom"/>
+                                        <label class="form-check-label">Father only</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               data-adm-field="c_aisj_parent_q1"
+                                               value="mother_and_stepfather"
+                                               t-att-checked="application_id.c_aisj_parent_q1 == 'mother_and_stepfather'"
+                                               name="living_whom"/>
+                                        <label class="form-check-label">Mother and stepfather</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               data-adm-field="c_aisj_parent_q1"
+                                               value="mother_only"
+                                               t-att-checked="application_id.c_aisj_parent_q1 == 'mother_only'"
+                                               name="living_whom"/>
+                                        <label class="form-check-label">Mother only</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               data-adm-field="c_aisj_parent_q1"
+                                               value="grandparents"
+                                               t-att-checked="application_id.c_aisj_parent_q1 == 'grandparents'"
+                                               name="living_whom"/>
+                                        <label class="form-check-label">Grandparents</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               data-adm-field="c_aisj_parent_q1"
+                                               value="shares_time_with_both_parents"
+                                               t-att-checked="application_id.c_aisj_parent_q1 == 'shares_time_with_both_parents'"
+                                               name="living_whom"/>
+                                        <label class="form-check-label">Shares time with both
+                                            parents</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               data-adm-field="c_aisj_parent_q1"
+                                               value="other"
+                                               t-att-checked="application_id.c_aisj_parent_q1 == 'other'"
+                                               name="living_whom"/>
+                                        <label class="form-check-label">Other</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 form-group">
+                                    <label>Does your employer pay tuition directly to the school<span
+                                            class="text-danger"> *</span></label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               data-adm-field="c_aisj_parent_q2"
+                                               value="yes"
+                                               t-att-checked="application_id.c_aisj_parent_q2 == 'yes'"
+                                               name="q_employer_pay_tuition"/>
+                                        <label class="form-check-label">Yes</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               data-adm-field="c_aisj_parent_q2"
+                                               value="no"
+                                               t-att-checked="application_id.c_aisj_parent_q2 == 'no'"
+                                               name="q_employer_pay_tuition"/>
+                                        <label class="form-check-label">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

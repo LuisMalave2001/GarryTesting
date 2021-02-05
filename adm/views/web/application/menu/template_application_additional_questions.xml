@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="adm.template_application_additional_questions_form">
+        <section class="container-fluid">
+            <div id="school_forms">
+                <article class="row card card-body pt-0 mt-2">
+                    <input class="form-control" type="hidden" name="previous_school_id"/>
+                    <div class="row">
+                        <section class="col-12 d-flex justify-content-end pt-2 pb-1 m-0">
+                            <button type="button" class="btn btn-danger remove-school">&#10006;</button>
+                        </section>
+                    </div>
+                    <div class="row">
+                        <section class="col-12 col-md">
+                            <label>Name of school</label>
+                            <span class="text-danger"> *</span>
+                            <div>
+                                <input class="form-control" type="text" name="previous_school_name"/>
+                            </div>
+                        </section>
+
+                        <section class="col-12 col-md">
+                            <label>Grade Levels</label>
+                            <input class="form-control" type="text" name="previous_school_street"/>
+                        </section>
+
+                        <section class="col-12 col-md">
+                            <label>Address</label>
+                            <input class="form-control" type="text" name="previous_school_street"/>
+                        </section>
+                    </div>
+                    <div class="row">
+
+                        <section class="col-12 col-md">
+                            <label>
+                                Start Date
+                                <span class="text-danger"> *</span>
+                            </label>
+                            <input class="form-control" type="date" name="previous_school_todate"/>
+                        </section>
+
+                        <section class="col-12 col-md">
+                            <label>
+                                End Date
+                                <span class="text-danger"> *</span>
+                            </label>
+                            <input class="form-control" type="date" name="previous_school_fromdate"/>
+                        </section>
+
+                    </div>
+                    <div class="row">
+                        <section class="col-12 col-md">
+                            <label>
+                                Reason for Leaving
+                                <span class="text-danger"> *</span>
+                            </label>
+                            <input class="form-control" type="text" name="previous_school_gradecompleted"/>
+                        </section>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </template>
+
+    <template id="adm.template_application_additional_questions_webpage">
+
+        <t t-call="adm.template_application_form_commons">
+            <t t-set="head">
+                <t t-call-assets="adm.assets_application_additional_questions" defer_load="True"/>
+                <!--<link rel="stylesheet" href="/adm/static/src/css/form_application_id.id.css"/>-->
+            </t>
+            <t t-set="title">Additional Questions</t>
+            <t t-set="url_prev" t-value="'/admission/applications/%s/parent-questionnaire' % application_id.id"/>
+            <t t-set="url_next" t-value="'/admission/applications/%s/medical-info' % application_id.id"/>
+
+            <div class="row" data-adm-model-fields="1">
+                <div class="col-12 col-md-6 form-group">
+                    <label>My Child</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q1"
+                               name="c_aisj_additional_questions_q1"
+                               id="c_aisj_additional_questions_q1_v_adjusts_with_ease"
+                               value="adjusts_with_ease"
+                               t-att-checked="application_id.c_aisj_additional_questions_q1 == 'adjusts_with_ease'"/>
+                        <label for="c_aisj_additional_questions_q1_v_adjusts_with_ease" class="form-check-label">Adjusts with ease to new
+                            situations</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q1"
+                               name="c_aisj_additional_questions_q1"
+                               id="c_aisj_additional_questions_q1_v_take_time"
+                               value="take_time"
+                               t-att-checked="application_id.c_aisj_additional_questions_q1 == 'take_time'"/>
+                        <label for="c_aisj_additional_questions_q1_v_take_time" class="form-check-label">Takes time to adjust to new
+                            situation</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q1"
+                               name="c_aisj_additional_questions_q1"
+                               id="c_aisj_additional_questions_q1_v_list_ideas"
+                               value="list_ideas"
+                               t-att-checked="application_id.c_aisj_additional_questions_q1 == 'list_ideas'"/>
+                        <label for="c_aisj_additional_questions_q1_v_list_ideas" class="form-check-label">List any ideas that would ease
+                            adjustment to
+                            AISJ.</label>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <input class="form-control" type="text"
+                               data-adm-field="c_aisj_additional_questions_q1_list"
+                               name="c_aisj_additional_questions_q1_list"
+                               t-att-style="'display: none;' if application_id.c_aisj_additional_questions_q1 != 'list_ideas' else ''"
+                               t-att-value="application_id.c_aisj_additional_questions_q1_list"/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 form-group">
+                    <label>What is important to you when choosing a school?</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="academic_program"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'academic_program'"/>
+                        <label class="form-check-label">Academic Program</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="after_school_activities"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'after_school_activities'"/>
+                        <label class="form-check-label">After School Activities</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="arts"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'arts'"/>
+                        <label class="form-check-label">Arts</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="athletics"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'athletics'"/>
+                        <label class="form-check-label">Athletics</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="class_sizes"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'class_sizes'"/>
+                        <label class="form-check-label">Class Sizes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="diverse_student_body"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'diverse_student_body'"/>
+                        <label class="form-check-label">Diverse student Body</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="english_additional"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'english_additional'"/>
+                        <label class="form-check-label">English as an additional
+                            Language</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="experienced_faculty"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'experienced_faculty'"/>
+                        <label class="form-check-label">Experienced Faculty</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="learning_support"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'learning_support'"/>
+                        <label class="form-check-label">Learning Support</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="location"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'location'"/>
+                        <label class="form-check-label">Location</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="school_fees"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'school_fees'"/>
+                        <label class="form-check-label">School Fees</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="university_acceptances"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'university_acceptances'"/>
+                        <label class="form-check-label">University Acceptances</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="volunteer_opportunities"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'volunteer_opportunities'"/>
+                        <label class="form-check-label">Volunteer Opportunities</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                               data-adm-field="c_aisj_additional_questions_q2"
+                               name="c_aisj_additional_questions_q2"
+                               value="other"
+                               t-att-checked="application_id.c_aisj_additional_questions_q2 == 'other'"/>
+                        <label class="form-check-label">Other</label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 form-group">
+                    <label>Has your child ever been on academic probation?</label>
+                    <input class="form-control" type="text"
+                           data-adm-field="c_aisj_additional_questions_q3"
+                           t-att-value="application_id.c_aisj_additional_questions_q3"/>
+                </div>
+                <div class="col-12 col-md-6 form-group">
+                    <label>Has your child ever been asked to withdraw from a school?</label>
+                    <input class="form-control" type="text"
+                           data-adm-field="c_aisj_additional_questions_q4"
+                           t-att-value="application_id.c_aisj_additional_questions_q4"/>
+                </div>
+            </div>
+
+        </t>
+    </template>
+</odoo>

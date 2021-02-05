@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="default_surcharge_product" model="product.product">
+        <field name="name">Surcharge</field>
+        <field name="list_price" eval="0.0"/>
+        <field name="taxes_id" eval="False" />
+        <field name="type">service</field>
+    </record>
+
+    <record id="config_param_surcharge_product_id" model="ir.config_parameter">
+        <field name="key">pos_pr.surcharge_product_id</field>
+        <field name="value" ref="pos_pr.default_surcharge_product"/>
+    </record>
+
+    <record id="config_param_surcharge_default_amount" model="ir.config_parameter">
+        <field name="key">pos_pr.surcharge_default_amount</field>
+        <field name="value" eval="200"/>
+    </record>
+
+</odoo>

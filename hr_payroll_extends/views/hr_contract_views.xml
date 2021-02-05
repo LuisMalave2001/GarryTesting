@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contract_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.contract.view.form.inherit</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <page name="information" position="after">
+                <page string="Allowances">
+                    <group string="Regular Allowances">
+                        <field name="allowance_ids" nolabel="1" context="{'default_type': 'allowance'}">
+                            <tree editable="bottom">
+                                <field name="type" invisible="1"/>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Other Allowances">
+                        <field name="other_allowance_ids" nolabel="1" context="{'default_type': 'allowance'}">
+                            <tree editable="bottom">
+                                <field name="type" invisible="1"/>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="date" required="1" attrs="{'readonly': [('is_locked','=',True)]}"/>
+                                <field name="amount" attrs="{'readonly': [('is_locked','=',True)]}"/>
+                                <field name="is_locked"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page string="Deductions">
+                    <group string="Regular Deductions">
+                        <field name="deduction_ids" nolabel="1" context="{'default_type': 'deduction'}">
+                            <tree editable="bottom">
+                                <field name="type" invisible="1"/>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Other Deductions">
+                        <field name="other_deduction_ids" nolabel="1" context="{'default_type': 'deduction'}">
+                            <tree editable="bottom">
+                                <field name="type" invisible="1"/>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="date" required="1" attrs="{'readonly': [('is_locked','=',True)]}"/>
+                                <field name="amount" attrs="{'readonly': [('is_locked','=',True)]}"/>
+                                <field name="is_locked"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page string="Contributions">
+                    <div class="alert alert-info" role="alert">
+                        <span class="fa fa-info"/>
+                        If <strong>% of Wage</strong> is checked, <strong>Amount</strong> is a percentage value (e.g. 100 is 100%). Otherwise, it is a fixed amount.
+                    </div>
+                    <field name="contribution_ids">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="partner_id"/>
+                            <field name="table_id"/>
+                            <field name="percentage_of_wage" force_save="1" attrs="{'readonly': [('table_id','!=',False)]}"/>
+                            <field name="amount" force_save="1" attrs="{'readonly': [('table_id','!=',False)]}"/>
+                            <field name="employee_percent"/>
+                            <field name="employee_amount" optional="hide"/>
+                            <field name="company_percent"/>
+                            <field name="company_amount" optional="hide"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

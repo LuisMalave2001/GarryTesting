@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_order_report_canteen_student" name="Canteen Report (Student)">
+        <t t-call="web.html_container">
+            <t t-set="company" t-value="self.env.company"/>
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <t t-foreach="students" t-as="student">
+                        <h3 t-field="student.name"/>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Item</th>
+                                    <th class="text-right">Quantity</th>
+                                    <th class="text-right">Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total" t-value="0"/>
+                                <t t-foreach="orders.filtered(lambda o: o.student_id == student)" t-as="order">
+                                    <t t-foreach="order.order_line" t-as="order_line">
+                                        <tr>
+                                            <td><span t-field="order.canteen_order_date"/></td>
+                                            <td><span t-field="order_line.product_id.name"/></td>
+                                            <td class="text-right"><span t-field="order_line.product_uom_qty"/></td>
+                                            <td class="text-right"><span t-field="order_line.price_total"/></td>
+                                        </tr>
+                                        <t t-set="total" t-value="total + order_line.price_total"/>
+                                    </t>
+                                </t>
+                                <tr>
+                                    <td colspan="3"><strong>TOTAL</strong></td>
+                                    <td class="text-right"><strong><span t-esc="'%.2f' % total"/></strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="sale_order_report_canteen_gradelevel" name="Canteen Report (Grade Level)">
+        <t t-call="web.html_container">
+            <t t-set="company" t-value="self.env.company"/>
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <t t-foreach="grade_levels" t-as="grade_level">
+                        <h3 t-esc="grade_level.name or 'Undefined'"/>
+                        <t t-foreach="dates" t-as="date">
+                            <t t-set="matched_orders" t-value="orders.filtered(lambda o: o.student_id.grade_level_id == grade_level and o.canteen_order_date == date)"/>
+                            <t t-if="matched_orders">
+                                <t t-set="temp_order" t-value="matched_orders[0]"/>
+                                <div t-field="temp_order.canteen_order_date" class="mt16"/>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th class="text-right">Quantity</th>
+                                            <th class="text-right">Total Price</th>
+                                            <th>Student</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="matched_orders" t-as="order">
+                                            <t t-foreach="order.order_line" t-as="order_line">
+                                                <tr>
+                                                    <td><span t-field="order_line.product_id.name"/></td>
+                                                    <td class="text-right"><span t-field="order_line.product_uom_qty"/></td>
+                                                    <td class="text-right"><span t-field="order_line.price_total"/></td>
+                                                    <td><span t-field="order.student_id.name"/></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="sale_order_report_canteen_homeroom" name="Canteen Report (Homeroom)">
+        <t t-call="web.html_container">
+            <t t-set="company" t-value="self.env.company"/>
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <t t-foreach="homerooms" t-as="homeroom">
+                        <h3 t-esc="homeroom or 'Undefined'"/>
+                        <t t-foreach="dates" t-as="date">
+                            <t t-set="matched_orders" t-value="orders.filtered(lambda o: o.student_id.homeroom == homeroom and o.canteen_order_date == date)"/>
+                            <t t-if="matched_orders">
+                                <t t-set="temp_order" t-value="matched_orders[0]"/>
+                                <div t-field="temp_order.canteen_order_date" class="mt16"/>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th class="text-right">Quantity</th>
+                                            <th class="text-right">Total Price</th>
+                                            <th>Student</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="matched_orders" t-as="order">
+                                            <t t-foreach="order.order_line" t-as="order_line">
+                                                <tr>
+                                                    <td><span t-field="order_line.product_id.name"/></td>
+                                                    <td class="text-right"><span t-field="order_line.product_uom_qty"/></td>
+                                                    <td class="text-right"><span t-field="order_line.price_total"/></td>
+                                                    <td><span t-field="order.student_id.name"/></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

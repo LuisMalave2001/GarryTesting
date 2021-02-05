@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">School finance Configuration</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="School Base Data-String" string="School Base"
+                     data-key="school_base">
+                    <div id="school_base_setting">
+                        <h2>Contact</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-xs-12 col-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <label for="name_sorting_setting_ids"/>
+                                    <div class="text-muted">
+                                        This will set the pattern used for names <br/>
+                                        Spaces will be replaced to • only for better visualization
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="name_sorting_setting_ids" class="o_light_label"
+                                                   widget="many2many"
+                                                   style="width: 100%">
+                                                <tree editable="bottom" create="0">
+                                                    <field name="sequence" widget="handle"/>
+                                                    <field name="name"/>
+                                                    <field name="prefix" placeholder="Empty"
+                                                           style="font-family: robot_spaces; white-space: pre;"/>
+                                                    <field name="sufix" placeholder="Empty"
+                                                           style="font-family: robot_spaces; white-space: pre;"/>
+                                                </tree>
+                                            </field>
+                                            <button type="object" name="reformat_contacts_name"
+                                                    class="btn-secondary setting-block-editing"
+                                                    confirm="This will change all the contact name and it is not reversible. Would you like continue?">
+                                                Reformat all contacts' name
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <label for="name_sorting_example"/>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="name_sorting_example" class="o_light_label"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Edit contact name -->
+                            <div class="col-xs-12 col-6 o_setting_box">
+                                <!--                                <div class="o_setting_left_pane">-->
+                                <!--                                </div>-->
+                                <div class="o_setting_right_pane">
+                                    <div class="o_form_label">Allow editing contact name</div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <div class="row">
+                                                <field name="allow_edit_person_name" class="col-lg-1 ml16"/>
+                                                <label for="allow_edit_person_name"/>
+                                            </div>
+
+                                            <div class="row">
+                                                <field name="allow_edit_student_name" class="col-lg-1 ml16"/>
+                                                <label for="allow_edit_student_name"/>
+                                            </div>
+
+                                            <div class="row">
+                                                <field name="allow_edit_parent_name" class="col-lg-1 ml16"/>
+                                                <label for="allow_edit_parent_name"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="school_finance_settings_action" model="ir.actions.act_window">
+        <field name="name">School finance Configuration</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'school_finance'}</field>
+    </record>
+
+    <!--     <menuitem id="school_finance_settings_menu" name="Configuration"
+              parent="main_school_finance_menu" action="school_finance_settings_action"/> -->
+</odoo>

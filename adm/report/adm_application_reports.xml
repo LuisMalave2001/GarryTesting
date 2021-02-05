@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--reporte base que muestra la información de la aplicacion común entre distintos colegios-->
+    <report
+            id="report_application_default"
+            model="adm.application"
+            string="Default Report"
+            report_type="qweb-html"
+            name="adm.report_default"
+            file="adm.report_default"
+            menu="False"
+    />
+
+    <!--reporte customizado que muestra la información de la aplicacion-->
+    <report
+            id="report_application_custom"
+            model="adm.application"
+            string="Custom Report"
+            report_type="qweb-pdf"
+            name="adm.report_custom"
+            file="adm.report_custom"
+            menu="False"
+    />
+
+    <!--reporte customizado para iae-pan, encargado de mostrar reporte interno donde administradores firmarán las aplicaciones-->
+    <report
+            id="report_internal_custom"
+            model="adm.application"
+            string="Internal Report"
+            report_type="qweb-pdf"
+            name="adm.report_internal"
+            file="adm.report_internal"
+            menu="False"
+    />
+</odoo>

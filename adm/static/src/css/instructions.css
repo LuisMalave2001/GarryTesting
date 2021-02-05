@@ -1,0 +1,10 @@
+sup {
+    vertical-align: super;
+    font-size: smaller;
+}
+.noIcon{
+    list-style-type: none;
+}
+#nav-itm-instr a{
+    color: rgba(0, 0, 0, 0.9) !important;
+}

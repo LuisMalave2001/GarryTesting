@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="adm.template_application_menu_instructions">
+        <t t-call="adm.template_application_page_commons">
+            <t t-set="skip_sent_message" t-value="True"/>
+            <t t-set="title">Application</t>
+            <t t-set="head">
+                <script defer="defer" type="text/javascript" src="/adm/static/src/js/application/menu_progress.js"/>
+                <link rel="stylesheet" href="/adm/static/src/css/form_application.css"/>
+            </t>
+            <div class="oe_struture"/>
+            <div class="oe_struture">
+                <t t-call="adm.template_application_menu"/>
+                <div class="container-fluid d-flex p-4">
+                    <main class="col container">
+                        <section class="card mb-2">
+                            <section class="card-header">
+                                <h1>Information</h1>
+                            </section>
+                            <section class="card-body">
+                                <div class="container">
+                                    <div class="row pt-4 pb-4">
+                                        <div class="col-2">
+                                            <b>Current Status:</b>
+                                        </div>
+                                        <section class="progressbar col">
+                                            <progress value="0"/>
+                                            <ul>
+                                                <t t-set="current" t-value="False"/>
+                                                <t t-foreach="application_status_ids" t-as="status_id">
+                                                    <t t-set="status_name"
+                                                       t-value="status_id.web_alternative_name or status_id.name"/>
+                                                    <t t-if="application_id.status_id == status_id">
+                                                        <t t-set="current" t-value="True"/>
+                                                        <li class="current">
+                                                            <t t-esc="status_name"/>
+                                                        </li>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-if="current">
+                                                            <li t-if="status_id.web_visible">
+                                                                <t t-esc="status_name"/>
+                                                            </li>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <li t-if="status_id.type_id != 'return' and (application_id.status_id.type_id != 'cancelled' or not status_id.hide_if_cancel) and (application_id.status_id.type_id != 'done' or not status_id.hide_if_done)"
+                                                                class="active">
+                                                                <t t-esc="status_name"/>
+                                                            </li>
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                            </ul>
+                                        </section>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <p>
+                                            <strong>
+                                                Welcome to <t t-esc="user_env.company.name"/>'s Online Application.
+                                            </strong>
+                                            We have designed our online application process to make applying as simple
+                                            as possible.
+                                        </p>
+                                    </div>
+                                    <div class="row h3"> Instructions </div>
+                                    <div class="row">
+                                        <p>
+                                            Please complete the Online Application forms listed  on the top.
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                        <p>
+                                            Feedback will be provided throughout the process to help you complete the
+                                            application. You need to complete all questions required in order to move to
+                                            the next form. After you have completed the application, a
+                                            <b>Submit Application</b> form will appear on the bottom of the page. Please follow the instructions
+                                            that will be
+                                            provided to submit the application.
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                        <p>
+                                            Please click 'Save' after completing each section of the application so
+                                            you do not lose your progress.
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                        <p>
+                                            Admissions Office
+                                        </p>
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+                    </main>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="account_payment_view_form_inherit_group" model="ir.ui.view">
+        <field name="name">account.payment.view.form.inherit.group</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_journal_entries']"  position="attributes">
+                <attribute name="groups" add="honduras_access.group_financial_admin" separator=","/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

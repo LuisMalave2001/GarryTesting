@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="account_journal_automation_issue_limit_warn" model="base.automation">
+            <field name="name">Journal: Issue Limit Date Warning</field>
+            <field name="model_id" ref="model_account_journal"/>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" ref="honduras_invoices.field_account_journal__issue_limit_date_warning"/>
+            <field name="state">email</field>
+            <field name="template_id" ref="account_journal_mail_template_issue_limit_warn"/>
+            <field name="last_run" eval="datetime.now().date()"/>
+        </record>
+    </data>
+</odoo>

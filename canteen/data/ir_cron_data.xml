@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="canteen_availability_cron" model="ir.cron">
+        <field name="name">Canteen Availability: Delete Past</field>
+        <field name="model_id" ref="model_canteen_availability"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall">1</field>
+        <field name="code">
+yesterday = (datetime.datetime.today() - dateutil.relativedelta.relativedelta(days=1)).date()
+past_dates = model.search([("date","&lt;",yesterday)])
+past_dates.unlink()
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="res_partner_report_statement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h1 class="text-center">Statement</h1>
+                        <h4 t-field="doc.name"/>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <th>Date</th>
+                                <th>Journal</th>
+                                <th>Due Date</th>
+                                <th>Base</th>
+                                <th>Tax</th>
+                                <th>Initial Balance</th>
+                                <th>Debit</th>
+                                <th>Credit</th>
+                                <th>Balance</th>
+                            </thead>
+                            <tbody>
+                                <t t-set="balance" t-value="0"/>
+                                <t t-foreach="data[doc]['students']" t-as="student">
+                                    <t t-set="student_lines" t-value="data[doc]['lines'].filtered(lambda x: x.student_id == student)"/>
+                                    <t t-set="currency" t-value="student_lines[0].company_currency_id"/>
+                                    <tr style="background:lightgray;">
+                                        <th colspan="6" t-esc="student.name or 'Undefined'"/>
+                                        <th t-esc="sum(student_lines.mapped('debit'))"
+                                            t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <th t-esc="sum(student_lines.mapped('credit'))"
+                                            t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        <th/>
+                                    </tr>
+                                    <t t-foreach="student_lines" t-as="student_line">
+                                        <tr>
+                                            <td><span t-field="student_line.date"/></td>
+                                            <td><span t-field="student_line.move_id.journal_id.code"/></td>
+                                            <td><span t-field="student_line.date_maturity"/></td>
+                                            <td/>
+                                            <td>
+                                                <span t-esc="student_line.move_id.amount_tax"
+                                                    t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="balance" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                            </td>
+                                            <td><span t-field="student_line.debit"/></td>
+                                            <td><span t-field="student_line.credit"/></td>
+                                            <t t-set="balance" t-value="balance + student_line.debit - student_line.credit"/>
+                                            <td>
+                                                <span t-esc="balance" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                            </td>
+                                        </tr>
+                                        <t t-foreach="student_line.move_id.invoice_line_ids.filtered(lambda x: not x.display_type)" t-as="invoice_line">
+                                            <tr>
+                                                <td style="background:lightgray;"/>
+                                                <td colspan="2"><span t-field="invoice_line.name"/></td>
+                                                <td><span t-field="invoice_line.price_subtotal"/></td>
+                                                <td/>
+                                                <td/>
+                                                <td/>
+                                                <td/>
+                                                <td/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

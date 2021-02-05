@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="adm.template_application_medical_condition">
+        <t t-if="condition">
+            <input type="hidden" t-att-value="condition.id" data-adm-field="id"
+                   data-adm-field-type="INTEGER"/>
+        </t>
+        <article class="border rounded p-2 m-1">
+            <div class="row">
+                <section class="col-5">
+                    <label>
+                        Name
+                        <span class="text-danger"> *</span>
+                    </label>
+                    <t t-if="not condition">
+                        <input type="checkbox" class="js_condition_select"/> Other
+                        <select class="form-control js_select_health"
+                                data-adm-field="name" required="required"
+                                name="medical_condition_name">
+                            <option value="Asthma">Asthma</option>
+                            <option value="Attention Deficit Disorder/Hyperactive">Attention Deficit
+                                Disorder/Hyperactive</option>
+                            <option value="Neurological Concerns">Neurological Concerns</option>
+                            <option value="Seizure disorder/Epilepsy">Seizure disorder/Epilepsy</option>
+                            <option value="Diabetes">Diabetes</option>
+                            <option value="Frequent ear infections">Frequent ear infections</option>
+                            <option value="Frequent Headaches">Frequent Headaches</option>
+                            <option value="Heart Problems">Heart Problems</option>
+                            <option value="Kidney/urinary problems">Kidney/urinary problems</option>
+                            <option value="Menstrual problems">Menstrual problems</option>
+                            <option value="Glasses/contact lens">Glasses/contact lens</option>
+                            <option value="Emotional concerns">Emotional concerns</option>
+                        </select>
+                    </t>
+                    <input required="required" class="form-control js_select_health"
+                           type="text" name="medical_condition_name"
+                           data-adm-field="name"
+                           t-att-value="condition and condition.name"/>
+                </section>
+                <section class="col-6">
+                    <label>
+                        comment
+                        <span class="text-danger"> *</span>
+                    </label>
+                    <input required="required" class="form-control"
+                           type="text"
+                           name="medical_condition_comment"
+                           data-adm-field="comment"
+                           t-att-value="condition and condition.comment"/>
+                </section>
+                <section
+                        class="col-1 d-flex justify-content-center p-3">
+                    <button type="button"
+                            class="btn btn-danger remove-rel-medical">
+                        <i class="fa fa-times"/>
+                    </button>
+                </section>
+            </div>
+        </article>
+    </template>
+
+    <template id="adm.template_application_medical_allergies">
+
+        <t t-if="allergy">
+            <input type="hidden" t-att-value="allergy.id" data-adm-field="id"
+                   data-adm-field-type="INTEGER"/>
+        </t>
+        <article class="border rounded p-2 m-1">
+            <div class="row">
+                <section class="col-5">
+                    <label>
+                        Name
+                        <span class="text-danger"> *</span>
+                    </label>
+                    <input required="required" class="form-control" type="text" name="medical_allergy_name"
+                           data-adm-field="name"
+                           t-att-value="allergy and allergy.name"/>
+                </section>
+                <section class="col-6">
+                    <label>
+                        comment
+                        <span class="text-danger"> *</span>
+                    </label>
+                    <input required="required" class="form-control" type="text"
+                           data-adm-field="comment" name="medical_allergy_comment"
+                           t-att-value="allergy and allergy.comment"/>
+                </section>
+                <section class="col-1 d-flex justify-content-center p-3">
+                    <button type="button" class="btn btn-danger remove-rel-medical">
+                        <i class="fa fa-times"/>
+                    </button>
+                </section>
+            </div>
+        </article>
+    </template>
+
+    <template id="adm.template_application_medical_Medication">
+        <t t-if="medication">
+            <input type="hidden" t-att-value="medication.id" data-adm-field="id"
+                   data-adm-field-type="INTEGER"/>
+        </t>
+        <article class="border rounded p-2 m-1">
+            <div class="row">
+                <section class="col-5">
+                    <label>
+                        Name
+                        <span class="text-danger"> *</span>
+                    </label>
+                    <input required="required" class="form-control" type="text" name="medical_medication_name"
+                           data-adm-field="name"
+                           t-att-value="medication and medication.name"/>
+                </section>
+                <section class="col-6">
+                    <label>
+                        comment
+                        <span class="text-danger"> *</span>
+                    </label>
+                    <input required="required" class="form-control" type="text" name="medical_medication_comment"
+                           data-adm-field="comment"
+                           t-att-value="medication and medication.comment"/>
+                </section>
+                <section class="col-1 d-flex justify-content-center p-3">
+                    <button type="button" class="btn btn-danger remove-rel-medical">
+                        <i class="fa fa-times"/>
+                    </button>
+                </section>
+            </div>
+        </article>
+    </template>
+
+    <template id="adm.template_application_menu_medical_info">
+        <t t-call="adm.template_application_form_commons">
+            <div id="template_condition" style="display: none;">
+                <t t-call="adm.template_application_medical_condition"/>
+            </div>
+            <div id="template_medication" style="display: none;">
+                <t t-call="adm.template_application_medical_Medication"/>
+            </div>
+            <div id="template_allergy" style="display: none;">
+                <t t-call="adm.template_application_medical_allergies"/>
+            </div>
+            <t t-set="title">Health</t>
+            <t t-set="head">
+                <t t-call-assets="adm.assets_application_school_health" defer_load="True"/>
+            </t>
+            <t t-set="url_prev" t-value="'/admission/applications/%s/additional-questions' % application_id.id"/>
+            <t t-set="url_next" t-value="'/admission/applications/%s/document-comun' % application_id.id"/>
+
+            <!-- Body -->
+            <p>Please provide us with all health information in case your child has either
+                an acute or chronic condition. All information will be kept confidential. We
+                encourage you to leave a dosage of any routine or emergency medications
+                (inhalers, EpiPens, etc.) in the health office. Our goal is to provide your
+                child with the safest and healthiest environment at AISJ. We will be happy
+                to assist you with any question or concern.</p>
+            <section class="container-fluid mt-3">
+                <div class="row mb-4 justify-content-center align-items-center"
+                     data-adm-model-fields="1">
+                    <div class="col-12 col-md-9">
+                        <div class="row">
+                            <section class="col-12 col-md-4">
+                                <label>
+                                    Doctor Name
+                                    <span class="text-danger"> *</span>
+                                </label>
+                                <input required="required" class="form-control"
+                                       type="text"
+                                       name="doctor_name"
+                                       data-adm-field="doctor_name"
+                                       t-att-value="application_id.doctor_name"/>
+                            </section>
+
+                            <section class="col-12 col-md-4">
+                                <label> Hospital <span class="text-danger"> *</span></label>
+                                <input required="required" class="form-control"
+                                       type="text"
+                                       name="hospital"
+                                       data-adm-field="hospital"
+                                       t-att-value="application_id.hospital"/>
+                            </section>
+                            <section class="col-12 col-md-4">
+                                <label>
+                                    Doctor phone
+                                    <span class="text-danger"> *</span>
+                                </label>
+                                <input required="required" class="form-control"
+                                       type="text"
+                                       name="doctor_phone"
+                                       data-adm-field="doctor_phone"
+                                       t-att-value="application_id.doctor_phone"/>
+                            </section>
+                            <section class="col-6">
+                                <label>
+                                    Student Blood Type
+                                </label>
+                                <input required="required" class="form-control"
+                                       type="text"
+                                       name="blood_type"
+                                       data-adm-field="blood_type"
+                                       t-att-value="application_id.blood_type"/>
+                            </section>
+                            <section class="col-6 d-flex justify-content-center align-items-center">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" data-adm-field="permission_to_treat"
+                                           t-att-value="application_id.permission_to_treat"
+                                           t-attf-name="permission_to_treat"
+                                           t-attf-id="permission_to_treat_checkbox"
+                                           t-att-checked="application_id.permission_to_treat"
+                                           data-adm-field-type="BOOLEAN"
+                                           class="custom-control-input"/>
+                                    <label class="custom-control-label"
+                                           t-attf-for="permission_to_treat_checkbox">
+                                        Permision to treat?
+                                        <span class="text-danger"> *</span>
+                                    </label>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="card mt-2">
+                            <section class="card-header p-0">
+                                <h3>Medical Conditions</h3>
+                            </section>
+                            <section id="condition_list"
+                                     class="container-fluid card-body p-0"
+                                     data-adm-field-type="ONE2MANY"
+                                     data-adm-field="medical_conditions_ids">
+                                <t t-foreach="application_id.medical_conditions_ids"
+                                   t-as="condition">
+                                    <div data-adm-rel="rel">
+                                        <t t-call="adm.template_application_medical_condition"/>
+                                    </div>
+                                </t>
+                            </section>
+                            <button type="button"
+                                    class="add-medical_condition btn btn-secondary d-block ml-auto mr-1 mt-3 mb-3 btn-add">&#10010;</button>
+                        </div>
+
+                        <div class="card mt-2">
+                            <section class="card-header p-0">
+                                <h3>Medical allergies</h3>
+                            </section>
+                            <section id="allergy_list"
+                                     class="container-fluid card-body p-0"
+                                     data-adm-field-type="ONE2MANY"
+                                     data-adm-field="medical_allergies_ids">
+                                <t t-foreach="application_id.medical_allergies_ids"
+                                   t-as="allergy">
+                                    <div data-adm-rel="rel">
+                                        <t t-call="adm.template_application_medical_allergies"/>
+                                    </div>
+                                </t>
+                            </section>
+                            <button type="button"
+                                    class="add-medical_allergy btn btn-secondary d-block ml-auto mr-1 mt-3 mb-3 btn-add">
+                                &#10010;</button>
+                        </div>
+
+                        <div class="card mt-2">
+                            <section class="card-header p-0">
+                                <h3>Medication</h3>
+                            </section>
+                            <section id="medication_list" class="container-fluid"
+                                     data-adm-field-type="ONE2MANY"
+                                     data-adm-field="medical_medications_ids">
+                                <t t-foreach="application_id.medical_medications_ids"
+                                   t-as="medication">
+                                    <div data-adm-rel="rel">
+                                        <t t-call="adm.template_application_medical_Medication"/>
+                                    </div>
+                                </t>
+                            </section>
+                            <button type="button"
+                                    class="add-medical_medication btn btn-secondary d-block ml-auto mr-1 mt-3 mb-3 btn-add">
+                                &#10010;</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </t>
+    </template>
+</odoo>

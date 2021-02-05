@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pos_session_report" name="POS Session Report">
+        <t t-call="web.html_container">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <header class="font-weight-bold">
+                        <table class="w-100">
+                            <tr>
+                                <td rowspan="4" style="text-align: center; width: 110px; vertical-align: middle !important;">
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="width: 100px;" alt="Logo"/>
+                                </td>
+                                <td colspan="4">
+                                    <div class="h1">Fundación Centros Educativos Adventistas</div>
+                                    <div class="h3" t-field="o.company_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <t t-if="o.company_id.country_id">
+                                        <span t-field="o.company_id.country_id"/>
+                                        ,
+                                    </t>
+                                    <t t-if="o.company_id.state_id">
+                                        <span t-field="o.company_id.state_id"/>
+                                        ,
+                                    </t>
+                                    <t t-if="o.company_id.city">
+                                        <span t-field="o.company_id.city"/>
+                                        ,
+                                    </t>
+                                    <t t-if="o.company_id.street">
+                                        <span t-field="o.company_id.street"/>
+                                    </t>
+                                </td>
+                                <td style="font-size: 24px; font-weight: 1000 !important; text-align: center;" class="w-25">
+                                    <span t-field="o.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    RTN:
+                                    <span t-field="o.company_id.vat"/>
+                                </td>
+                                <td>
+                                    Correo:
+                                    <span t-field="o.company_id.email"/>
+                                </td>
+                                <td>
+                                    TEL.
+                                    <span t-field="o.company_id.phone"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </header>
+                    <table class="table table-sm table-bordered mt16">
+                        <tr>
+                            <th style="width:20%;">Responsible</th>
+                            <td><span t-field="o.user_id"/></td>
+                        </tr>
+                        <tr>
+                            <th>Point of Sale</th>
+                            <td><span t-field="o.config_id"/></td>
+                        </tr>
+                        <tr>
+                            <th>Journal Entry</th>
+                            <td><span t-field="o.move_id"/></td>
+                        </tr>
+                        <tr>
+                            <th>Opening Date</th>
+                            <td><span t-field="o.start_at"/></td>
+                        </tr>
+                        <tr>
+                            <th>Closing Date</th>
+                            <td><span t-field="o.stop_at"/></td>
+                        </tr>
+                    </table>
+                    <div t-if="o.cash_control">
+                        <table class="table table-borderless w-50 mx-auto">
+                            <tr>
+                                <th>Starting Cash</th>
+                                <td><span t-field="o.cash_register_balance_start"/></td>
+                            </tr>
+                            <tr>
+                                <th>+ Transactions</th>
+                                <td><span t-field="o.cash_register_total_entry_encoding"/></td>
+                            </tr>
+                            <tr>
+                                <th>= Expected in Cash</th>
+                                <td><span t-field="o.cash_register_balance_end"/></td>
+                            </tr>
+                            <tr>
+                                <th>Actual in Cash</th>
+                                <td><span t-field="o.cash_register_balance_end_real"/></td>
+                            </tr>
+                            <tr class="border-top">
+                                <th>Difference</th>
+                                <td><span t-field="o.cash_register_difference"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <h5>Facturación al Contado</h5>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Order Ref</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Receipt Number</th>
+                                <th class="text-center">Customer</th>
+                                <th class="text-center">Cashier</th>
+                                <th class="text-center">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="o.order_ids">
+                                <tr t-foreach="o.order_ids" t-as="order">
+                                    <td><span t-field="order.name"/></td>
+                                    <td><span t-field="order.date_order"/></td>
+                                    <td><span t-field="order.pos_reference"/></td>
+                                    <td><span t-field="order.partner_id"/></td>
+                                    <td><span t-field="order.cashier"/></td>
+                                    <td>
+                                        <span t-field="order.amount_total"
+                                            t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr t-else="">
+                                <td class="text-center" colspan="6">Nothing to show</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Payment Method</th>
+                                <th class="text-center">Order</th>
+                                <th class="text-center">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="payments" t-value="o.env['pos.payment'].search([('session_id','=',o.id)]).sorted('payment_date')"/>
+                            <t t-set="payment_methods" t-value="payments.mapped('payment_method_id')"/>
+                            <t t-if="payments">
+                                <t t-foreach="payment_methods" t-as="payment_method">
+                                    <t t-set="filtered_payments" t-value="payments.filtered(lambda x: x.payment_method_id == payment_method)"/>
+                                    <tr style="background:lightgray;">
+                                        <th colspan="3"><span t-esc="payment_method.name"/></th>
+                                        <th>
+                                            <span t-esc="sum(filtered_payments.mapped('amount'))"
+                                                t-options="{'widget': 'monetary', 'display_currency': filtered_payments[0].currency_id}"/>
+                                        </th>
+                                    </tr>
+                                    <tr t-foreach="filtered_payments" t-as="payment">
+                                        <td><span t-field="payment.payment_date"/></td>
+                                        <td><span t-field="payment.payment_method_id"/></td>
+                                        <td><span t-field="payment.pos_order_id"/></td>
+                                        <td><span t-field="payment.amount"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <tr t-else="">
+                                <td class="text-center" colspan="4">Nothing to show</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">Reconciled</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Partner</th>
+                                <th class="text-center">Payment Method</th>
+                                <th class="text-center">Wallet Category</th>
+                                <th class="text-center">POS Session</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="o.pos_wallet_load_ids">
+                                <tr t-foreach="o.pos_wallet_load_ids" t-as="load">
+                                    <td><span t-field="load.name"/></td>
+                                    <td><span t-field="load.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                    <td class="text-center">
+                                        <span t-if="load.reconciled" class="fa fa-check-square-o"/>
+                                        <span t-else="" class="fa fa-square-o"/>
+                                    </td>
+                                    <td><span t-field="load.date"/></td>
+                                    <td><span t-field="load.partner_id"/></td>
+                                    <td><span t-field="load.payment_method_id"/></td>
+                                    <td><span t-field="load.wallet_category_id"/></td>
+                                    <td><span t-field="load.pos_session_id"/></td>
+                                </tr>
+                            </t>
+                            <tr t-else="">
+                                <td class="text-center" colspan="8">Nothing to show</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5>Abono facturas cuentas por cobrar</h5>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">Invoice</th>
+                                <th class="text-center">Customer</th>
+                                <th class="text-center">Payment Group</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">POS Session</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="payments" t-value="o.invoice_payment_ids"/>
+                            <t t-set="payment_methods" t-value="payments.mapped('payment_method_id')"/>
+                            <t t-if="payments">
+                                <t t-foreach="payment_methods" t-as="payment_method">
+                                    <t t-set="filtered_payments" t-value="payments.filtered(lambda x: x.payment_method_id == payment_method)"/>
+                                    <tr style="background:lightgray;">
+                                        <th><span t-esc="payment_method.name"/></th>
+                                        <th colspan="6"><span t-esc="sum(filtered_payments.mapped('display_amount'))"
+                                            t-options="{'widget': 'monetary', 'display_currency': filtered_payments[0].currency_id}"/></th>
+                                    </tr>
+                                    <tr t-foreach="filtered_payments" t-as="payment">
+                                        <td><span t-field="payment.name"/></td>
+                                        <td><span t-field="payment.display_amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                        <td><span t-field="payment.move_id"/></td>
+                                        <td><span t-field="payment.partner_id"/></td>
+                                        <td><span t-field="payment.payment_group_id"/></td>
+                                        <td><span t-field="payment.date"/></td>
+                                        <td><span t-field="payment.pos_session_id"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <tr t-else="">
+                                <td class="text-center" colspan="7">Nothing to show</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Company</th>
+                                <th class="text-center">Journal Entry</th>
+                                <th class="text-center">Account</th>
+                                <th class="text-center">Partner</th>
+                                <th class="text-center">Label</th>
+                                <th class="text-center">Matching</th>
+                                <th class="text-center">Debit</th>
+                                <th class="text-center">Credit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="moves" t-value="o._get_related_account_moves()"/>
+                            <t t-if="moves">
+                                <t t-foreach="moves" t-as="move">
+                                    <tr style="background:lightgray;">
+                                        <th colspan="7"><span t-field="move.date"/>, <span t-field="move.name"/> (<span t-field="move.ref"/>)</th>
+                                        <th>
+                                            <span t-esc="sum(move.line_ids.mapped('debit'))"
+                                                t-options="{'widget': 'monetary', 'display_currency': move.currency_id}"/>
+                                        </th>
+                                        <th>
+                                            <span t-esc="sum(move.line_ids.mapped('credit'))"
+                                                t-options="{'widget': 'monetary', 'display_currency': move.currency_id}"/>
+                                        </th>
+                                    </tr>
+                                    <tr t-foreach="move.line_ids" t-as="line">
+                                        <td><span t-field="line.date"/></td>
+                                        <td><span t-field="line.company_id"/></td>
+                                        <td><span t-field="line.move_id"/></td>
+                                        <td><span t-field="line.account_id"/></td>
+                                        <td><span t-field="line.partner_id"/></td>
+                                        <td><span t-field="line.name"/></td>
+                                        <td><span t-field="line.full_reconcile_id"/></td>
+                                        <td><span t-field="line.debit"/></td>
+                                        <td><span t-field="line.credit"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <tr t-else="">
+                                <td class="text-center" colspan="9">Nothing to show</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

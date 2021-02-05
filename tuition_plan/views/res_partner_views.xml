@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="school_base.view_res_partner_school_fields_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Tuition Plan" attrs="{'invisible': [('person_type','!=','student')]}">
+                    <separator string="Tuition Plans"/>
+                    <field name="tuition_plan_ids">
+                        <tree>
+                            <field name="name"/>
+                            <field name="period_date_from"/>
+                            <field name="period_date_to"/>
+                            <field name="first_charge_date"/>
+                            <field name="grade_level_ids" widget="many2many_tags"/>
+                            <field name="category_id"/>
+                        </tree>
+                    </field>
+                    <separator string="Default Tuition Plans"/>
+                    <field name="default_tuition_plan_ids">
+                        <tree>
+                            <field name="name"/>
+                            <field name="period_date_from"/>
+                            <field name="period_date_to"/>
+                            <field name="first_charge_date"/>
+                            <field name="grade_level_ids" widget="many2many_tags"/>
+                            <field name="category_id"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

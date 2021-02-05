@@ -1,0 +1,66 @@
+@import '../abstract/variables';
+
+@media print {
+    .top-content {
+        display: none;
+    }
+}
+
+.payment-receipt {
+    background-color: white !important;
+    position: relative;
+    @media print {
+        page-break-after: always;
+    }
+}
+
+.full-content {
+
+    @media print {
+        position: static;
+    }
+
+    button.print {
+        line-height: 40px;
+        padding: 3px 13px;
+        font-size: 20px;
+        text-align: center;
+        background: rgb(230, 230, 230);
+        border-radius: 3px;
+        border: solid 1px rgb(209, 209, 209);
+        cursor: pointer;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+        display: block;
+        @media print {
+            display: none;
+        }
+    }
+
+    .pos-payment-receipt-container {
+        background: white;
+        height: calc(100% - 150px);
+        @media print {
+
+            border: initial;
+            border-radius: initial;
+            min-height: initial;
+            height: initial;
+            page-break-after: always;
+
+            .page-breakable-block {
+                page-break-inside: avoid;
+                padding-top: 2mm;
+            }
+        }
+
+        table {
+            td, tr, th {
+                background-color: transparent !important;
+            }
+        }
+    }
+}
+
+

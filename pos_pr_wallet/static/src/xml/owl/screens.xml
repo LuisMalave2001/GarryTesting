@@ -1,0 +1,99 @@
+<templates>
+
+    <div owl="1" t-name="LoadWalletWithChangePopupApp" class="wallet-change-popup-container">
+        <table class="wallet-change-table">
+            <thead>
+                <tr>
+                    <th>Wallet</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+                <tr class="js_change">
+                    <td>Change</td>
+                    <td class="amount amount-change">
+                        <!--                        <t t-esc="widget.options.total"/>-->
+                    </td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+
+                <t t-foreach="walletsRows" t-as="walletRow" t-key="walletRow.id">
+                    <LoadWalletWithChangePopupRow walletRow="walletRow"/>
+                </t>
+
+            </tbody>
+            <tfoot>
+                <tr class="js_add_new_wallet_row">
+                    <td colspan="3">
+                        <button type="button"
+                                t-on-click="add_new_wallet_row"
+                        >
+                            Add +
+                        </button>
+                    </td>
+                </tr>
+                <tr class="js_change_balance">
+                    <td>Change balance</td>
+                    <td class="amount amount-total">
+                        <!--                        <t t-esc="widget.options.total"/>-->
+                    </td>
+                    <td></td>
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+    <tr owl="1" t-name="LoadWalletWithChangePopupRow" class="wallet-row">
+        <td>
+            <select>
+                <!--                    <option t-foreach="widget.wallets" t-as="wallet"><t t-esc="wallet.name"/></option>-->
+            </select>
+        </td>
+        <td>
+            <div class="input-cash">
+                <div class="label">
+                    <label>
+                        €
+                    </label>
+                </div>
+                <div class="input">
+                    <input class="wallet-amount" data-max-decimal="2"/>
+                </div>
+            </div>
+
+        </td>
+        <td>
+            <div class="action-button-list">
+                <div class="action-button" data-increment="1" data-action="increment">+1</div>
+                <div class="action-button" data-increment="-1" data-action="increment">-1</div>
+                <div class="action-button" data-increment="10" data-action="increment">+10</div>
+                <div class="action-button" data-increment="-10" data-action="increment">-10</div>
+                <div class="action-button" data-increment="100" data-action="increment">+100</div>
+                <div class="action-button" data-increment="-100" data-action="increment">-100</div>
+            </div>
+            <div>
+                <div class="action-button-list">
+                    <div class="action-button" data-action="fill" data-increment="1">Fill</div>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <!-- Load wallet -->
+    <div owl="1" t-name="PayInvoiceWithWalletPopupApp">
+        <t t-set="walletPaymentTotal" t-value="0"/>
+        <h1> Amount due: <t t-if="paymentRegister.invoicePaymentRegisterScreen and paymentRegister.invoicePaymentRegisterScreen.getExpectedAmountDue"
+                            t-esc="paymentRegister.format_currency(paymentRegister.invoicePaymentRegisterScreen.getExpectedAmountDue(paymentState.invoice) - walletPaymentTotal)"/></h1>
+        <PosWalletPaymentSTComponent
+                t-on-pos-wallet-card-input="onPosWalletCardInput"
+                t-on-pos-wallet-make-payment="onPosWalletMakePayment"
+                pos="props.pos"
+                height="630"/>
+    </div>
+
+    <t owl="1" t-name="PayWithWalletButton">
+        <button class="button" t-on-click="payWithWalletPopup">Pay with wallet</button>
+    </t>
+
+</templates>

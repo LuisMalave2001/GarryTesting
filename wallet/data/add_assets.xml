@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <template id="assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+<!--                <link rel="stylesheet" href="/pos_pr/static/src/css/pos_invoices.css" />-->
+                <script type="text/javascript" src="/wallet/static/src/js/services/WalletService.js" />
+                <script type="text/javascript" src="/wallet/static/src/js/models.js" />
+
+                <script type="text/javascript" src="/wallet/static/src/js/wallet_widgets.js" />
+            </xpath>
+        </template>
+    </data>
+</odoo>

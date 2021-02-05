@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_account_report_student_ledger" model="ir.actions.client">
+        <field name="name">Student Ledger</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.student.ledger'}"/>
+    </record>
+    
+    <menuitem
+        id="account_student_ledger_menu"
+        name="Student Ledger"
+        action="action_account_report_student_ledger"
+        parent="account_reports.account_reports_partners_reports_menu"
+        sequence="9"
+        groups="account.group_account_user"/>
+</odoo>

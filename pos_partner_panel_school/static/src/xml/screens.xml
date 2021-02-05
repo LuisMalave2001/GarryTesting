@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template">
+
+    <t t-inherit="pos_partner_panel.PosWalletPartnerScreenComponent" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('js_selection_filters')]" position="after">
+            <!-- Student -->
+            <input type="checkbox" t-on-click="state.autoCompleteInput.toggleFilter('student')"
+                   id="input_select_pos_filter--student"/>
+            <label for="input_select_pos_filter--student">Students</label>
+        </xpath>
+    </t>
+
+</templates>

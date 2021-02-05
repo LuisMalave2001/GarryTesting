@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_move_report_matrix_wizard_view_form" model="ir.ui.view">
+        <field name="name">account.move.report.matrix.wizard.view.form</field>
+        <field name="model">account.move.report.matrix.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Journal Entry Matrix Report Wizard Form">
+                <group>
+                    <field name="group_by_journal"/>
+                </group>
+                <group string="Fields">
+                    <field name="field_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="field_id" domain="[('model_id','in',[%(account.model_account_move)d,%(account.model_account_move_line)d])]" options="{'no_create_edit': 1, 'no_create': 1}"/>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_move_report_matrix_wizard_action" model="ir.actions.act_window">
+        <field name="name">Journal Entry Matrix Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.move.report.matrix.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

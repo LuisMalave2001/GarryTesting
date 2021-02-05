@@ -1,0 +1,13 @@
+.card-header>h3{
+    color: #1a4176;
+    background-color: #d8d8d8;
+}
+.btn-add{
+    border-radius: 50%;
+    padding: 0px;
+    font-size: large;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 1.25;
+}

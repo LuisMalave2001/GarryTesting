@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_payroll_structure_type_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.type.view.form.inherit</field>
+        <field name="model">hr.payroll.structure.type</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payroll_structure_type_view_form"/>
+        <field name="arch" type="xml">
+            <field name="default_schedule_pay" position="after">
+                <field name="default_close_date"/>
+            </field>
+            <field name="wage_type" position="after">
+                <field name="unpaid_deduction_basis"/>
+                <field name="days_in_a_month" attrs="{'invisible': [('unpaid_deduction_basis','!=','fixed_days')]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

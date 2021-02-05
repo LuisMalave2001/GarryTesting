@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="gender_male" model="adm.gender">
+        <field name="name">Male</field>
+    </record>
+    <record id="gender_female" model="adm.gender">
+        <field name="name">Female</field>
+    </record>
+
+</odoo>

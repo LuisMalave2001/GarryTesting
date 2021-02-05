@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="template_application_form_commons" name="Template for application forms">
+        <t t-call="adm.template_application_page_commons">
+            <div class="oe_struture"/>
+            <div class="oe_struture">
+                <t t-call="adm.template_application_menu"/>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <section class="card mt-4">
+                                <section class="card-header">
+                                    <h1><t t-esc="title"/></h1>
+                                </section>
+                                <section class="card-body pb-2">
+                                    <div class="container">
+                                        <t t-raw="0"/>
+                                    </div>
+                                </section>
+                            </section>
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <section class="card card-sticky-save mb-3 mt-3">
+                                <div class="card-body text-center">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p> Fields with (*) are mandatory </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <span class="text-muted mb-2">Please, make sure you save the changes</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col">
+                                            <button class="btn btn-primary js_submit_json" type="button">
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col" t-if="url_prev">
+                                            <button class="btn btn-primary js_submit_json" type="button"
+                                                    t-att-data-next-url="url_prev">
+                                                Save and previous
+                                            </button>
+                                        </div>
+                                        <div class="col" t-if="url_next">
+                                            <button class="btn btn-primary js_submit_json" type="button"
+                                                    t-att-data-next-url="url_next">
+                                                Save and next
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+
+    </template>
+
+    <template id="template_application_page_commons" name="Template for application pages">
+        <!-- This is just used to be called by others templates for applications pages
+             The reason is this will have common data-->
+        <t t-call="website.layout">
+            <t t-set="head_application_common">
+                <meta name="_application_id" t-att-value="application_id.id"/>
+                <t t-call-assets="adm.assets_application_common" defer_load="True"/>
+
+                <t t-call-assets="adm.assets_application_student_info" defer_load="True"/>
+            </t>
+            <t t-set="head" t-value="head_application_common + (head or '')"/>
+
+            <t t-if="not skip_sent_message and application_id.status_id.type_id not in ['return', 'started']">
+
+                <div class="oe_struture"/>
+                <div class="oe_struture">
+                    <t t-call="adm.template_application_menu"/>
+                    <div class="alert alert-warning mt-3" role="alert">
+                        The request has already been sent.
+                        <!--                        <t t-esc="application_id.status_id.type_id "/>  -->
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <t t-raw="0"/>
+                <div id="adm_loader" style="display: none;">
+                    <span role="img" aria-label="Loading..." title="Loading..." style="font-size: 10vw;"
+                          class="fa fa-spinner fa-spin fa-2x m-auto"></span>
+                </div>
+                <style>
+                    #adm_loader {
+                    position: fixed;
+                    width: 100vw;
+                    height: 100vh;
+                    top: 0;
+                    left: 0;
+                    background: white;
+                    opacity: 0.7;
+                    z-index: 2000;
+                    display: flex;
+                    justify-content: center;
+                    align-content: center;
+                    }
+                </style>
+            </t>
+        </t>
+    </template>
+
+</odoo>

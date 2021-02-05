@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="pos_wallet.pos_config_view_form" model="ir.ui.view">
+        <field name="name">pos.config.view.form.with.wallet</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+
+            <div id="payment_methods_new" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" id="wallet_category_ids">
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Wallet categories</span>
+                        <div class="text-muted">
+                            Wallet categories available
+                        </div>
+                        <div class="content-group mt16">
+                            <field name="wallet_category_ids" colspan="4" nolabel="1" widget="many2many_tags" required="1"/>
+                        </div>
+<!--                        <div>-->
+<!--                            <button name="383" icon="fa-arrow-right" type="action" string="Payment Methods" class="btn-link"/>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+        </field>
+    </record>
+</odoo>

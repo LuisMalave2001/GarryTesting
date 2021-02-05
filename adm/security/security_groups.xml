@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="module_admission_category" model="ir.module.category">
+        <field name="name">Admission</field>
+        <field name="description">Admission for students</field>
+    </record>
+
+    <record id="admission_group_user" model="res.groups">
+        <field name="name">Appliction: User</field>
+        <field name="category_id" ref="adm.module_admission_category"/>
+    </record>
+
+    <record id="admission_group_settings" model="res.groups">
+        <field name="name">Appliction: Settings</field>
+        <field name="category_id" ref="adm.module_admission_category"/>
+    </record>
+
+    <record id="admission_group_manager" model="res.groups">
+        <field name="name">Appliction: Manager</field>
+        <field name="category_id" ref="adm.module_admission_category"/>
+    </record>
+
+</odoo>

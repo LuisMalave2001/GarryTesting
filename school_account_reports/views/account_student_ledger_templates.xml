@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="search_template_partner" inherit_id="account_reports.search_template_partner">
+        <xpath expr="//li[hasclass('js_account_partner_m2m')]" position="after">
+            <li t-if="options.get('family')" class="o_account_report_search">
+                <div>
+                    <div class="o_form_view">
+                        <table class="o_group o_inner_group mt-0">
+                            <tbody>
+                                <tr>
+                                    <td class="o_td_label">
+                                        <label class="o_form_label">Homeroom</label>
+                                    </td>
+                                    <td style="min-width:200px;">
+                                        <input type="text" class="o_input o_account_reports_filter_homeroom"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="filter_info_template" inherit_id="account_reports.filter_info_template">
+        <xpath expr="//t[@t-esc='res_partner_category_value']/../.." position="before">
+            <div class="col-12">
+                <t t-if="options.get('family_ids') != None">
+                    Families:
+                    <t t-set="res_partner_value" t-value="'All'"/>
+                    <t t-foreach="options['selected_family_ids']" t-as="family_name">
+                        <t t-set="res_partner_value" t-value="''"/>
+                        <t t-esc="family_name"/>
+                    </t>
+                    <t t-esc="res_partner_value"/>
+                </t>
+            </div>
+            <div class="col-12">
+                <t t-if="options.get('grade_level_ids') != None">
+                    Grade Levels:
+                    <t t-set="grade_level_value" t-value="'All'"/>
+                    <t t-foreach="options['selected_grade_level_ids']" t-as="grade_level_name">
+                        <t t-set="grade_level_value" t-value="''"/>
+                        <t t-esc="grade_level_name"/>
+                    </t>
+                    <t t-esc="grade_level_value"/>
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-esc='res_partner_category_value']/../.." position="after">
+            <div class="col-12">
+                <t t-if="options.get('homeroom') != None">
+                    Homeroom:
+                    <t t-esc="options['homeroom'] or 'All'"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

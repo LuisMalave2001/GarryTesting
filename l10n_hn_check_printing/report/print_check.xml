@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+<template id="assets_common" name="l10n_hn_check_printing pdf assets" inherit_id="web.report_assets_common">
+    <xpath expr="." position="inside">
+        <link rel="stylesheet" type="text/scss" href="/l10n_hn_check_printing/static/src/scss/report_check.scss"/>
+    </xpath>
+</template>
+
+<template id="ckhn_check">
+    <div class="ckhn_check">
+        <div class="ckhn_date">
+            <t t-esc="page['company'].partner_id.city"/>,
+            <t t-esc="page['company'].partner_id.state_id.name"/>
+            <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+            <t t-esc="page['payment_date_honduras']"/>
+        </div>
+        <div class="ckhn_payee_name">*** <t t-esc="page['partner_name']"/> ****</div>
+        <div class="ckhn_amount">*** <t t-esc="page['amount']"/> ***</div>
+        <div class="ckhn_amount_in_word">**** <t t-esc="page['amount_in_word']"/> *****</div>
+    </div>
+</template>
+
+<template id="ckhn_check_bo">
+    <div class="ckhn_check">
+        <div class="ckhn_date"><t t-esc="page['payment_date_honduras']"/></div>
+        <div class="ckhn_payee_name">*** <t t-esc="page['partner_name']"/> ****</div>
+        <div class="ckhn_amount">*** <t t-esc="page['amount']"/> ***</div>
+        <div class="ckhn_amount_in_word">**** <t t-esc="page['amount_in_word']"/> *****</div>
+    </div>
+</template>
+
+<template id="ckhn_stub_1_preprinted">
+    <div class="ckhn_stub_1">
+        <div class="ckhn_date">
+            <t t-esc="page['company'].partner_id.city"/>,
+            <t t-esc="page['company'].partner_id.state_id.name"/>
+            <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+            <t t-esc="page['payment_date_honduras']"/>
+        </div>
+        <div class="ckhn_payee_name" t-esc="page['partner_name']"/>
+        <div class="ckhn_amount" t-esc="page['amount']"/>
+        <div class="ckhn_memo" t-esc="page['memo']"/>
+    </div>
+</template>
+
+<template id="ckhn_stub_2_preprinted">
+    <div class="ckhn_stub_2">
+        <div class="ckhn_sequence" t-esc="page['sequence_number']"/>
+        <div class="ckhn_memo" t-esc="page['memo']"/>
+        <t t-set="total_debit" t-value="0"/>
+        <t t-set="total_credit" t-value="0"/>
+        <table class="ckhn_move_lines">
+            <tbody>
+                <t t-foreach="page['move_lines']" t-as="move_line">
+                    <tr>
+                        <td style="width:2.05in;"><t t-esc="move_line.account_id.code"/></td>
+                        <td style="width:3.05in;"><t t-esc="move_line.account_id.name"/></td>
+                        <td style="width:1.12in;"><t t-esc="move_line.debit"/></td>
+                        <td style="width:1.28in;"><t t-esc="move_line.credit"/></td>
+                    </tr>
+                    <t t-set="total_debit" t-value="total_debit + move_line.debit"/>
+                    <t t-set="total_credit" t-value="total_credit + move_line.credit"/>
+                </t>
+            </tbody>
+        </table>
+        <div class="ckhn_total_debit" t-esc="total_debit"/>
+        <div class="ckhn_total_credit" t-esc="total_credit"/>
+    </div>
+</template>
+
+<template id="ckhn_stub_1_not_preprinted">
+    <div class="ckhn_stub_1">
+        <div class="ckhn_sequence" t-esc="page['sequence_number']"/>
+        <table class="table table-borderless table-sm" style="border-collapse:separate;border-spacing:0;">
+            <tbody>
+                <tr>
+                    <td colspan="10" align="center"><t t-esc="o.journal_id.name"/></td>
+                </tr>
+                <tr>
+                    <td style="width:0.1in;font-size:7pt;border:1px solid dimgray;">BALANCE</td>
+                    <td style="width:1.2in;border:1px solid dimgray;"/>
+                    <td style="width:0.2in;border:1px solid dimgray;"/>
+                    <td colspan="3"/>
+                    <td rowspan="2" style="vertical-align:bottom;font-size:7pt;width:0.1in;">LUGAR Y FECHA:</td>
+                    <td rowspan="2" colspan="3" style="vertical-align:bottom;border-bottom:1px solid dimgray;">
+                        <t t-esc="page['company'].partner_id.city"/>,
+                        <t t-esc="page['company'].partner_id.state_id.name"/>
+                        <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                        <t t-esc="page['payment_date_honduras']"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:0.1in;font-size:7pt;border:1px solid dimgray;">DEP./CR.</td>
+                    <td style="border:1px solid dimgray;"/>
+                    <td style="border:1px solid dimgray;"/>
+                    <td colspan="3"/>
+                </tr>
+                <tr>
+                    <td style="width:0.1in;font-size:7pt;border:1px solid dimgray;">TOTAL</td>
+                    <td style="border:1px solid dimgray;"/>
+                    <td style="border:1px solid dimgray;"/>
+                    <td colspan="7"/>
+                </tr>
+                <tr>
+                    <td style="width:0.1in;font-size:7pt;border:1px solid dimgray;">CHEQUE</td>
+                    <td style="border:1px solid dimgray;"/>
+                    <td style="border:1px solid dimgray;"/>
+                    <td/>
+                    <td rowspan="2" style="vertical-align:bottom;font-size:7pt;width:0.1in;">A:</td>
+                    <td rowspan="2" colspan="3" style="vertical-align:bottom;border-bottom:1px solid dimgray;">
+                        <t t-esc="page['partner_name']"/>
+                    </td>
+                    <td rowspan="2" style="vertical-align:bottom;font-size:7pt;width:0.1in;">LPS:</td>
+                    <td rowspan="2" style="vertical-align:bottom;border-bottom:1px solid dimgray;">
+                        <t t-esc="page['amount']"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:0.1in;font-size:7pt;border:1px solid dimgray;">OTRAS TRANSACCIONES</td>
+                    <td style="border:1px solid dimgray;"/>
+                    <td style="border:1px solid dimgray;"/>
+                    <td/>
+                </tr>
+                <tr>
+                    <td style="width:0.1in;font-size:7pt;border:1px solid dimgray;">BALANCE</td>
+                    <td style="border:1px solid dimgray;"/>
+                    <td style="border:1px solid dimgray;"/>
+                    <td/>
+                    <td rowspan="2" colspan="2" style="vertical-align:bottom;font-size:7pt;">CONECPTO:</td>
+                    <td rowspan="2" colspan="4" style="vertical-align:bottom;;border-bottom:1px solid dimgray;">
+                        <t t-esc="page['memo']"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size:7pt;" colspan="4"><![CDATA[&nbsp;]]></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+
+<template id="ckhn_stub_2_not_preprinted">
+    <div class="ckhn_stub_2">
+        <table class="table table-borderless table-sm">
+            <tbody>
+                <tr>
+                    <td style="width:8.33%"/>
+                    <td style="width:8.33%"/>
+                    <td style="width:8.33%"/>
+                    <td style="width:8.33%"/>
+                    <td style="width:8.33%"/>
+                    <td style="width:8.33%"/>
+                    <td style="width:8.33%"/>
+                    <td style="width:8.33%"/>
+                    <td style="width:8.33%"/>
+                    <td style="width:8.33%"/>
+                    <td style="width:8.33%"/>
+                    <td style="width:8.33%"/>
+                </tr>
+                <tr>
+                    <td colspan="8"/>
+                    <td colspan="4"><t t-esc="page['sequence_number']"/></td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="background-color:lightcyan;border-top:1px solid dimgray;border-left:1px solid dimgray;font-size:7pt;">CONCEPTO DEL PAGO:</td>
+                    <td colspan="9" style="border-top:1px solid dimgray;border-right:1px solid dimgray;"/>
+                </tr>
+                <tr style="height:0.4in;">
+                    <td colspan="12" align="center" style="border-bottom:1px solid dimgray;border-left:1px solid dimgray;border-right:1px solid dimgray;">
+                        <t t-esc="page['memo']"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="12"/>
+                </tr>
+                <tr align="center" style="background-color:lightcyan;font-size:7pt;">
+                    <td colspan="3" style="border:1px solid dimgray;">CUENTA Nº</td>
+                    <td colspan="5" style="border:1px solid dimgray;">DESCRIPCION</td>
+                    <td colspan="2" style="border:1px solid dimgray;">DEBE</td>
+                    <td colspan="2" style="border:1px solid dimgray;">HABER</td>
+                </tr>
+                <t t-set="total_debit" t-value="0"/>
+                <t t-set="total_credit" t-value="0"/>
+                <t t-set="line_count" t-value="0"/>
+                <t t-foreach="page['move_lines']" t-as="move_line">
+                    <tr>
+                        <td colspan="3" style="border-left:1px solid dimgray;border-right:1px solid dimgray;"><t t-esc="move_line.account_id.code"/></td>
+                        <td colspan="5" style="border-left:1px solid dimgray;border-right:1px solid dimgray;"><t t-esc="move_line.account_id.name"/></td>
+                        <td colspan="2" style="border-left:1px solid dimgray;border-right:1px solid dimgray;"><t t-esc="move_line.debit"/></td>
+                        <td colspan="2" style="border-left:1px solid dimgray;border-right:1px solid dimgray;"><t t-esc="move_line.credit"/></td>
+                    </tr>
+                    <t t-set="total_debit" t-value="total_debit + move_line.debit"/>
+                    <t t-set="total_credit" t-value="total_credit + move_line.credit"/>
+                    <t t-set="line_count" t-value="line_count + 1"/>
+                </t>
+                <t t-if="line_count &lt; 8" t-foreach="range(8 - line_count)" t-as="i">
+                    <tr>
+                        <td colspan="3" style="border-left:1px solid dimgray;border-right:1px solid dimgray;"><![CDATA[&nbsp;]]></td>
+                        <td colspan="5" style="border-left:1px solid dimgray;border-right:1px solid dimgray;"/>
+                        <td colspan="2" style="border-left:1px solid dimgray;border-right:1px solid dimgray;"/>
+                        <td colspan="2" style="border-left:1px solid dimgray;border-right:1px solid dimgray;"/>
+                    </tr>
+                </t>
+                <tr>
+                    <td colspan="3" style="border-bottom:1px solid dimgray;border-left:1px solid dimgray;border-right:1px solid dimgray;"/>
+                    <td colspan="5" align="right" style="border-left:1px solid dimgray;border-right:1px solid dimgray;"><strong>BALANCE LPS.</strong></td>
+                    <td colspan="2" style="border:1px solid dimgray"><t t-esc="total_debit"/></td>
+                    <td colspan="2" style="border:1px solid dimgray"><t t-esc="total_credit"/></td>
+                </tr>
+                <tr>
+                    <td colspan="12"/>
+                </tr>
+                <tr style="height:0.6in;">
+                    <td colspan="3" style="border:1px solid dimgray;"/>
+                    <td colspan="3" style="border:1px solid dimgray;"/>
+                    <td colspan="3" style="border:1px solid dimgray;"/>
+                    <td colspan="3" style="border:1px solid dimgray;"/>
+                </tr>
+                <tr align="center" style="background-color:lightcyan;font-size:7pt;">
+                    <td colspan="3" style="border:1px solid dimgray;">HECHO POR</td>
+                    <td colspan="3" style="border:1px solid dimgray;">REVISADO POR</td>
+                    <td colspan="3" style="border:1px solid dimgray;">APROBADO POR</td>
+                    <td colspan="3" style="border:1px solid dimgray;">RECIBI CONFORME</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+
+<template id="honduras_check_layout_preprinted" name="Honduras Check Layout (Preprinted)">
+    <div class="page ckhn_page" t-attf-style="top: {{ o.company_id.account_check_printing_margin_top }}in; left: {{ o.company_id.account_check_printing_margin_left }}in; right: {{ o.company_id.account_check_printing_margin_right }}in;">
+        <t t-call="l10n_hn_check_printing.ckhn_stub_1_preprinted"/>
+        <t t-call="l10n_hn_check_printing.ckhn_check"/>
+        <t t-call="l10n_hn_check_printing.ckhn_stub_2_preprinted"/>
+    </div>
+</template>
+
+<template id="honduras_check_layout_not_preprinted" name="Honduras Check Layout (Not Preprinted)">
+    <style>
+        .ckhn_check {
+            top: -0.32in;
+            left: -0.48in;
+        }
+        .ckhn_stub_1 {
+            top: 3.85in;
+        }
+        .ckhn_stub_2 {
+            top: 5.85in;
+        }
+    </style>
+    <div class="page ckhn_page" t-attf-style="top: {{ o.company_id.account_check_printing_margin_top }}in; left: {{ o.company_id.account_check_printing_margin_left }}in; right: {{ o.company_id.account_check_printing_margin_right }}in;">
+        <t t-call="l10n_hn_check_printing.ckhn_check"/>
+        <t t-call="l10n_hn_check_printing.ckhn_stub_1_not_preprinted"/>
+        <t t-call="l10n_hn_check_printing.ckhn_stub_2_not_preprinted"/>
+    </div>
+</template>
+
+<template id="honduras_check_layout_not_preprinted_bo" name="Honduras Check Layout for BO (Not Preprinted)">
+    <style>
+        .ckhn_check {
+            top: -0.5in;
+            left: -0.48in;
+        }
+        .ckhn_stub_1 {
+            top: 3.85in;
+        }
+        .ckhn_stub_2 {
+            top: 5.85in;
+        }
+        .ckhn_check .ckhn_date {
+            left: 5.8in;
+        }
+    </style>
+    <div class="page ckhn_page" t-attf-style="top: {{ o.company_id.account_check_printing_margin_top }}in; left: {{ o.company_id.account_check_printing_margin_left }}in; right: {{ o.company_id.account_check_printing_margin_right }}in;">
+        <t t-call="l10n_hn_check_printing.ckhn_check_bo"/>
+        <t t-call="l10n_hn_check_printing.ckhn_stub_1_not_preprinted"/>
+        <t t-call="l10n_hn_check_printing.ckhn_stub_2_not_preprinted"/>
+    </div>
+</template>
+
+<template id="print_check">
+    <t t-foreach="docs" t-as="o">
+        <t t-call="web.basic_layout">
+            <t t-foreach="o._check_get_pages()" t-as="page">
+                <t t-call="{{o.journal_id.check_template_id.xml_id}}"/>
+            </t>
+        </t>
+    </t>
+</template>
+
+</data>
+</odoo>

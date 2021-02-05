@@ -1,0 +1,268 @@
+<odoo>
+
+
+    <template id="honduras_invoices.report_nota_interna_document">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+        <div class="container-fluid p-0 position-relative">
+
+            <t t-set="payments_vals" t-value="o._get_reconciled_payments()" />
+            <style>
+                            .border-3{
+                                border-width: 2px !important;
+                            }
+                            
+                            .table-border-3 td, .table-border-3 th{
+                                border: 2px solid black;
+                            }
+                            
+                            header {
+                                font-size: 12px !important;
+                            }
+                            
+                            table {
+                                font-size: 16px !important;
+                            }
+
+                            .markwater {
+                                position: absolute;
+                                top: 50%;
+                                margin-top: -140px;
+                                text-align: center;
+                                width: 3em;
+                                margin-left: 0.5em;
+
+                                -webkit-transform: rotate(-45deg);
+                                -webkit-transform: rotate(-45deg);
+                                -moz-transform:    rotate(-45deg);
+                                -ms-transform:     rotate(-45deg);
+                                -o-transform:      rotate(-45deg);
+                                transform:         rotate(-45deg);
+
+                                font-size: 280px;
+                                z-index: -1;
+                                color: rgba(81, 156, 154, 0.5);
+                            }
+                            
+                            .table-total th {
+                                text-align: center;
+                            }
+                            
+                        </style>
+
+            <h1 t-if="modo == 'COPIA'" class="markwater">COPIA</h1>
+
+            <!--Header-->
+            <header class="font-weight-bold">
+                <!-- Calculo de cantidad a pagar -->
+                <table class="w-100">
+                    <tr>
+                        <td rowspan="4" style="text-align: center; width: 110px; vertical-align: middle !important;">
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="width: 100px;" alt="Logo" />
+                        </td>
+                        <td colspan="3">
+                            <div class="h1">Fundación Centros Educativos Adventistas</div>
+                            <div class="h3" t-field="o.company_id.name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--                             <td /> -->
+                        <td colspan="2">
+                            <t t-if="o.company_id.country_id">
+                                <span t-field="o.company_id.country_id" />
+                                ,
+                            </t>
+                            <t t-if="o.company_id.state_id">
+                                <span t-field="o.company_id.state_id" />
+                                ,
+                            </t>
+                            <t t-if="o.company_id.city">
+                                <span t-field="o.company_id.city" />
+                                ,
+                            </t>
+                            <t t-if="o.company_id.street">
+                                <span t-field="o.company_id.street" />
+                            </t>
+                        </td>
+                        <td style="font-size: 24px; font-weight: 1000 !important; text-align: center;">
+                            NOTA INTERNA:
+                            <span t-field="o.name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Correo:
+                            <span t-field="o.company_id.email" />
+                        </td>
+                        <td>
+                            TEL.
+                            <span t-field="o.company_id.phone" class="col" />
+                        </td>
+                    </tr>
+                </table>
+                <table class="border border-dark w-100 border-3" style="table-layout:fixed;">
+                    <tr>
+                        <td colspan="2" class="pb-4">
+                            CLIENTE:
+                            <span t-field="o.partner_id.name" />
+                            <br />
+                            <div t-if="o.student_id">
+                                ESTUDIANTE:
+                                <span t-field="o.student_id.name" />
+                            </div>
+                        </td>
+                        <td class="pb-4">
+                            FECHA:
+                            <span t-field="o.invoice_date" />
+                        </td>
+                        <td class="pb-4">
+                            CONDICION DE PAGO:
+                            <span t-if="o.invoice_payment_state != 'paid'">CRÉDITO</span>
+                            <span t-else="">CONTADO</span>
+                            <!--                                 <span t-field="o.invoice_date" /> -->
+                        </td>
+                    </tr>
+
+                    <!-- Un mismo "cliente" para todos los campos -->
+                    <t t-set="client_id" t-value="o.partner_id" />
+                    <tr>
+                        <td colspan="2" class="pb-4">
+                            DIRECCION:
+                            <t t-if="client_id.country_id">
+                                <span t-field="client_id.country_id" />
+                                ,
+                            </t>
+                            <t t-if="client_id.state_id">
+                                <span t-field="client_id.state_id" />
+                                ,
+                            </t>
+                            <t t-if="client_id.city">
+                                <span t-field="client_id.city" />
+                                ,
+                            </t>
+                            <t t-if="client_id.street">
+                                <span t-field="client_id.street" />
+                            </t>
+                        </td>
+                        <td class="pb-4">
+                            VENCIMIENTO:
+                            <span t-field="o.invoice_date_due" />
+                        </td>
+                        <td class="pb-4">
+                            ORDEN DE COMPRA:
+                            <span t-field="o.invoice_origin" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" class="pb-4">
+                            RTN:
+                            <span t-field="client_id.vat" />
+                        </td>
+                        <td class="pb-4">
+                            VENDEDOR:
+                            <span t-field="o.invoice_user_id.name" />
+                        </td>
+                        <td class="pb-4">
+                            <t t-esc="modo" />
+                        </td>
+                    </tr>
+
+                </table>
+            </header>
+            <table class="mt-4 table-border-3 w-100">
+                <thead>
+                    <tr>
+                        <th>cod Alterno</th>
+                        <th>Nombre</th>
+                        <th t-if="not o.hide_line_price">Precio</th>
+                        <th t-if="not o.hide_line_price">Cant.</th>
+                        <th t-if="not o.hide_line_price">Subtotal</th>
+                        <th t-if="not o.hide_line_price">Desc</th>
+                        <th t-if="not o.hide_line_price">Total</th>
+                        <th>E/G</th>
+                    </tr>
+                </thead>
+                <t t-foreach="o.invoice_line_ids.filtered(lambda x: not x.display_type)" t-as="invoice_line">
+                    <tr>
+                        <td class="font-italic">
+                            <t t-esc="invoice_line.product_id.default_code" />
+                        </td>
+                        <td>
+                            <t t-esc="invoice_line.name" />
+                        </td>
+                        <td t-if="not o.hide_line_price" class="text-right">
+                            <span t-field="invoice_line.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id, 'precision': 2}" />
+                        </td>
+                        <td t-if="not o.hide_line_price" class="text-right">
+                            <t t-esc="round(invoice_line.quantity)" />
+                        </td>
+                        <td t-if="not o.hide_line_price" class="text-right">
+                            <span t-esc="invoice_line.price_unit * invoice_line.quantity" t-options="{'widget': 'monetary', 'display_currency': o.currency_id, 'precision': 2}" />
+                        </td>
+                        <td t-if="not o.hide_line_price" class="text-right">
+                            <span t-field="invoice_line.discount" />
+                        </td>
+                        <td t-if="not o.hide_line_price" class="text-right">
+                            <span t-field="invoice_line.price_total" />
+                        </td>
+                        <td>
+                            <t t-set="keep_loop" t-value="true" />
+                            <t t-foreach="invoice_line.tax_ids" t-as="tax_id">
+                                <t t-if="keep_loop">
+                                    <t t-if="tax_id.amount != 0">
+                                        <t t-set="keep_loop" t-value="false" />
+                                        G
+                                    </t>
+                                </t>
+                            </t>
+                            <t t-if="keep_loop">E</t>
+                        </td>
+                    </tr>
+                </t>
+            </table>
+
+            <section class="clearfix">
+                <div id="total">
+                    <table class="mt-4 table-border-3 w-100 table-total">
+                        <thead>
+                            <tr>
+                                <th>TOTAL A PAGAR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <t t-esc="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id, 'precision': 2}" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section class="mt-4 border border-dark text-center border-3" t-field="o.amount_total_letters" />
+            <t t-set="note_lines" t-value="o.invoice_line_ids.filtered(lambda x: x.display_type == 'line_note')"/>
+            <section t-if="note_lines">
+                <t t-foreach="note_lines" t-as="note_line">
+                    <div t-raw="note_line.name.replace('\n','&lt;br&gt;')"/>
+                </t>
+            </section>
+        </div>
+    </template>
+
+    <template id="honduras_invoices.report_nota_interna_with_copy">
+        <div class="article o_report_layout_standard position-relative letter-page" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
+            <section class="section-page">
+                <t t-call="honduras_invoices.report_nota_interna_document" t-lang="lang">
+                    <t t-set="modo" t-value="'ORIGINAL'"/>
+                </t>
+            </section>
+            <section class="section-page">
+                <t t-call="honduras_invoices.report_nota_interna_document" t-lang="lang">
+                    <t t-set="modo" t-value="'COPIA'"/>
+                </t>
+            </section>
+        </div>
+    </template>
+
+
+</odoo>

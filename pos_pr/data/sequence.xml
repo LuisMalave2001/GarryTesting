@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="seq_invoice_payment" model="ir.sequence">
+        <field name="name">Invoice payment number sequence</field>
+        <field name="code">seq.pos.payment.register.invoice.payment</field>
+        <field name="active" eval="True"/>
+        <field name="prefix">POS-P/%(range_year)s/</field>
+        <field name="number_increment" eval="1" />
+        <field name="number_next" eval="1" />
+        <field name="padding" eval="4" />
+        <field name="implementation">standard</field>
+    </record>
+
+    <record id="seq_invoice_payment_group" model="ir.sequence">
+        <field name="name">Invoice payment group number sequence</field>
+        <field name="code">seq.pos.payment.register.invoice.payment_group</field>
+        <field name="active" eval="True"/>
+        <field name="prefix">POS-PG/%(range_year)s/</field>
+        <field name="number_increment" eval="1" />
+        <field name="number_next" eval="1" />
+        <field name="padding" eval="4" />
+        <field name="implementation">standard</field>
+    </record>
+
+</odoo>

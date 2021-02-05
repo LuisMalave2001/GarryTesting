@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="assets_application_student_info" name="Assets student info">
+        <script type="text/javascript" src="/adm/static/src/js/application/student_info.js"></script>
+    </template>
+
+    <template id="assets_application_school_info" name="Assets school info">
+        <script type="text/javascript" src="/adm/static/src/js/application/school.js"></script>
+    </template>
+
+    <template id="assets_application_additional_questions" name="Assets additional Questions">
+        <script type="text/javascript" src="/adm/static/src/js/application/additional_questions.js"></script>
+    </template>
+
+    <template id="assets_application_school_health" name="Assets school health">
+        <script type="text/javascript" src="/adm/static/src/js/application/health.js"></script>
+    </template>
+
+    <template id="assets_application_school_sibling" name="Assets school sibling">
+        <script type="text/javascript" src="/adm/static/src/js/application/sibling.js"></script>
+    </template>
+
+    <template id="assets_application_signature" name="Assets Application Signature">
+        <script type="text/javascript" src="/adm/static/src/js/application/signature_page.js"></script>
+        <link rel="stylesheet" type="text/scss" href="/adm/static/src/scss/application_signature.scss"/>
+    </template>
+
+    <template id="assets_application_create" name="Assets Application Create">
+        <script type="text/javascript" src="/adm/static/src/js/application/create.js"></script>
+        <link rel="stylesheet" href="/adm/static/src/css/form_application.css"/>
+        <link rel="stylesheet" type="text/scss" href="/adm/static/src/scss/family_select.scss"/>
+    </template>
+
+    <template id="assets_application_common" name="Assets Application Common">
+        <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.js"></script>
+        <link rel="stylesheet" href="/adm/static/src/css/main.css"/>
+        <script type="text/javascript" src="/adm/static/src/js/jquery_fix.js"></script>
+        <script type="text/javascript" src="/adm/static/src/js/application/common.js"></script>
+        <link rel="stylesheet" type="text/scss" href="/adm/static/src/scss/family_select.scss"/>
+    </template>
+
+    <template id="assets_application_family_parents">
+        <script type="text/javascript" src="/adm/static/src/js/application/family/parents.js"></script>
+    </template>
+
+    <template id="assets_inquiry">
+        <script type="text/javascript" src="/adm/static/src/js/inquiry/inquiry.js"></script>
+        <link rel="stylesheet" href="/adm/static/src/css/form_application.css"/>
+    </template>
+
+<!--    <template id="assets_backend_inherit_ninebox" inherit_id="web.assets_backend" name="Employees Asset">-->
+<!--        <xpath expr="script[last()]" position="after">-->
+<!--            <script type="text/javascript" src="/adm/static/js/listview_button.js"></script>-->
+<!--&lt;!&ndash;            <link href="/adm/static/src/css/style.css" rel="stylesheet" type="text/css"/>&ndash;-->
+<!--        </xpath>-->
+<!--    </template>-->
+</odoo>

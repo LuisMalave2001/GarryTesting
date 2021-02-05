@@ -1,0 +1,22 @@
+.searchbox {
+    right: auto;
+    margin-left: -90px;
+    margin-top: 8px;
+    left: 50%;
+
+    input {
+        width: 120px;
+    }
+}
+
+.button-payment-dashboard {
+    float: right;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+    > * {
+        position: relative;
+    }
+}

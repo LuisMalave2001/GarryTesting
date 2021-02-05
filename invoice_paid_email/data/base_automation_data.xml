@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_move_automation_email_invoice_paid" model="base.automation">
+        <field name="name">Journal Entries: Invoice Paid</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="trigger">on_write</field>
+        <field name="trigger_field_ids" eval="[(6,0,[ref('account.field_account_move__invoice_payment_state')])]"/>
+        <field name="state">email</field>
+        <field name="filter_pre_domain">[('invoice_payment_state','!=','paid')]</field>
+        <field name="filter_domain">[('invoice_payment_state','=','paid'),('type','=','out_invoice')]</field>
+        <field name="template_id" ref="account_move_mail_template_invoice_paid"/>
+    </record>
+</odoo>

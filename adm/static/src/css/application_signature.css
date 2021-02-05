@@ -1,0 +1,95 @@
+.o_adm_aisj_parent_profile {
+  border: 1px solid black;
+  height: 100%;
+  overflow: visible;
+}
+.o_adm_aisj_parent_profile_title {
+  float: left;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  overflow: visible;
+}
+.o_adm_aisj_parent_profile_image {
+  float: left;
+  overflow: visible;
+}
+.o_adm_aisj_parent_profile_image img {
+  z-index: 100;
+  width: 260px;
+}
+.o_adm_aisj_parent_profile_title_text {
+  float: left;
+  color: white;
+  font-size: 48px;
+}
+.o_adm_aisj_parent_profile_background {
+  height: 240px;
+  overflow: hidden;
+  float: left;
+  width: 100%;
+  border-bottom: 16px solid #a51f2c;
+  z-index: -1000;
+  text-align: right;
+}
+.o_adm_aisj_parent_profile_background_purple {
+  background: #1a183c;
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+.o_adm_aisj_parent_profile_background_image {
+  position: relative;
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+.o_adm_aisj_parent_profile_background_image_separator {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: #1a183c;
+  background: linear-gradient(74deg, #1a183c 0%, #1a183c 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+.o_adm_aisj_parent_profile_background_image img {
+  width: 80.7%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.o_adm_aisj_header {
+  overflow: visible;
+  float: left;
+  clear: both;
+  width: 100%;
+  position: relative;
+}
+.o_adm_aisj_parent_profile_image {
+  float: left;
+}
+.o_adm_aisj .o_adm_aisj_parent_profile_title {
+  float: left;
+}
+.o_adm_aisj_body {
+  float: left;
+  clear: both;
+  margin-top: 80px;
+  padding: 30px;
+}
+.o_adm_aisj_body_statement {
+  text-align: center;
+  background: #e3e3e3;
+  padding: 20px;
+  margin-bottom: 32px;
+}
+.o_adm_aisj_footer_line {
+  height: 20px;
+  width: 100%;
+  background: #1a183c;
+}
+
+/*# sourceMappingURL=application_signature.css.map */

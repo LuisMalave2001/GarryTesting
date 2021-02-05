@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_payslip_report_summary_xlsx_template,access.hr.payslip.report.summary.xlsx.template,model_hr_payslip_report_summary_xlsx_template,hr_payroll.group_hr_payroll_user,1,1,1,1
+access_hr_payslip_report_summary_xlsx_template_line,access.hr.payslip.report.summary.xlsx.template.line,model_hr_payslip_report_summary_xlsx_template_line,hr_payroll.group_hr_payroll_user,1,1,1,1

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="adm_contact_time_view_tree" model="ir.ui.view">
+        <field name="name">adm.contact.time.view.tree</field>
+        <field name="model">adm.contact_time</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" />
+                <field name="from_time" widget="float_time" />
+                <field name="to_time" widget="float_time" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="adm_contact_time_view_form" model="ir.ui.view">
+        <field name="name">adm.contact.time.view.form</field>
+        <field name="model">adm.contact_time</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="from_time" widget="float_time" />
+                        <field name="to_time" widget="float_time" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

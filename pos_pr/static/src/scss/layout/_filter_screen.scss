@@ -1,0 +1,110 @@
+$invoiceFilterScreenWidth: 700px;
+$transitionSpeed: margin-left ease 500ms;
+$backgroundFilterTransparent: rgba(0, 0, 0, 0.75);
+
+
+.toggle-screen-filter-group {
+    position: fixed;
+    display: flex;
+    z-index: 10;
+    left: 0;
+    height: 100vh;
+    pointer-events: none;
+
+    @media print {
+        display: none;
+        * {
+            display: none;
+        }
+    }
+
+}
+
+.invoice-filter-screen {
+    position: relative;
+    float: left;
+    margin: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    z-index: 1;
+    width: $invoiceFilterScreenWidth;
+    background: $backgroundFilterTransparent;
+    color: white;
+    height: 600px;
+    pointer-events: all;
+
+    &.animate {
+
+        &-enter {
+            margin-left: -$invoiceFilterScreenWidth;
+
+            &-to {
+                margin-left: 0;
+                transition: $transitionSpeed;
+            }
+        }
+
+        &-leave {
+            &-to {
+                margin-left: -$invoiceFilterScreenWidth;
+                transition: $transitionSpeed;
+            }
+        }
+    }
+
+
+    table.partner-filter-list {
+        width: 100%;
+        font-size: 1rem;
+
+        label {
+            width: 100;
+            display: block;
+        }
+
+        th {
+            text-align: center;
+        }
+
+        td {
+            &:first-child {
+                width: 10%;
+            }
+
+            &:nth-child(2) {
+                text-align: left;
+            }
+        }
+    }
+}
+
+.toggle-screen-filter-button {
+    z-index: 1;
+
+    position: relative;
+    float: left;
+    margin: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    pointer-events: all;
+    height: 64px;
+    border: 2px solid black;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: $backgroundFilterTransparent;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    cursor: pointer;
+    transition: background-color ease 50ms, $transitionSpeed 30ms;
+
+    &:hover {
+        background-color: rgba(0, 0, 0);
+    }
+
+
+}

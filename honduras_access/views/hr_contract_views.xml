@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contract_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.contract.view.form.inherit</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_payroll_extends.hr_contract_view_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='allowance_ids']/.." position="attributes">
+                <attribute name="groups">honduras_access.group_financial_manager</attribute>
+            </xpath>
+            <xpath expr="//field[@name='deduction_ids']/.." position="attributes">
+                <attribute name="groups">honduras_access.group_financial_manager</attribute>
+            </xpath>
+            <xpath expr="//field[@name='contribution_ids']/.." position="attributes">
+                <attribute name="groups">honduras_access.group_financial_manager</attribute>
+            </xpath>
+            <page name="other" position="attributes">
+                <attribute name="groups">honduras_access.group_financial_manager</attribute>
+            </page>
+            <page name="information" position="attributes">
+                <attribute name="groups">honduras_access.group_financial_manager</attribute>
+            </page>
+        </field>
+    </record>
+
+    <record id="hr_contract.hr_menu_contract" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('group_financial_admin'))]"/>
+    </record>
+</odoo>

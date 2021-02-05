@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="multiple_discounts.res_partner_discount_view">
+        <field name="name">Multiple discounts</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <group name="sale" position="inside">
+                <label for="discount_ids" string="Discounts" />
+                <field name="discount_ids" widget="many2many_tags" nolabel="1"/>
+            </group>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="multiple_discounts.discount_tree">
+        <field name="name">Discount tree</field>
+        <field name="model">multiple_discounts.discount</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="percent"/>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="category_id"/>
+                <field name="account_id"/>
+                <field name="analytic_account_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="multiple_discounts.discount_search">
+        <field name="name">Discount search</field>
+        <field name="model">multiple_discounts.discount</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="percent"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="multiple_discounts.discount_tree_action">
+        <field name="name">Discounts List</field>
+        <field name="res_model">multiple_discounts.discount</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <menuitem id="menu_multiple_disconts"
+              parent="sale.menu_sale_config"
+              action="multiple_discounts.discount_tree_action"
+              name="Discounts"/>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="account_reports_journal_dashboard_kanban_view_inherit_group" model="ir.ui.view">
+        <field name="name">hondura.access.account.reports.journal.dashboard.kanban.view.inherit.group</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account_reports.account_reports_journal_dashboard_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@groups='account.group_account_manager']" position="attributes">
+                <attribute name="groups">account.group_account_manager,honduras_access.group_financial_admin</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

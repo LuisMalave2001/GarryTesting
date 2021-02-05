@@ -1,0 +1,34 @@
+<odoo>
+    <template id="pos_assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+                <!--///////////Styles///////////-->
+                <link rel="stylesheet" href="/pos_pr/static/src/css/pos_invoices.css"/>
+                <link rel="stylesheet" type="text/scss"  href="/pos_pr/static/src/scss/invoice_payment_screen.scss"/>
+
+                <!--///////////Scripts///////////-->
+                <!-- Owl -->
+                <script type="text/javascript" src="/pos_pr/static/src/js/owl/components.js"/>
+
+
+                <script type="text/javascript" src="/pos_pr/static/src/js/models/model.js"/>
+
+                <script type="text/javascript" src="/pos_pr/static/src/js/save_data/save_invoice_payments.js"/>
+
+                <script type="text/javascript" src="/pos_pr/static/src/js/load_data/load_models.js"/>
+
+                <!-- Core (point of sale chrome... and I am not speaking about the browser...) -->
+                <script type="text/javascript" src="/pos_pr/static/src/js/core/chrome.js"/>
+
+                <!-- Payment receipt view -->
+                <script type="text/javascript" src="/pos_pr/static/src/js/screens/invoice_payment_receipt/screen.js"/>
+                <script type="text/javascript" src="/pos_pr/static/src/js/screens/surcharge_payment_receipt/screen.js"/>
+
+                <script type="text/javascript" src="/pos_pr/static/src/js/screens/payment_register/screens.js"/>
+                <script type="text/javascript" src="/pos_pr/static/src/js/components/pos_button_widgets.js"/>
+                <script type="text/javascript" src="/pos_pr/static/src/js/components/reports.js"/>
+
+
+
+            </xpath>
+    </template>
+</odoo>

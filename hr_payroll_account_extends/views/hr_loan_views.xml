@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_loan_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.loan.view.form.inherit</field>
+        <field name="model">hr.loan</field>
+        <field name="inherit_id" ref="hr_payroll_extends.hr_loan_view_form"/>
+        <field name="arch" type="xml">
+            <field name="date_deduction" position="after">
+                <label for="bill_id" attrs="{'invisible': [('state','=','draft')]}"/>
+                <div attrs="{'invisible': [('state','=','draft')]}">
+                    <button name="action_create_bill" type="object" string="Create Bill" class="btn btn-primary oe_inline" attrs="{'invisible': [('bill_id','!=',False)]}"/>
+                    <field name="bill_id" nolabel="1" class="oe_inline" attrs="{'invisible': [('bill_id','=',False)]}"/>
+                    <span attrs="{'invisible': [('bill_id','=',False)]}">
+                        (<field name="bill_payment_state" nolabel="1"/>)
+                    </span>
+                </div>
+            </field>
+            <page name="payments" position="after">
+                <page name="accounting" string="Accounting">
+                    <group>
+                        <group string="Bill">
+                            <field name="product_id"/>
+                            <field name="journal_id"/>
+                            <field name="bill_analytic_account_id" groups="analytic.group_analytic_accounting" string="Analytic Account"/>
+                        </group>
+                        <group string="Payslip Deduction">
+                            <field name="debit_account_id"/>
+                            <field name="credit_account_id"/>
+                            <field name="analytic_account_id" groups="analytic.group_analytic_accounting" string="Analytic Account"/>
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="hr_loan_view_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.loan.view.tree.inherit</field>
+        <field name="model">hr.loan</field>
+        <field name="inherit_id" ref="hr_payroll_extends.hr_loan_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount" position="after">
+                <field name="bill_id" widget="many2onebutton"/>
+                <field name="bill_payment_state"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_loan_view_search_inherit" model="ir.ui.view">
+        <field name="name">hr.loan.view.search.inherit</field>
+        <field name="model">hr.loan</field>
+        <field name="inherit_id" ref="hr_payroll_extends.hr_loan_view_search"/>
+        <field name="arch" type="xml">
+            <filter name="group_by_state" position="after">
+                <filter string="Bill Status" name="group_by_bill_payment_state" domain="[]" context="{'group_by':'bill_payment_state'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

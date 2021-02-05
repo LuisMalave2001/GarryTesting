@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="load_wallet_form" model="ir.ui.view">
+        <field name="name">load.wallet.wizard</field>
+        <field name="model">load.wallet</field>
+        <field name="arch" type="xml">
+            <form string="Load wallet">
+                <group col="1">
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="payment_partner_id" invisible="1"/>
+                        <field name="wallet_id" editable="true"/>
+                    </group>
+                    <group col="6" attrs="{'invisible': [('wallet_id', '=', False)]}">
+                        <field name="amount" editable="true" attrs="{ 'readonly': [('wallet_id', '=', False)] }"/>
+                        <field name="max_amount"/>
+                        <field name="current_amount"/>
+                    </group>
+                    <field name="payment_ids"
+                           domain="[
+                                    ('wallet_id', 'in', (wallet_id, False)),
+                                    ('unpaid_amount', '>', 0),
+                                    ('payment_type', '=', 'inbound'),
+                                    ('partner_id', '=', payment_partner_id),
+                                    ('partner_type', '=', 'customer'),
+                                   ]"
+                           context="{'default_partner_id': payment_partner_id,
+                           'default_payment_type': 'inbound',
+                           'default_wallet_id': wallet_id,
+                           'default_partner_type': 'customer'}"
+                            attrs="{'invisible': [('wallet_id', '=', False)]}"
+                    >
+                        <tree>
+                            <field name="payment_date"/>
+                            <field name="name"/>
+                            <field name="journal_id" string="Remain amount"/>
+                            <field name="payment_method_id"/>
+                            <field name="amount"/>
+                            <field name="unpaid_amount" string="Remain amount"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button string="Apply" class="btn-primary" name="load_wallet" type="object"/>
+                    <button string="Cancel" class="btn-danger" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_load_wallet_wizard" model="ir.actions.act_window">
+        <field name="name">Load wallet</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">load.wallet</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="wallet.load_wallet_form"/>
+        <field name="target">new</field>
+        <field name="context">{"default_partner_id": active_id}</field>
+    </record>
+</odoo>

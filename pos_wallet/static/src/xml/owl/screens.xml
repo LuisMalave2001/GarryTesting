@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+
+    <!-- Payment Screen -->
+    <div owl="1" t-name="WalletPaymentCardCompoment" class="wallet-payment-card">
+        <div class="header"><t t-esc="state.name"/></div>
+        <div class="body">
+            <div class="label">Amount:</div>
+            <input class="payment-amount"
+                   type="text"
+                   t-att-value="state.payment_amount"
+                   t-att-disabled="!matchCategory"
+                   t-ref="walletInput"
+                   t-on-input="triggerInputAction"/>
+            <table class="wallet-balances">
+                <tr>
+                    <td class="label">Final balance: </td>
+                    <td class="amount balance-amount">
+                        <t t-esc="window.posmodel.chrome.format_currency(client_wallet_balances[state.id] - state.payment_amount)"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Current balance: </td>
+                    <td class="amount current-amount"><t t-esc="window.posmodel.chrome.format_currency(client_wallet_balances[state.id])"/></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div owl="1" t-name="PosWalletPaymentScreenComponent"
+         class="pos_wallet payment-wallet-dashboard--hidden payment-wallet-dashboard"
+         t-on-pos-wallet-make-payment="payWithWallet"
+         t-on-show="toggleShow"
+    >
+        <div style="height: 150px;">
+            <h1>Wallet payment dashboard</h1>
+            <button t-on-click="toggleShow(!state.show)"><t t-esc="state.button_label"/></button>
+        </div>
+
+        <PosWalletPaymentSTComponent pos="props.pos"/>
+    </div>
+
+    <li owl="1" class="wallet-layout-tree__branch" t-name="WalletPaymentCardListComponent">
+        <div class="wallet-layout-tree__branch__container">
+            <WalletPaymentCardCompoment t-on-pos-wallet-card-input="updateWalletPaymentAmount" walletCategory="props.walletCategory"/>
+        </div>
+        <ul class="wallet-layout-tree__root"
+            t-if="props.walletCategory.children and props.walletCategory.children.length">
+            <t t-foreach="props.walletCategory.children" t-as="walletChild">
+                <WalletPaymentCardListComponent walletPaymentAmounts="props.walletPaymentAmounts" walletCategory="walletChild"/>
+            </t>
+        </ul>
+    </li>
+
+    <div owl="1" t-name="PosWalletPaymentSTComponent" style="height: 100%;">
+        <div>
+            <button t-on-click="payWithWallet">Make payment</button>
+        </div>
+
+        <div class="wallet-layout-tree">
+            <ul class="wallet-layout-tree__root">
+                <WalletPaymentCardListComponent walletPaymentAmounts="state.walletPaymentAmounts" walletCategory="state.walletDefault"/>
+            </ul>
+        </div>
+    </div>
+
+</templates>

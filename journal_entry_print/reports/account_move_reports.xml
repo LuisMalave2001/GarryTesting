@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="paper_format_matrix" model="report.paperformat">
+            <field name="name">Journal Entry Matrix Paper Format</field>
+            <field name="format">Letter</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">25</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">120</field>
+        </record>
+    </data>
+
+    <report
+        id="action_account_move_report_matrix"
+        model="account.move"
+        string="Journal Entry Matrix"
+        report_type="qweb-pdf"
+        name="journal_entry_print.account_move_report_matrix"
+        file="journal_entry_print.account_move_report_matrix"
+        menu="False"
+        paperformat="paper_format_matrix"/>
+</odoo>

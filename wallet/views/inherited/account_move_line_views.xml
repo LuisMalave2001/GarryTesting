@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_move_line_view_search_inherit" model="ir.ui.view">
+        <field name="name">account.move.line.view.search.inherit</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+        <field name="arch" type="xml">
+            <filter name="groupby_date" position="after">
+                <filter string="Product" name="groupby_product" domain="[]" context="{'group_by': 'product_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="account_move_line_view_tree_wallet_history" model="ir.ui.view">
+        <field name="name">account.move.line.view.tree</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <tree string="Wallet History List">
+                <field name="move_id" widget="many2onebutton"/>
+                <field name="date"/>
+                <field name="product_id"/>
+                <field name="price_unit_signed" string="Amount" sum="Total Amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_move_line_action_wallet_history" model="ir.actions.act_window">
+        <field name="name">Wallet History</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_groupby_product': 1}</field>
+        <field name="view_id" ref="account_move_line_view_tree_wallet_history"/>
+    </record>
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+
+    <t t-name="LoadWalletWithChange.WalletLoadRow">
+        <tr class="wallet-row">
+            <td>
+                <select>
+                    <option t-foreach="widget.wallets" t-as="wallet"><t t-esc="wallet.name"/></option>
+                </select>
+            </td>
+            <td>
+                <div class="input-cash">
+                    <div class="label">
+                        <label>
+                            €
+                        </label>
+                    </div>
+                    <div class="input">
+                        <input class="wallet-amount" data-max-decimal="2"/>
+                    </div>
+                </div>
+
+            </td>
+            <td>
+                <div class="action-button-list">
+                    <div class="action-button" data-increment="1" data-action="increment">+1</div>
+                    <div class="action-button" data-increment="-1" data-action="increment">-1</div>
+                    <div class="action-button" data-increment="10" data-action="increment">+10</div>
+                    <div class="action-button" data-increment="-10" data-action="increment">-10</div>
+                    <div class="action-button" data-increment="100" data-action="increment">+100</div>
+                    <div class="action-button" data-increment="-100" data-action="increment">-100</div>
+                </div>
+                <div>
+                    <div class="action-button-list">
+                        <div class="action-button" data-action="fill" data-increment="1">Fill</div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </t>
+
+    <t t-name="LoadWalletWithChange.Popup">
+        <div role="dialog" class="modal-dialog">
+            <div class="wallet-change-popup popup-alert pos_wallet">
+                <p class="title"><t t-esc=" widget.options.title"/></p>
+                <section class="body">
+                    <div class="owl_wallet_load_container"></div>
+                </section>
+                <div class="footer">
+                    <button class="button cancel" type="button">Cancel</button>
+                    <button class="confirm js_btn_submit_load_wallet" type="submit">Load</button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="InvoicePaymentRegisterScreenWidget">
+        <t t-jquery="div.button-payment-dashboard" t-operation="append">
+            <div class="button pay-with-wallet">
+                Pay with wallet <i class="fa fa-angle-double-right"></i>
+            </div>
+        </t>
+    </t>
+
+
+    <t t-name="PayInvoiceWithWallet.Popup">
+        <div role="dialog" class="modal-dialog">
+            <div class="wallet-change-popup popup-alert pos_wallet">
+                <p class="title"><t t-esc=" widget.options.title"/></p>
+                <section class="body">
+                    <div class="owl_wallet_payment_container"></div>
+                </section>
+                <div class="footer">
+                    <button class="button cancel" type="button">Cancel</button>
+<!--                    <button class="confirm" type="button">Pay</button>-->
+                </div>
+            </div>
+        </div>
+    </t>
+
+<!--    <t t-extend="PosPr.InvoicePaymentReceiptScreenWidget">-->
+<!--        <t t-jquery=".button.next" t-operation="before">-->
+<!--            <span class="button load-to-wallet">-->
+<!--                Load to wallet <i class="fa fa-angle-double-right"></i>-->
+<!--            </span>-->
+<!--        </t>-->
+<!--    </t>-->
+
+</templates>

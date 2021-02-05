@@ -1,0 +1,45 @@
+.pos .SelectAnalyticWidget-pad {
+  float: left;
+  border: 1px solid #bfbfbf;
+  border-radius: 3px;
+  padding: 6px;
+  margin: 0 16px 16px 16px;
+  width: 390px;
+}
+.pos .SelectAnalyticWidget-pad .analyticAccount-select-group {
+  float: left;
+  display: block;
+  width: 50%;
+}
+.pos .SelectAnalyticWidget-pad .analyticAccount-select-group label {
+  float: left;
+  font-size: 16px;
+}
+.pos .SelectAnalyticWidget-pad .analyticAccount-select-group select {
+  float: left;
+  clear: left;
+  margin-top: 8px;
+  padding: 2px;
+  border-radius: 4px;
+  border: 1px solid #bfbfbf;
+  width: 100%;
+}
+.pos .SelectAnalyticWidget-pad .analyticAccount-select-group select:hover {
+  cursor: pointer;
+}
+.pos .SelectAnalyticWidget-pad .analyticAccount-button {
+  width: 50%;
+  height: 54px;
+  float: left;
+  text-align: center;
+}
+.pos .SelectAnalyticWidget-pad .analyticAccount-button button {
+  height: 54px;
+  width: 54px;
+  margin: auto;
+}
+.pos .SelectAnalyticWidget-pad .analyticAccount-button button:hover {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=pos_analytic.css.map */

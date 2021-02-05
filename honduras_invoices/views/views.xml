@@ -1,0 +1,39 @@
+<odoo>
+
+    <record model="ir.ui.view" id="journal_honduras_form_view">
+        <field name="name">journal.honduras</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="is_honduras_invoice"/>
+            </field>
+            <notebook position="inside">
+                <page string="Honduras" attrs="{'invisible': [('is_honduras_invoice', '=', False)]}">
+                    <group>
+                        <field name="prefix" />
+                        <field name="authorized_range_from" />
+                        <field name="authorized_range_to" />
+                        <field name="cai" />
+                        <field name="issue_limit_date" />
+                    </group>
+                    <group string="Warnings">
+                        <field name="authorized_range_warning" />
+                        <field name="issue_limit_date_warning" />
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_registro_exonerado_form_view">
+        <field name="name">res.partner.registro_exonerado</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="no_constant_registro_exonerado" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

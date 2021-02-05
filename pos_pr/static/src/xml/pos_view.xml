@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="BtnRegisterPayment">
+        <div class="control-button">Payment Register</div>
+    </t>
+
+    <t t-name="InvoicePaymentRegisterScreenWidget">
+        <div class="pos-payment-register screen">
+            <div id="js_pos_payment_register_screen"/>
+        </div>
+    </t>
+
+    <t t-name="InvoicePaymentListScreenWidget">
+        <div class="pos-invoice-payment-list screen">
+            <div id="js_payment_list_placeholder"/>
+        </div>
+    </t>
+</templates>

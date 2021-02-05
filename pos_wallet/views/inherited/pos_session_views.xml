@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="pos_wallet.view_pos_session_form" model="ir.ui.view">
+        <field name="name">pos.wallet.transaction.form.inherit</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <button name='action_show_payments_list' position="before">
+
+                <field name="id" invisible="1"/>
+
+                <button name='%(action_pos_wallet_wallet_load_tree)d' type="action" class="oe_stat_button" icon="fa-dollar "
+                        context="{'search_default_pos_session_id': id, 'search_default_group_by_payment_method_id': 1}">
+                    <field name="pos_wallet_loads_amount" widget="statinfo" string="Wllt. Loads"/>
+                </button>
+
+            </button>
+        </field>
+    </record>
+</odoo>

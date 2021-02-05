@@ -1,0 +1,17 @@
+.invoice_payments {
+    border: 1px solid #ddd;
+    margin-top: 1em;
+}
+
+.invoice_payments h1 {
+    font-size: 12px;
+    text-align: center;
+}
+
+.invoice_payments h1 span {
+    display: inline;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    position: relative;
+    top: -1.3em;
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="pos_assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <!-- Styles -->
+                <link rel="stylesheet" href="/pos_pr_wallet/static/src/css/pos_pr_wallet.css"/>
+
+                <!-- OWl -->
+                <script type="text/javascript" src="/pos_pr_wallet/static/src/js/owl/components.js" />
+
+                <!--Script-->
+                <script type="text/javascript" src="/pos_pr_wallet/static/src/js/popups.js" />
+                <script type="text/javascript" src="/pos_pr_wallet/static/src/js/screens.js" />
+            </xpath>
+        </template>
+    </data>
+</odoo>

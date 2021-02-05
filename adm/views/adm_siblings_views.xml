@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="view_application_sibling_tree">
+        <field name="name">sibling Tree</field>
+        <field name="model">adm.application.sibling</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="school"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

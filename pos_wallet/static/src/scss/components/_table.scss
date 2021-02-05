@@ -1,0 +1,22 @@
+.wallet-list-table {
+
+    width: 100%;
+
+    td, th {
+        padding: 0.6rem;
+    }
+
+    thead tr {
+       background: #ebe1c9;
+    }
+    tbody tr {
+        &:nth-child(odd) {
+          background: #fff6e2;
+        }
+
+        &:nth-child(even) {
+          background: white;
+        }
+    }
+
+}

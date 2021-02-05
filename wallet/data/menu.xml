@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.actions.act_window" id="wallet_categories_action_view">
+        <field name="name">Wallet categories</field>
+        <field name="res_model">wallet.category</field>
+        <field name="context">{'default_company_id': allowed_company_ids[0]}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="wallet_categories_menu" name="Wallet categories" parent="account_accountant.menu_accounting" action="wallet.wallet_categories_action_view"/>
+
+</odoo>

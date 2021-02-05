@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_payslip_report_summary_xlsx_template_view_tree" model="ir.ui.view">
+        <field name="name">hr.payslip.report.summary.xlsx.template.view.tree</field>
+        <field name="model">hr.payslip.report.summary.xlsx.template</field>
+        <field name="arch" type="xml">
+            <tree string="Payslip Summary Report (xlsx) Templates">
+                <field name="name"/>
+                <field name="grouping"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_payslip_report_summary_xlsx_template_view_form" model="ir.ui.view">
+        <field name="name">hr.payslip.report.summary.xlsx.template.view.form</field>
+        <field name="model">hr.payslip.report.summary.xlsx.template</field>
+        <field name="arch" type="xml">
+            <form string="Payslip Summary Report (xlsx) Template">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <field name="grouping"/>
+                    </group>
+                    <group string="Columns">
+                        <field name="line_ids" nolabel="1">
+                            <tree editable="bottom" decoration-danger="type == 'total'" decoration-info="type == 'field'">
+                                <field name="sequence" widget="handle"/>
+                                <field name="type"/>
+                                <field name="field_id" attrs="{'readonly': [('type','!=','field')], 'required': [('type','=','field')]}"
+                                    domain="[('model_id','in',[%(hr.model_hr_employee)d,%(hr_contract.model_hr_contract)d,%(hr_payroll.model_hr_payslip)d])]"
+                                    options="{'no_create_edit': 1, 'no_create': 1}"/>
+                                <field name="rule_id" attrs="{'readonly': [('type','!=','rule')], 'required': [('type','=','rule')]}"
+                                    options="{'no_create_edit': 1, 'no_create': 1}"/>
+                                <field name="code"/>
+                                <field name="struct_id"/>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_payslip_report_summary_xlsx_template_action" model="ir.actions.act_window">
+        <field name="name">Summary Templates</field>
+        <field name="res_model">hr.payslip.report.summary.xlsx.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="hr_payslip_report_summary_xlsx_template_menu"
+        name="Summary Templates"
+        action="hr_payslip_report_summary_xlsx_template_action"
+        parent="hr_payroll_reports_menu_config"
+        sequence="20"/>
+</odoo>

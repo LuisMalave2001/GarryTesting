@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="adm.template_application_schools_information_form">
+        <article class="row card card-body pt-0 mt-2">
+            <t t-if="aux_previus_school">
+                <input class="form-control" type="hidden"
+                       data-adm-field="id"
+                       t-att-value="aux_previus_school.id"
+                       data-adm-field-type="INTEGER"
+                       name="previous_school_id"/>
+            </t>
+            <div class="row">
+                <section class="col-12 d-flex justify-content-end pt-2 pb-1 m-0">
+                    <button type="button" class="btn btn-danger remove-school">&#10006;</button>
+                </section>
+            </div>
+            <div class="row">
+                <section class="col-12 col-md">
+                    <label>Name of school</label>
+                    <span class="text-danger"> *</span>
+                    <div>
+                        <input class="form-control" type="text"
+                               data-adm-field="name"
+                               t-att-value="aux_previus_school and aux_previus_school.name"
+                               name="previous_school_name"/>
+                    </div>
+                </section>
+
+                <section class="col-12 col-md">
+                    <label>Grade Levels</label>
+                    <input class="form-control" type="text"
+                           data-adm-field="grade_completed"
+                           t-att-value="aux_previus_school and aux_previus_school.grade_completed"
+                           name="grade_completed"/>
+                </section>
+
+                <section class="col-12 col-md">
+                    <label>Address</label>
+                    <input class="form-control" type="text"
+                           data-adm-field="street"
+                           t-att-value="aux_previus_school and aux_previus_school.street"
+                           name="previous_school_street"/>
+                </section>
+            </div>
+            <div class="row">
+
+                <section class="col-12 col-md">
+                    <label>
+                        Start Date
+                        <span class="text-danger"> *</span>
+                    </label>
+                    <input class="form-control" type="date"
+                           data-adm-field="from_date"
+                           t-att-value="aux_previus_school and aux_previus_school.from_date"
+                           name="previous_school_fromdate"/>
+                </section>
+
+                <section class="col-12 col-md">
+                    <label>
+                        End Date
+                        <span class="text-danger"> *</span>
+                    </label>
+                    <input class="form-control" type="date"
+                           data-adm-field="to_date"
+                           t-att-value="aux_previus_school and aux_previus_school.to_date"
+                           name="previous_school_todate"/>
+                </section>
+
+            </div>
+            <div class="row">
+                <section class="col-12 col-md">
+                    <label>
+                        Reason for Leaving
+                        <span class="text-danger"> *</span>
+                    </label>
+                    <input class="form-control" type="text"
+                           data-adm-field="reason_for_leaving"
+                           t-att-value="aux_previus_school and aux_previus_school.reason_for_leaving"
+                           name="previous_school_reason_for_leaving"/>
+                </section>
+            </div>
+        </article>
+    </template>
+
+    <template id="adm.template_application_schools_information_webpage">
+
+        <t t-call="adm.template_application_form_commons">
+            <div id="template_school" style="display: none;">
+                <t t-call="adm.template_application_schools_information_form"/>
+            </div>
+            <t t-set="head">
+                <t t-call-assets="adm.assets_application_school_info" defer_load="True"/>
+            </t>
+
+            <t t-set="title">Schools</t>
+
+            <t t-set="url_prev" t-value="'/admission/applications/%s/info' % application_id.id"/>
+            <t t-set="url_next" t-value="'/admission/applications/%s/family/parents' % application_id.id"/>
+
+            <div data-adm-model-fields="1">
+                <section class="card mb-2">
+                    <section class="card-header">
+                        <h1>Academic Information</h1>
+                    </section>
+
+                    <section class="card-body">
+                        <section class="container-fluid" id="school_list"
+                                 data-adm-field-type="ONE2MANY"
+                                 data-adm-field="previous_school_ids">
+                            <t t-foreach="application_id.previous_school_ids" t-as="aux_previus_school">
+                                <div data-adm-rel="rel">
+                                    <t t-call="adm.template_application_schools_information_form"/>
+                                </div>
+                            </t>
+                        </section>
+                        <button type="button"
+                                class="add-school btn btn-secondary d-block mt-2 ml-auto">
+                            &#10010; Add school</button>
+                    </section>
+                </section>
+                <section class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Has your child <strong>applied</strong> to The American International
+                                    School of Jeddah before?</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                           data-adm-field="c_aisj_schools_q1"
+                                           value="yes"
+                                           t-att-checked="application_id.c_aisj_schools_q1 == 'yes'"
+                                           id="attended_to_aisj_before_yes"
+                                           name="attended_to_aisj_before"/>
+                                    <label class="for-check-label" for="attended_to_aisj_before_yes">Yes</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                           data-adm-field="c_aisj_schools_q1"
+                                           value="no"
+                                           t-att-checked="application_id.c_aisj_schools_q1 == 'no'"
+                                           id="attended_to_aisj_before_no"
+                                           name="attended_to_aisj_before"/>
+                                    <label class="for-check-label" for="attended_to_aisj_before_no">No</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 form-group">
+                                <label>Has your child <strong>attended</strong> The American International
+                                    School of Jeddah Before?</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                           data-adm-field="c_aisj_schools_q2"
+                                           value="yes"
+                                           t-att-checked="application_id.c_aisj_schools_q2 == 'yes'"
+                                           id="applied_to_aisj_before_yes"
+                                           name="applied_to_aisj_before"/>
+                                    <label class="for-check-label" for="applied_to_aisj_before_yes">Yes</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                           data-adm-field="c_aisj_schools_q2"
+                                           value="no"
+                                           t-att-checked="application_id.c_aisj_schools_q2 == 'no'"
+                                           id="applied_to_aisj_before_no"
+                                           name="applied_to_aisj_before"/>
+                                    <label class="for-check-label" for="applied_to_aisj_before_no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+        <!--        <script defer="defer" type="text/javascript" src="/adm/static/js/previous_school.js"/>-->
+    </template>
+</odoo>

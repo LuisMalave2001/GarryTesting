@@ -1,0 +1,89 @@
+@mixin align($selectors...) {
+    @for $i from 0 to length($selectors) {
+        .text-#{nth($selectors, $i + 1)} {
+            text-align: nth($selectors, $i + 1);
+        }
+    }
+}
+
+@mixin header-style {
+    height: 100%;
+    float: left;
+    display: inline-block;
+}
+
+.page-load-wallet-receipt {
+    width: 100%;
+    background-color: white;
+
+    table {
+        width: 100%;
+    }
+
+    @include align(right, center, left);
+
+    .header {
+        position: relative;
+        width: 100%;
+        margin-bottom: 1em;
+        float: left;
+
+        .logo-container {
+            width: 10%;
+            @include header-style;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .company-info {
+            width: 70%;
+            @include header-style;
+        }
+
+        .payment-info {
+            width: 18%;
+            @include header-style;
+        }
+    }
+
+    .wallet-info {
+        width: 100%;
+        margin-bottom: 1em;
+        float: left;
+
+        table tr td.label {
+            font-weight: bold;
+            text-align: right;
+            padding-right: 1em;
+        }
+    }
+
+    .footer {
+        width: 100%;
+        padding-bottom: 1rem;
+        padding-right: 1rem;
+
+        $footer-height: 3cm;
+
+        .stamp-space {
+            display: flex;
+            height: $footer-height;
+            float: left;
+            width: 30%;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+
+        .sign-space {
+            height: $footer-height;
+            float: left;
+            border-bottom: 1px solid black;
+            width: calc(70% - 1rem);
+            margin-right: 1rem;
+        }
+
+    }
+}

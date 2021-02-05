@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+        <th name="th_priceunit" position="attributes">
+            <attribute name="t-if">not doc.hide_line_price</attribute>
+        </th>
+        <th name="th_discount" position="attributes">
+            <attribute name="t-if">display_discount and not doc.hide_line_price</attribute>
+        </th>
+        <th name="th_taxes" position="attributes">
+            <attribute name="t-if">not doc.hide_line_price</attribute>
+        </th>
+        <th name="th_subtotal" position="attributes">
+            <attribute name="t-if">not doc.hide_line_price</attribute>
+        </th>
+        <td name="td_priceunit" position="attributes">
+            <attribute name="t-if">not doc.hide_line_price</attribute>
+        </td>
+        <xpath expr="//span[@t-field='line.discount']/.." position="attributes">
+            <attribute name="t-if">display_discount and not doc.hide_line_price</attribute>
+        </xpath>
+        <td name="td_taxes" position="attributes">
+            <attribute name="t-if">not doc.hide_line_price</attribute>
+        </td>
+        <td name="td_subtotal" position="attributes">
+            <attribute name="t-if">not doc.hide_line_price</attribute>
+        </td>
+    </template>
+</odoo>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="pos_pr.res_config_settings_view_form">
+        <field name="name">pos.payment.register.res.config.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='point_of_sale']" position="inside">
+                <h2>POS Payment Register</h2>
+
+                <div class="row mt16 o_settings_container" id="pos_pr_surcharge_settings">
+
+                    <!-- Surcharge Product -->
+                    <div class="col-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_pr_surcharge_product_id"/>
+                            <div class="text-muted">
+                                Set default product for surcharge invoices.
+                            </div>
+                            <div class="content-group m16">
+                                <field name="pos_pr_surcharge_product_id" nolabel="1" colspan="4"/>
+                            </div>
+                            <button id="apply_surcharge_product_to_sale_journals"
+                                    name="apply_surcharge_product_to_sale_journals"
+                                    _confirm="Are you sure?"
+                                    type="object"
+                                    string="Apply surcharge product to sale journals" />
+                        </div>
+                    </div>
+
+                    <!-- Surcharge Amount -->
+                    <div class="col-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="pos_pr_surcharge_default_amount"/>
+                            <div class="text-muted">
+                                Set default amount for every overdue invoice when is paid with the payment register
+                            </div>
+                            <div class="content-group m16">
+                                <field name="pos_pr_surcharge_default_amount" nolabel="1" colspan="4"/>
+                            </div>
+                            <button id="apply_surcharge_amount_to_sale_journals"
+                                    name="apply_surcharge_amount_to_sale_journals"
+                                    _confirm="Are you sure?"
+                                    type="object"
+                                    string="Apply surcharge to sale journals" />
+                        </div>
+                    </div>
+
+
+                    <!-- Default discount product -->
+                    <div class="col-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="pos_pr_discount_product_id"/>
+                            <div class="text-muted">
+                                Set default discount product for point of sale payment register
+                            </div>
+                            <div class="content-group m16">
+                                <field name="pos_pr_discount_product_id" nolabel="1" colspan="4"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Default discount account -->
+                    <div class="col-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="pos_pr_discount_default_account_id"/>
+                            <div class="text-muted">
+                                Set default account for default discount product
+                            </div>
+                            <div class="content-group m16">
+                                <field name="pos_pr_discount_default_account_id" nolabel="1" colspan="4"/>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Default discount account -->
+                    <div class="col-12 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <div class="text-muted">
+                                This will recompute the invoices surcharges
+                            </div>
+                            <div class="content-group m16">
+                                <button id="recompute_surcharge"
+                                        name="recompute_surcharge_amounts"
+                                        _confirm="Are you sure?"
+                                        type="object"
+                                        class="oe_highlight"
+                                        string="Recompute surcharge" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

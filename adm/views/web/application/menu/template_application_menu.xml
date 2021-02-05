@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="adm.template_application_menu">
+        <link rel="stylesheet" href="/adm/static/src/css/menu.css"/>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- QUEDA TRABAJAR EN LA DINAMIZACION DE LOS LANGUAGES ACTUALMENTE ESTA PUESTO EN 3 IDIOMAS EN HARD CODE -->
+            <div class="collapse navbar-collapse text-center" id="application_nav_bar">
+                <ul class="navbar-nav w-100 justify-content-center">
+                    <li class="nav-item nav-item-menu" id="nav-itm-instr">
+                        <a t-attf-href="/admission/applications/#{application_id.id}/"
+                           class="nav-link">
+                            GENERAL INFO
+                        </a>
+                    </li>
+                    <li class="nav-item nav-item-menu" id="nav-itm-appl">
+                        <a t-attf-href="/admission/applications/#{application_id.id}/info" class="nav-link">
+                            Student Information
+                        </a>
+                    </li>
+                    <li class="nav-item nav-item-menu" id="nav-itm-acad">
+                        <a t-attf-href="/admission/applications/#{application_id.id}/schools" class="nav-link">
+                            Academic Information
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-item-menu dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdowFamily" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            FAMILY
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdowFamily">
+                            <a class="dropdown-item"
+                               t-attf-href="/admission/applications/#{application_id.id}/family/parents">
+                                PARENTS
+                            </a>
+                            <a class="dropdown-item"
+                               t-attf-href="/admission/applications/#{application_id.id}/family/siblings">
+                                SIBLINGS
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item nav-item-menu" id="nav-itm-acad">
+                        <a t-attf-href="/admission/applications/#{application_id.id}/parent-questionnaire"
+                           class="nav-link">
+                            Parent Questionnaire
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-item-menu" id="nav-itm-acad">
+                        <a t-attf-href="/admission/applications/#{application_id.id}/additional-questions"
+                           class="nav-link">
+                            Additional Questions
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-item-menu" id="nav-itm-med">
+                        <a t-attf-href="/admission/applications/#{application_id.id}/medical-info" class="nav-link">
+                            HEALTH
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-item-menu" id="nav-itm-one">
+                        <a t-attf-href="/admission/applications/#{application_id.id}/document-comun" class="nav-link">
+                            DOCUMENTS
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-item-menu" id="nav-itm-instr">
+                        <a t-attf-href="/admission/applications/#{application_id.id}/signature"
+                           class="nav-link">
+                            SIGNATURE
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <t t-if="application_id.status_id.type_id =='return' or application_id.status_id.type_id == 'started'">
+            <t t-if="application_id.total_required_fields_completed == 100">
+                <form t-att-action="'/admission/applications/{}/check'.format(application_id.id)" method="post"
+                      enctype="multipart/form-data" id="info-form">
+                    <button class="btn btn-primary btn-lg fixed-bottom ml-auto mr-2 mb-2"
+                            style="left: auto !important;">
+                        Send to School &#10095;</button>
+                </form>
+            </t>
+            <t t-if="showPendingInformation">
+                <div class="modal show modal_shown" tabindex="-1" role="dialog"
+                     style="padding-right: 17px; display: block;" aria-modal="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Pending Task</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-danger" role="alert">
+                                    <ul>
+
+                                        <t t-foreach="pendingData" t-as="itm">
+                                            <li t-raw="itm"/>
+                                        </t>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                        onclick="closeModal()">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function closeModal(){
+                    $(".modal").modal('show');
+                    $(".modal").modal('hide');
+                    }
+                </script>
+            </t>
+        </t>
+    </template>
+</odoo>

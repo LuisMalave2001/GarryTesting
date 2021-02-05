@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="template_application_student_info" name="Student info">
+        <t t-call="adm.template_application_form_commons">
+            <t t-set="head">
+                <link rel="stylesheet" href="/adm/static/src/css/form_application.css"/>
+                <link rel="stylesheet" href="/adm/static/src/css/check_animation.css"/>
+                <t t-call-assets="adm.assets_application_student_info" defer_load="True"/>
+            </t>
+            <t t-set="title">Academic Information</t>
+
+            <t t-set="url_next" t-value="'/admission/applications/%s/schools' % application_id.id"/>
+
+            <div class="container p-4" data-adm-model-fields="1">
+                <div class="row">
+                    <div class="col-8 offset-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4"
+                         data-adm-field="partner_id" data-adm-field-type="MANY2ONE">
+                        <div class="position-relative m-auto d-flex justify-content-center align-items-center"
+                             style="width: 175px;border-radius: 100px !important;height: 175px;overflow: hidden;">
+                            <!--                                                    t-attf-src="/web/image?model=res.partner&amp;id=#{application_id.partner_id.id}&amp;field=image_512-->
+                            <!--                                                            t-att-scr="student_photo"-->
+                            <t t-if="application_id.partner_id">
+                                <input type="hidden" data-adm-field="id"
+                                       data-adm-field-type="INTEGER"
+                                       t-att-value="application_id.partner_id.id"/>
+                            </t>
+                            <img t-attf-src="data:image/*;base64,{{application_id.partner_id and application_id.partner_id.image_1920}}"
+                                 widget="image"
+                                 id="avatar_photo"
+                                 onerror="this.src = '/adm/static/img/contact_photo_placeholder.png';"
+                                 class="avatar h-100" alt="avatar"/>
+                            <div class="spinner-grow text-light position-absolute w-50 h-50"
+                                 style="display: none;" id="student_avatar_loading"
+                                 role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <h6 class="mt-2">Upload a different photo...</h6>
+                        <input type="file" id="avatar_photo_file" name="image_1920"
+                               data-adm-field="image_1920"
+                               class="form-control" accept="image/*"/>
+                        <div class='alert alert-info pt-0 pb-0 mt-1'
+                             role='alert'>Upload a student photo.</div>
+                        <svg class="" id="upload_image_success" style="display: none;"
+                             xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 52 52">
+                            <circle class="checkmark__circle" cx="26" cy="26" r="25"
+                                    fill="none"/>
+                            <path class="checkmark__check" fill="none"
+                                  d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="form-group col-12 col-md-8 offset-md-2">
+                        <label>Student Name (as it appears on
+                            passport)</label>
+                        <input type="text"
+                               class="form-control text-center font-weight-bold"
+                               t-att-value="application_id.partner_id.name"
+                               disabled="disabled"/>
+                    </div>
+                </div>
+                <div class="row mb-3 justify-content-center">
+                    ( <button id="toggleStudentName" type="button"
+                              class="btn btn-link p-0">Change</button> )
+                </div>
+
+                <div id="change_name_div"
+                     style="display:none; padding:10px; margin-top:5px;" class="row">
+                    <div class="container">
+                        <div class="row" data-adm-field="partner_id"
+                             data-adm-field-type="MANY2ONE">
+                            <section class="col-12 col-md form-group">
+                                <label> First Name <span class="text-danger">*</span></label>
+                                <input type="text" name="first_name"
+                                       class="form-control"
+                                       t-att-value="application_id.first_name"
+                                       data-adm-field="first_name"
+                                />
+
+                            </section>
+                            <section class="d-none col-12 col-md form-group">
+                                <label> Middle Name </label>
+                                <input type="text" name="middle_name"
+                                       class="form-control"
+                                       t-att-value="application_id.middle_name"
+                                       data-adm-field="middle_name"
+                                />
+                            </section>
+                            <section class="col-12 col-md form-group">
+                                <label> Last Name <span class="text-danger">*</span></label>
+                                <input type="text" name="last_name" class="form-control"
+                                       data-adm-field="last_name"
+                                       t-att-value="application_id.last_name"/>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <section class="row">
+                    <div class="col-12 col-md-6 form-group">
+                        <label for="selStudentGradeLevel"> Grade Level: <span class="text-danger">*</span></label>
+                        <select id="selStudentGradeLevel" class="form-control"
+                                data-adm-field="grade_level" data-adm-field-type="INTEGER">
+                            <t t-foreach="grade_level_ids" t-as="grade_level">
+                                <option t-att-selected="application_id.grade_level == grade_level"
+                                        t-att-value="grade_level.id"><t
+                                        t-esc="grade_level.name"/></option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6 form-group">
+                        <label> School Year: <span class="text-danger">*</span></label>
+                        <select data-adm-field="school_year" data-adm-field-type="INTEGER"
+                                class="form-control">
+                            <t t-foreach="school_year_ids" t-as="school_year_id">
+                                <option t-att-value="school_year_id.id"
+                                        t-att-selected="application_id.school_year == school_year_id">
+                                    <t t-esc="school_year_id.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </section>
+                <section class="row">
+                    <div class="col-12 col-md-6 form-group">
+                        <label> Street Address: <span class="text-danger">*</span></label>
+                        <input required="required" type="text"
+                               name="street" class="form-control"
+                               data-adm-field="street"
+                               t-att-value="application_id.street "/>
+                    </div>
+                </section>
+                <section class="row">
+                    <div class="col-12 col-md-4 form-group">
+                        <label> City: <span class="text-danger"> *</span></label>
+                        <input required="required" type="text"
+                               name="city" class="form-control"
+                               data-adm-field="city"
+                               t-att-value="application_id.city"/>
+                    </div>
+                    <div class="col-12 col-md-4 form-group">
+                        <label for="state_id"> State <span class="text-danger">*</span></label>
+                        <select required="required" type="text"
+                                id="state_id" name="state_id" placeholder="State"
+                                data-adm-field="state_id" data-adm-field-type="INTEGER"
+                                class="form-control">
+                            <option value="-1" selected="selected" disabled="disabled">
+                                -Select a state-
+                            </option>
+                            <t t-foreach="state_ids" t-as="state">
+                                <option t-att-selected="application_id.state_id.id == state.id"
+                                        t-att-data-country="state.country_id.id"
+                                        t-att-value="state.id" style="display: none;">
+                                    <t t-esc="state.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-4 form-group">
+                        <label for="country_id"> Country <span class="text-danger">
+                            *</span></label>
+                        <select required="required" type="text"
+                                id="country_id" name="country_id" placeholder="Country"
+                                data-adm-field="country_id" data-adm-field-type="INTEGER"
+                                class="form-control">
+                            <option value="-1" selected="selected" disabled="disabled">
+                                -Select a country-
+                            </option>
+                            <t t-foreach="country_ids" t-as="country">
+                                <option t-att-selected="application_id.country_id.id == country.id"
+                                        t-att-value="country.id">
+                                    <t t-esc="country.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </section>
+
+                <section class="row">
+                    <div class="col-12 col-md-6 form-group">
+                        <label> Date of Birth: <span class="text-danger">
+                            *</span></label>
+                        <!-- Three inputs with Day, Month and Year -->
+                        <input required="required" type="date" name="date_of_birth"
+                               data-adm-field="date_of_birth"
+                               class="form-control"
+                               t-att-value="application_id.date_of_birth"/>
+                    </div>
+                </section>
+                <section class="row">
+                    <div class="col-12 col-md-6 form-group">
+                        <label> Gender: <span class="text-danger"> *</span></label>
+                        <select required="required" class="form-control" name="gender"
+                                data-adm-field="gender" data-adm-field-type="INTEGER">
+                            <t t-foreach="gender_ids" t-as="gender_id">
+                                <option t-att-selected="application_id.gender == gender_id"
+                                        t-att-value="gender_id.id">
+                                    <t t-esc="gender_id.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6 form-group">
+                        <label>Nationality:<span class="text-danger">*</span></label>
+                        <select name="citizenship" class="form-control"
+                                data-adm-field="citizenship" data-adm-field-type="INTEGER">
+                            <option value="-1" selected="selected" disabled="disabled">
+                                -Select a country-
+                            </option>
+                            <t t-foreach="country_ids" t-as="country">
+                                <option t-att-selected="application_id.citizenship.id == country.id"
+                                        t-att-value="country.id">
+                                    <t t-esc="country.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </section>
+                <section class="row">
+                    <div class="col-12 col-md-6" data-adm-field="partner_id"
+                         data-adm-field-type="MANY2ONE">
+                        <label>
+                            Iqama/ Residence Permit ID number: <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" name="identification" class="form-control"
+                               data-adm-field="identification"
+                               t-att-value="application_id.partner_id.identification"
+                               placeholder="If the applicant doesn't have Iqama yet please place an 'a'"/>
+                    </div>
+                </section>
+
+                <section class="row mt-3">
+                    <hr class="col-12"/>
+                    <div class="col-12 text-center h2">Passport</div>
+
+                    <div class="col-12 col-md-6">
+                        <label>Passport number 1 <span class="text-danger">*</span>: </label>
+                        <input type="text" name="passport_number_1" class="form-control"
+                               data-adm-field="passport_number_1"
+                               t-att-value="application_id.passport_number_1"/>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label>Passport number 2:</label>
+                        <input type="text" name="passport_number_2" class="form-control"
+                               data-adm-field="passport_number_2"
+                               t-att-value="application_id.passport_number_2"/>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label>Passport Expiration Date <span class="text-danger">*</span></label>
+                        <input type="date" name="passport_expiration_date"
+                               data-adm-field="passport_expiration_date"
+                               t-att-value="application_id.passport_expiration_date"
+                               class="form-control"/>
+                    </div>
+                </section>
+
+                <section class="row">
+                    <hr class="col-12"/>
+                    <div class="col-12 text-center h2">Documentation</div>
+
+                    <div class="col-12 col-md-6 form-group">
+                        <label for="upload_passport_copy_file" class="label">Upload passport copy <span
+                                class="text-danger">*</span></label>
+                        <div class="form-upload">
+                            <label class="label-upload" for="upload_passport_copy_file"><i
+                                    class="fa fa-upload"></i></label>
+                            <input type="file" id="upload_passport_copy_file"
+                                   data-adm-field="upload_passport_copy_attachment_id"
+                                   data-adm-field-type="ATTACHMENT"/>
+                            <span class="js_input_file_label">
+                                <t t-if="application_id.upload_passport_copy_attachment_id">
+                                    <t t-esc="application_id.upload_passport_copy_attachment_id.name"/>
+                                </t>
+                                <t t-else="">
+                                    No file uploaded
+                                </t>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group">
+                        <label for="permit_copy_attachment_id" class="label">Upload Iqama/ Residency Permit Copy <span
+                                class="text-danger">*</span></label>
+                        <div class="form-upload">
+                            <label class="label-upload" for="permit_copy_attachment_id"><i
+                                    class="fa fa-upload"></i></label>
+                            <input type="file" id="permit_copy_attachment_id"
+                                   data-adm-field="permit_copy_attachment_id"
+                                   data-adm-field-type="ATTACHMENT"/>
+                            <span class="js_input_file_label">
+                                <t t-if="application_id.permit_copy_attachment_id">
+                                    <t t-esc="application_id.permit_copy_attachment_id.name"/>
+                                </t>
+                                <t t-else="">
+                                    No file uploaded
+                                </t>
+                            </span>
+                        </div>
+                    </div>
+
+                </section>
+
+                <section class="row mt-3">
+                    <hr class="col-12"/>
+                    <div class="col-12 text-center h2">Additional info</div>
+
+                    <div class="col-12 col-md-6">
+                        <label>Which semester are you applying for?<span class="text-danger">*</span></label>
+                        <select name="applying_semester" class="form-control"
+                                data-adm-field="applying_semester">
+                            <option value="-1" selected="selected" disabled="disabled">
+                                -Select a state-
+                            </option>
+                            <t t-foreach="applying_semester_values"
+                               t-as="applying_semester_value">
+                                <option t-att-selected="application_id.applying_semester == applying_semester_value['value']"
+                                        t-att-value="applying_semester_value['value']">
+                                    <t t-esc="applying_semester_value['name']"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label for="field_expected_starting_date">
+                            Expected starting date
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input id="field_expected_starting_date" type="date"
+                               data-adm-field="expected_starting_date"
+                               t-att-value="application_id.expected_starting_date"
+                               name="expected_starting_date" class="form-control"/>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

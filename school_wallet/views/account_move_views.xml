@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_move_form_inherit_school_wallet_buttons" model="ir.ui.view">
+        <field name="name">wallet.view.move.form.school.wallet_buttons</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="wallet.view_move_form_inherit_wallet_buttons"/>
+        <field name="arch" type="xml">
+            <button id="pay_with_wallet_btn" position="attributes">
+                <attribute name="context">{'default_partner_id': student_id or family_id or partner_id}</attribute>
+            </button>
+        </field>
+    </record>
+</odoo>

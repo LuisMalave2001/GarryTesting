@@ -1,0 +1,51 @@
+.SelectAnalyticWidget-pad {
+
+    float: left;
+    border: 1px solid #bfbfbf;
+    border-radius: 3px;
+    padding: 6px;
+    margin: 0 16px 16px 16px;
+    width: 390px;
+
+    .analyticAccount-select-group {
+        float: left;
+        display: block;
+        width: 50%;
+
+        label {
+            float: left;
+            font-size: 16px;
+        }
+
+        select {
+            float: left;
+            clear: left;
+            margin-top: 8px;
+            padding: 2px;
+            border-radius: 4px;
+            border: 1px solid #bfbfbf;
+            width: 100%;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .analyticAccount-button {
+        width: 50%;
+        height: 54px;
+        float: left;
+        text-align: center;
+
+        button {
+            height: 54px;
+            width: 54px;
+            margin: auto;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

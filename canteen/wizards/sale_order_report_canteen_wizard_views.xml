@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_report_canteen_wizard_view_form" model="ir.ui.view">
+        <field name="name">sale.order.report.canteen.wizard.view.form</field>
+        <field name="model">sale.order.report.canteen.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Canteen Report Wizard Form">
+                <group col="4">
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                </group>
+                <group>
+                    <field name="report_type"/>
+                    <field name="student_ids" widget="many2many_tags" attrs="{'invisible': [('report_type','!=','student')]}"
+                        options="{'no_create': 1, 'no_create_edit': 1}"/>
+                    <field name="include_unconfirmed"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_order_report_canteen_wizard_action" model="ir.actions.act_window">
+        <field name="name">Canteen Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.report.canteen.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="sale_order_report_canteen_wizard_menu"
+        name="PDF Reports"
+        action="sale_order_report_canteen_wizard_action"
+        parent="sale_order_menu_reporting"
+        sequence="20"/>
+</odoo>

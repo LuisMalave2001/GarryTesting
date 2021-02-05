@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="pos_assets" inherit_id="web.assets_common">
+            <xpath expr="." position="inside">
+                <!-- Vendor -->
+                <script type="text/javascript" src="/eduweb_js_utils/static/vendor/js/owl/owl.js" />
+
+                <!-- Styles -->
+                <link rel="stylesheet" href="/eduweb_js_utils/static/src/css/autocompleteInput.css"/>
+
+                <!--Script-->
+                <script type="text/javascript" src="/eduweb_js_utils/static/src/js/init_owl.js" />
+                <script type="text/javascript" src="/eduweb_js_utils/static/src/js/input_number.js" />
+                <script type="text/javascript" src="/eduweb_js_utils/static/src/js/main.js" />
+            </xpath>
+        </template>
+    </data>
+</odoo>

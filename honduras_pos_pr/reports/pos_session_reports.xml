@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="action_pos_session_report"
+        model="pos.session"
+        string="POS Session"
+        report_type="qweb-pdf"
+        name="honduras_pos_pr.pos_session_report"
+        file="honduras_pos_pr.pos_session_report"
+        paperformat="honduras_invoices.honduras_paper_format"
+        menu="False"/>
+</odoo>

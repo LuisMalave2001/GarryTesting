@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="selectable_report_inherit" inherit_id="school_finance.selectable_report">
+        <xpath expr="//t[@t-foreach='docs']" position="inside">
+            <t t-call="web.basic_layout" t-if="print_with_journal_entry">
+                <h5>Journal Entry</h5>
+                <table class="table table-sm">
+                    <tr>
+                        <th>Account</th>
+                        <th>Label</th>
+                        <th class="text-right">Debit</th>
+                        <th class="text-right">Credit</th>
+                    </tr>
+                    <tr t-foreach="o.line_ids" t-as="line">
+                        <td>
+                            <span t-field="line.account_id" />
+                        </td>
+                        <td>
+                            <span t-field="line.name" />
+                        </td>
+                        <td class="text-right">
+                            <span t-field="line.debit"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="line.credit"/>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="selectable_report_with_journal_entry">
+        <t t-set="print_with_journal_entry" t-value="True"/>
+        <t t-call="account.report_invoice"/>
+    </template>
+
+    <template id="selectable_report_with_payments_inherit" inherit_id="school_finance.selectable_report_with_payments">
+        <xpath expr="//t[@t-foreach='docs']" position="inside">
+            <t t-call="web.basic_layout" t-if="print_with_journal_entry">
+                <h5>Journal Entry</h5>
+                <table class="table table-sm">
+                    <tr>
+                        <th>Account</th>
+                        <th>Label</th>
+                        <th class="text-right">Debit</th>
+                        <th class="text-right">Credit</th>
+                    </tr>
+                    <tr t-foreach="o.line_ids" t-as="line">
+                        <td>
+                            <span t-field="line.account_id" />
+                        </td>
+                        <td>
+                            <span t-field="line.name" />
+                        </td>
+                        <td class="text-right">
+                            <span t-field="line.debit"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="line.credit"/>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="selectable_report_with_payments_with_journal_entry">
+        <t t-set="print_with_journal_entry" t-value="True"/>
+        <t t-call="account.report_invoice_with_payments"/>
+    </template>
+</odoo>

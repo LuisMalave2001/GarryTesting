@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="pos_assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+
+            <!-- Vendor -->
+<!-- OWL Assets -->
+            <script type="text/javascript" src="/pos_wallet/static/src/js/owl/store.js"/>
+            <script type="text/javascript" src="/pos_wallet/static/src/js/owl/components.js"/>
+
+            <!--Style-->
+            <link rel="stylesheet" href="/pos_wallet/static/src/css/pos_wallet_styles.css"/>
+
+            <link rel="stylesheet" type="text/scss" href="/pos_wallet/static/src/scss/pos_wallet_load.scss"/>
+
+            <!-- Load data -->
+            <script type="text/javascript" src="/pos_wallet/static/src/js/pos_wallet_methods.js"/>
+            <script type="text/javascript" src="/pos_wallet/static/src/js/core/chrome.js"/>
+            <script type="text/javascript" src="/pos_wallet/static/src/js/core/order.js"/>
+            <script type="text/javascript" src="/pos_wallet/static/src/js/load_data/load_partner_fields.js"/>
+            <script type="text/javascript" src="/pos_wallet/static/src/js/load_data/load_wallet_category.js"/>
+
+            <!-- Widgets -->
+            <script type="text/javascript" src="/pos_wallet/static/src/js/popups.js"/>
+            <script type="text/javascript" src="/pos_wallet/static/src/js/components/load_wallet_popup.js"/>
+
+            <!-- Screens -->
+            <script type="text/javascript" src="/pos_wallet/static/src/js/pos_wallet_screens.js"/>
+<!--                <script type="text/javascript" src="/pos_wallet/static/src/js/screens/customer_screen.js"/>-->
+
+            <!-- Reports -->
+            <script type="text/javascript" src="/pos_wallet/static/src/js/reports/reports_widgets.js"/>
+            <script type="text/javascript" src="/pos_wallet/static/src/js/reports/screens.js"/>
+
+        </xpath>
+    </template>
+</odoo>

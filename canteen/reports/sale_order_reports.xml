@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="action_sale_order_report_canteen_student"
+        model="sale.order"
+        string="Canteen Report (Student)"
+        report_type="qweb-pdf"
+        name="canteen.sale_order_report_canteen_student"
+        file="canteen.sale_order_report_canteen_student"
+        menu="False"/>
+    
+    <report
+        id="action_sale_order_report_canteen_gradelevel"
+        model="sale.order"
+        string="Canteen Report (Grade Level)"
+        report_type="qweb-pdf"
+        name="canteen.sale_order_report_canteen_gradelevel"
+        file="canteen.sale_order_report_canteen_gradelevel"
+        menu="False"/>
+    
+    <report
+        id="action_sale_order_report_canteen_homeroom"
+        model="sale.order"
+        string="Canteen Report (Homeroom)"
+        report_type="qweb-pdf"
+        name="canteen.sale_order_report_canteen_homeroom"
+        file="canteen.sale_order_report_canteen_homeroom"
+        menu="False"/>
+</odoo>

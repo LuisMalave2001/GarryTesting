@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="adm_fields_settings_view_form" model="ir.ui.view">
+        <field name="name">adm.fields.settings.view.form</field>
+        <field name="model">adm.fields.settings</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="field_id" domain="[('model', '=', parent.relational_model)]"/>
+                        <field name="domain"/>
+                        <field name="relational_model" invisible="1"/>
+                    </group>
+                    <field name="child_ids" attrs="{'invisible': [('relational_model', '=', False)]}"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="adm_fields_settings_view_tree" model="ir.ui.view">
+        <field name="name">adm.fields.settings.view.tree</field>
+        <field name="model">adm.fields.settings</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="field_id"/>
+                <field name="domain"/>
+                <field name="child_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.admission</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Admission Data-String" string="Admission"
+                     data-key="adm">
+                    <div id="adm_setting">
+                        <h2>Admission</h2>
+                        <div class="row mt16 o_settings_container" id="admission_settings_container">
+                            <div class="col-12 col-md-6 o_settings_container">
+                                <div class="o_setting_right_pane">
+                                    <label for="adm_current_school_year"/>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="adm_current_school_year"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2>Application</h2>
+                        <div class="row mt16 o_settings_container" id="adm_settins_container">
+                            <div class="col-12 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <label for="adm_application_required_field_ids"/>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="adm_application_required_field_ids"
+                                                   class="o_light_label"
+                                                   options="{'no_open': 0}"
+                                                   style="width: 100%"
+                                                   domain="[('id', 'not in', adm_application_optional_field_ids)]">
+                                                <tree>
+                                                    <field name="name"/>
+                                                    <field name="field_id" />
+                                                    <field name="domain"/>
+                                                    <field name="child_ids" widget="many2many_tags"/>
+                                                </tree>
+                                                <form>
+                                                    <group>
+                                                        <field name="field_id" domain="[('model', '=', 'adm.application')]"/>
+                                                        <field name="domain"/>
+                                                        <field name="relational_model" invisible="1"/>
+                                                    </group>
+                                                    <field name="child_ids" attrs="{'invisible': [('relational_model', '=', False)]}"/>
+                                                </form>
+                                            </field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <label for="adm_application_optional_field_ids"/>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="adm_application_optional_field_ids"
+                                                   class="o_light_label"
+                                                   options="{'no_open': 0}"
+                                                   style="width: 100%"
+                                                   domain="[('id', 'not in', adm_application_required_field_ids)]">
+                                                <tree>
+                                                    <field name="name"/>
+                                                    <field name="field_id" />
+                                                    <field name="domain"/>
+                                                    <field name="child_ids" widget="many2many_tags"/>
+                                                </tree>
+                                                <form>
+                                                    <group>
+                                                        <field name="field_id" domain="[('model', '=', 'adm.application')]"/>
+                                                        <field name="domain"/>
+                                                        <field name="relational_model" invisible="1"/>
+                                                    </group>
+                                                    <field name="child_ids" attrs="{'invisible': [('relational_model', '=', False)]}"/>
+                                                </form>
+                                            </field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="adm_settings_action" model="ir.actions.act_window">
+        <field name="name">adm.settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'adm'}</field>
+    </record>
+
+</odoo>

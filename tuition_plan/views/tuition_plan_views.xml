@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tuition_plan_view_tree" model="ir.ui.view">
+        <field name="name">tuition.plan.view.tree</field>
+        <field name="model">tuition.plan</field>
+        <field name="arch" type="xml">
+            <tree string="Tuition Plans">
+                <field name="name"/>
+                <field name="default"/>
+                <field name="period_date_from"/>
+                <field name="period_date_to"/>
+                <field name="grade_level_ids" widget="many2many_tags"/>
+                <field name="category_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tuition_plan_view_form" model="ir.ui.view">
+        <field name="name">tuition.plan.view.form</field>
+        <field name="model">tuition.plan</field>
+        <field name="arch" type="xml">
+            <form string="Tuition Plan">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_report" type="object" class="oe_stat_button" icon="fa-line-chart" string="Forecast"
+                            attrs="{'invisible': [('report_ids','=',[])]}"/>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name"/></h1>
+                        <div name="options" groups="base.group_user">
+                            <div>
+                                <field name="default"/>
+                                <label for="default"/>
+                            </div>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="id" invisible="1"/>
+                            <field name="active" invisible="1"/>
+                            <field name="report_ids" invisible="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="period_type"/>
+                            <field name="reference_date" attrs="{'invisible': [('period_type','=','manual')], 'required': [('period_type','!=','manual')]}"/>
+                            <label for="period_date_from" string="Period"/>
+                            <div>
+                                <field name="period_date_from" class="oe_inline" attrs="{'readonly': [('period_type','!=','manual')]}" force_save="1"/>
+                                - <field name="period_date_to" class="oe_inline" attrs="{'readonly': [('period_type','!=','manual')]}" force_save="1"/>
+                            </div>
+                            <field name="first_charge_date"/>
+                            <field name="override_installment_dates"/>
+                            <label for="payment_term_id" options="{'no_create_edit': 1, 'no_create':1}"/>
+                            <div class="d-flex">
+                                <field name="payment_term_id" placeholder="Terms" options="{'no_create_edit': 1}"/>
+                                <span class="o_form_label mx-3 oe_edit_only" attrs="{'invisible': [('payment_term_id','!=',False)]}"> or </span>
+                                <field name="first_due_date" placeholder="Date" attrs="{'required': [('payment_term_id','=',False)], 'invisible': [('payment_term_id','!=',False)]}"/>
+                            </div>
+                            <field name="use_student_payment_term"/>
+                        </group>
+                        <group>
+                            <field name="grade_level_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_create':1}"/>
+                            <field name="category_id" options="{'no_create_edit': 1, 'no_create':1}"/>
+                            <field name="apply_for_status"/>
+                            <field name="automation"/>
+                            <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="products" string="Products">
+                            <div class="alert alert-info" role="alert" attrs="{'invisible': [('id','!=',False)]}">
+                                <span class="fa fa-info"/>
+                                Kindly save the record first before you can edit the products
+                            </div>
+                            <field name="product_ids" attrs="{'readonly': [('id','=',False)]}">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="category_id"/>
+                                    <field name="type"/>
+                                    <field name="amount"/>
+                                    <field name="analytic_account_id" groups="analytic.group_analytic_accounting"
+                                           attrs="{'column_invisible': [('parent.automation', 'not in', ['draft_invoice','posted_invoice'])]}"/>
+                                    <field name="installment_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_create':1}"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="product_id" options="{'no_create_edit': 1, 'no_create':1}"/>
+                                        <field name="category_id"/>
+                                        <field name="type"/>
+                                        <field name="amount"/>
+                                        <field name="installment2_ids" widget="many2many_checkboxes" string="Installments"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page name="discounts" string="Discounts">
+                            <group string="Multi-child Discounts">
+                                <field name="discount_product_id" attrs="{'required': [('discount_ids','!=',[])]}"/>
+                                <field name="discount_ids" string="Discounts">
+                                    <tree editable="bottom" default_order="category_id">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name"/>
+                                        <field name="category_id" options="{'no_create_edit': 1, 'no_create':1}"/>
+                                        <field name="percentage"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page name="students" string="Students">
+                            <group>
+                                <field name="partner_ids" nolabel="1" options="{'no_create_edit': 1, 'no_create':1}"/>
+                            </group>
+                            <group string="Auto Assigned" attrs="{'invisible': [('default_partner_ids','=',[])]}">
+                                <field name="default_partner_ids" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page name="installment_dates" string="Installment Dates" attrs="{'invisible': [('override_installment_dates','=',False)]}">
+                            <div class="alert alert-info" role="alert" attrs="{'invisible': [('id','!=',False)]}">
+                                <span class="fa fa-info"/>
+                                Kindly save the record first before you can edit the installment dates
+                            </div>
+                            <field name="installment_ids" attrs="{'readonly': [('id','=',False)]}">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tuition_plan_view_search" model="ir.ui.view">
+        <field name="name">tuition.plan.view.search</field>
+        <field name="model">tuition.plan</field>
+        <field name="arch" type="xml">
+            <search string="Search Tuition Plans">
+                <field name="name"/>
+                <field name="category_id"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Category" name="group_by_category" domain="[]" context="{'group_by':'category_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="tuition_plan_action" model="ir.actions.act_window">
+        <field name="name">Tuition Plans</field>
+        <field name="res_model">tuition.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="tuition_plan_menu"
+        name="Tuition Plans"
+        action="tuition_plan_action"
+        parent="sale.menu_sale_config"
+        sequence="20"/>
+</odoo>

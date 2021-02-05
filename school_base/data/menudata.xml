@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<odoo>
+    <record model="ir.actions.act_window" id="action_school_configuration_years">
+        <field name="name">School years</field>
+        <field name="res_model">school_base.school_year</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_grades">
+        <field name="name">School grade levels</field>
+        <field name="res_model">school_base.grade_level</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_codes">
+        <field name="name">School code</field>
+        <field name="res_model">school_base.school_code</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_district_codes">
+        <field name="name">District codes</field>
+        <field name="res_model">school_base.district_code</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_services">
+        <field name="name">Services</field>
+        <field name="res_model">school_base.service</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_placement">
+        <field name="name">Placements</field>
+        <field name="res_model">school_base.placement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_withdraw_reason">
+        <field name="name">Withdraw Reasons</field>
+        <field name="res_model">school_base.withdraw_reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_status">
+        <field name="name">Status</field>
+        <field name="res_model">school_base.enrollment.status</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_sub_status">
+        <field name="name">Sub Status</field>
+        <field name="res_model">school_base.enrollment.sub_status</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_medical_allergy">
+        <field name="name">Medical Allergies</field>
+        <field name="res_model">school_base.medical_allergy</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_medical_condition">
+        <field name="name">Medical Condition</field>
+        <field name="res_model">school_base.medical_condition</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_medical_medication">
+        <field name="name">Medications</field>
+        <field name="res_model">school_base.medical_medication</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_relationship_type">
+        <field name="name">Relationship Types</field>
+        <field name="res_model">school_base.relationship_type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_relationship">
+        <field name="name">Relationships</field>
+        <field name="res_model">school_base.relationship</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_marital_status">
+        <field name="name">Marital Status</field>
+        <field name="res_model">school_base.marital_status</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_gender">
+        <field name="name">Gender</field>
+        <field name="res_model">school_base.gender</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_school_configuration_grade_level_types">
+        <field name="name">Grade level types</field>
+        <field name="res_model">school_base.grade_level.type</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="school_configuration_menu" name="School Configurations"/>
+
+    <menuitem id="school_configuration_menu_year" action="action_school_configuration_years"
+              name="School years" parent="school_configuration_menu" sequence="1"/>
+
+    <menuitem id="school_configuration_menu_grades" action="action_school_configuration_grades"
+              name="School grades" parent="school_configuration_menu" sequence="2"/>
+
+    <menuitem id="school_configuration_menu_codes" action="action_school_configuration_codes"
+              name="School code" parent="school_configuration_menu" sequence="3"/>
+
+    <menuitem id="school_configuration_menu_district_code" action="action_school_configuration_district_codes"
+              name="District code" parent="school_configuration_menu" sequence="4"/>
+
+    <menuitem id="school_configuration_menu_services" action="action_school_configuration_services"
+              name="Services" parent="school_configuration_menu"/>
+
+    <!--Configuration -->
+    <menuitem id="school_configuration_menu_configurations" sequence="5"
+              parent="school_configuration_menu" name="Configurations" />
+
+    <!-- Menu interior del configuration -->
+    <menuitem id="adm_menu_placement"
+              parent="school_configuration_menu_configurations" name="Placements"
+              action="action_school_configuration_placement"/>
+
+    <menuitem id="adm_menu_withdraw_reason"
+              parent="school_configuration_menu_configurations" name="Withdraw Reasons"
+              action="action_school_configuration_withdraw_reason"/>
+
+    <menuitem id="adm_menu_status"
+              parent="school_configuration_menu_configurations" name="Status"
+              action="action_school_configuration_status"/>
+
+    <menuitem id="adm_menu_sub_status"
+              parent="school_configuration_menu_configurations" name="Sub Status"
+              action="action_school_configuration_sub_status"/>
+
+    <menuitem id="adm_menu_medical_allergy"
+              parent="school_configuration_menu_configurations" name="Medical Allergy"
+              action="action_school_configuration_medical_allergy"/>
+
+    <menuitem id="adm_menu_medical_condition"
+              parent="school_configuration_menu_configurations" name="Medical Condition"
+              action="action_school_configuration_medical_condition"/>
+
+    <menuitem id="adm_menu_medical_medication"
+              parent="school_configuration_menu_configurations" name="Medical Medication"
+              action="action_school_configuration_medical_medication"/>
+
+    <menuitem id="adm_menu_relationship"
+              parent="school_configuration_menu_configurations" name="Relationships"
+              action="action_school_configuration_relationship"/>
+
+    <menuitem id="adm_menu_relationship_type"
+              parent="school_configuration_menu_configurations" name="Relationship Type"
+              action="action_school_configuration_relationship_type"/>
+
+    <menuitem id="adm_menu_marital_status"
+              parent="school_configuration_menu_configurations" name="Marital Status"
+              action="action_school_configuration_marital_status"/>
+      
+    <menuitem id="school_configuration_menu_grade_level_types" action="action_school_configuration_grade_level_types"
+              name="Grade level types" parent="school_configuration_menu_configurations"/>
+
+    <menuitem id="adm_menu_gender"
+              parent="school_configuration_menu_configurations" name="Gender"
+              action="action_school_configuration_gender"/>
+</odoo>

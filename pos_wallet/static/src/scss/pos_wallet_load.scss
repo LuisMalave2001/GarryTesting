@@ -1,0 +1,15 @@
+.o_pos_wallet {
+    &_load {
+        &_pad {
+            padding-top: 1em;
+        }
+
+        &_button {
+            @at-root button#{&} {
+                padding: 1rem;
+                font-weight: bold;
+            }
+        }
+    }
+
+}

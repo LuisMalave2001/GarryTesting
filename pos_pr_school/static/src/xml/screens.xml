@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="templates">
+
+    <t t-inherit="pos_pr.PosPRScreenLeftSide" t-inherit-mode="extension">
+        <xpath expr="//tr[hasclass('invoice-list__column-names')]/th[2]" position="after">
+            <th>Student</th>
+            <th>Family</th>
+        </xpath>
+    </t>
+
+    <t t-inherit="pos_pr.PosPRScreenInvoiceListRow" t-inherit-mode="extension">
+        <xpath expr="//td[hasclass('js-partner-id')]" position="after">
+            <td class="js-student-id"><t t-if="props.invoice.student_id" t-esc="props.invoice.student_id.name"/></td>
+            <td class="js-family-id"><t t-if="props.invoice.family_id" t-esc="props.invoice.family_id.name"/></td>
+        </xpath>
+    </t>
+
+    <t t-inherit="pos_pr.PosPRScreen" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('button-payment-dashboard')]/button[1]" position="after">
+            <div t-if="state.partner.person_type === 'student' " class="invoice-address-select">
+                <label><strong>Invoice Address:</strong></label>
+                <br/>
+                <select class="form-select" t-on-change="selectInvoiceAddress"
+                               t-ref="selectInvoiceAddressRef">
+                    <option t-foreach="invoiceAddressList" t-as="invoiceAddress" t-att-value="invoiceAddress.id"
+                            t-key="'invoiceAddressSelect-'+invoiceAddress.id">
+                        <t t-if="invoiceAddress_first">
+                            <t t-esc="invoiceAddress.name" selected="selected"/>
+                        </t>
+                        <t t-else="">
+                            <t t-esc="invoiceAddress.name"/>
+                        </t>
+                    </option>
+                </select>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-payment-register')]" position="inside">
+            <div class="toggle-screen-filter-group">
+                <PosPRScreenFilter t-if="state.showScreen"
+                                   studentList="studentList"
+                                   invoiceAddressList="invoicesPartnerList"
+                                   posPrState="state"
+                                   posPrSchoolState="schoolState"
+                                   t-transition="animate"/>
+                <div class="toggle-screen-filter-button toggle-screen-filter-button--hide"
+                     t-on-click="toggleFilter">Filters</div>
+            </div>
+        </xpath>
+    </t>
+
+    <!-- Filter :P -->
+    <div owl="1" t-name="PosPRScreenFilter" class="invoice-filter-screen">
+        <h2>Students</h2>
+        <table class="partner-filter-list">
+            <tbody>
+                <tr t-foreach="props.studentList" t-as="student">
+                    <td>
+                        <input type="checkbox"
+                               t-on-input="toggleStudentFilter(student.id)"
+                               t-attf-id="student-filter-{{student.id}}"
+                               t-att-checked="props.posPrSchoolState.filterStudentsIds.indexOf(student.id) !== -1"
+                               name="studentIdsFilter"/>
+                    </td>
+                    <td>
+                        <label t-attf-for="student-filter-{{student.id}}"><t t-esc="student.name"/></label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Invoice Address</h2>
+        <table class="partner-filter-list">
+            <tbody>
+                <tr t-foreach="props.invoiceAddressList" t-as="invoiceAddress">
+                    <td>
+                        <input type="checkbox"
+                               t-on-input="togglePartnerFilter(invoiceAddress.id)"
+                               t-attf-id="partner-filter-{{invoiceAddress.id}}"
+                               t-att-checked="props.posPrSchoolState.filterPartnerIds.indexOf(invoiceAddress.id) !== -1"
+                               name="partnerIdsFilter"/>
+                    </td>
+                    <td>
+                        <label t-attf-for="partner-filter-{{invoiceAddress.id}}"><t
+                                t-esc="invoiceAddress.name"/></label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <t t-inherit="pos_pr.InvoicePaymentReceipt" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('page-breakable-block')][1]/div[hasclass('row')][3]" position="after">
+            <div class="row">
+                <div class="col-3 h6 text-right"><strong>Family</strong></div>
+                <div class="col-3 h6"><t t-if="invoice.family_id" t-esc="invoice.family_id.name"/></div>
+                <div class="col-3 h6 text-right"><strong>Student</strong></div>
+                <div class="col-3 h6"><t t-if="invoice.student_id" t-esc="invoice.student_id.name"/></div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

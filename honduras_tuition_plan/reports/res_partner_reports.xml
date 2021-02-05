@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paper_format_collectionstub" model="report.paperformat">
+        <field name="name">Collection Stub Paper Format</field>
+        <field name="format">Letter</field>
+        <field name="default" eval="False"/>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">4</field>
+        <field name="margin_bottom">4</field>
+        <field name="margin_left">1</field>
+        <field name="margin_right">1</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">2</field>
+        <field name="dpi">110</field>
+    </record>
+
+    <record id="paper_format_collectionstub2" model="report.paperformat">
+        <field name="name">Collection Stub Paper Format (Small)</field>
+        <field name="format">custom</field>
+        <field name="page_height">93</field>
+        <field name="page_width">216</field>
+        <field name="default" eval="False"/>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">4</field>
+        <field name="margin_bottom">4</field>
+        <field name="margin_left">1</field>
+        <field name="margin_right">1</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">2</field>
+        <field name="dpi">110</field>
+    </record>
+
+    <report
+        id="action_res_partner_report_collectionstub"
+        model="res.partner"
+        string="Collection Stub (Letter)"
+        report_type="qweb-pdf"
+        name="honduras_tuition_plan.res_partner_report_collectionstub"
+        file="honduras_tuition_plan.res_partner_report_collectionstub"
+        paperformat="paper_format_collectionstub"/>
+    
+    <report
+        id="action_res_partner_report_collectionstub2"
+        model="res.partner"
+        string="Collection Stub (8.5 x 3.667)"
+        report_type="qweb-pdf"
+        name="honduras_tuition_plan.res_partner_report_collectionstub2"
+        file="honduras_tuition_plan.res_partner_report_collectionstub2"
+        paperformat="paper_format_collectionstub2"/>
+</odoo>

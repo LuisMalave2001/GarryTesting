@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="category_default_wallets" model="product.category">
+            <field name="name">Default wallet category</field>
+        </record>
+
+        <record id="product_default_wallets" model="product.product">
+            <field name="name">Default wallet product</field>
+            <field name="categ_id" ref="wallet.category_default_wallets"/>
+            <field name="company_id" eval="False"/>
+            <field name="type">service</field>
+            <field name="list_price">0.0</field>
+            <field name="taxes_id" eval="False"/>
+            <field name="supplier_taxes_id" eval="False"/>
+            <field name="wallet_ok" eval="True"/>
+        </record>
+
+        <record id="default_wallet_category" model="wallet.category">
+            <field name="name">Default wallet</field>
+            <field name="category_id" ref="wallet.category_default_wallets"/>
+            <field name="product_id" ref="wallet.product_default_wallets"/>
+        </record>
+    </data>
+</odoo>

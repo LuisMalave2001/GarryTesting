@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="school_account_reports_backend" inherit_id="web.assets_backend" active="True">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/school_account_reports/static/src/js/account_reports.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

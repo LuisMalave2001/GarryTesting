@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="res_partner_action_report_statement"
+        model="res.partner"
+        string="Statement"
+        report_type="qweb-pdf"
+        name="school_statement_report.res_partner_report_statement"
+        file="school_statement_report.res_partner_report_statement"
+    />
+</odoo>

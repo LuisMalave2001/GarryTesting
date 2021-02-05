@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="point_of_sale.report_invoice" model="ir.ui.view">
+        <field name="inherit_id" ref="honduras_invoices.report_invoice_with_copy"/>
+    </record>
+    <record id="point_of_sale.pos_invoice_report"  model="ir.actions.report">
+        <field name="paperformat_id" ref="honduras_invoices.honduras_paper_format"/>
+    </record>
+</odoo>

@@ -1,0 +1,43 @@
+.pos_wallet {
+    @import "layouts/forms";
+    @import "layouts/wallet_tree_layout";
+    @import "components/buttons";
+
+    @import "components/separators";
+    @import "components/wallet_payment_card";
+    @import "components/wallet_list";
+    @import "components/popup";
+    @import "components/table";
+
+    @import "pages/popup_form";
+    @import "pages/load_wallet_receipt";
+
+    &.payment-wallet-dashboard {
+
+        position: absolute;
+        background: #f0eeee;
+        width: 100%;
+	    transition: all 0.3s ease-out;
+        overflow: hidden;
+        bottom: 0;
+        height: 100%;
+
+        &--hidden {
+            height: 150px;
+        }
+
+    }
+}
+
+.content-row-hidden {
+    height: 0 !important;
+}
+
+.content-row {
+    transition: height 1s;
+    transition-timing-function: ease;
+}
+
+.client-name.font-small-client-title {
+    font-size: 24px !important;
+}

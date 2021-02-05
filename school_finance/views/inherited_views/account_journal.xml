@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_journal_template_id_form" model="ir.ui.view">
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="template_id"/>
+                <field name="template_with_payment_id"/>
+            </field>
+            <field name="company_id" position="after">
+                <field name="facts_id_int"/>
+                <field name="is_invoice"/>
+            </field>
+        </field>
+    </record>
+</odoo>

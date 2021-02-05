@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="pos_pr.view_move_form_surcharge" model="ir.ui.view">
+        <field name="name">pos_pr.view.move.form.surcharge</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <group name="sale_info_group" position="inside">
+                <field name="surcharge_amount" groups="base.group_no_one"/>
+            </group>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_pr_invoice_payment_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">pos_pr.invoice.payment.report.wizard.view.form</field>
+        <field name="model">pos_pr.invoice.payment.report.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="POS Invoice Payment Form">
+                <group>
+                    <field name="pos_session_id"/>
+                    <field name="grouping"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="pos_pr_invoice_payment_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Payment Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pos_pr.invoice.payment.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="pos_pr_invoice_payment_report_wizard_menu"
+        name="Payment Details"
+        action="pos_pr_invoice_payment_report_wizard_action"
+        parent="point_of_sale.menu_point_rep"
+        sequence="10"/>
+</odoo>

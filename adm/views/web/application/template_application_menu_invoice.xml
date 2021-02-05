@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="adm.template_application_menu_invoice">
+        <t t-call="website.layout">
+            <t t-set="title">Invoice</t>
+            <link rel="stylesheet" href="/adm/static/src/css/form_application.css"/>
+            <div class="oe_struture"/>
+            <div class="oe_struture">
+                <t t-call="adm.template_application_menu"/>
+                <div class="container-fluid d-flex p-4">
+
+                    <main class="col container ">
+                        <section class="card mb-2">
+                            <section class="card-header">
+                                <i class="h1">Factura</i>
+                            </section>
+
+                            <section class="card-body">
+                                <div class="container">
+                                    <t t-if="application_id.status_id.type_id !='return' and application_id.status_id.type_id != 'started'">
+                                        <div class="alert alert-warning mt-3" role="alert">
+                                            La solicitud ya fue enviada.
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <style>
+                                            sup {
+                                            vertical-align: super;
+                                            font-size: smaller;
+                                            }
+                                            .noIcon{
+                                            list-style-type: none;
+                                            }
+                                            #nav-itm-invoice a{
+                                            color: rgba(0, 0, 0, 0.9) !important;
+                                            }
+                                        </style>
+                                        <div class="h4 mt-3">
+                                            <t t-if="sales_order_info != '-1'">
+                                                <iframe id="inlineFrameExample"
+                                                        width="100%"
+                                                        height="500"
+                                                        t-att-src="sales_order_info">
+                                                </iframe>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="alert alert-success" role="alert">
+                                                    El pago ya ha sido realizado.
+                                                </div>
+                                            </t>
+
+                                        </div>
+                                    </t>
+                                </div>
+                            </section>
+                        </section>
+                    </main>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

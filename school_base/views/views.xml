@@ -1,0 +1,120 @@
+<odoo>
+
+    <record model="ir.ui.view" id="view_school_year_tree">
+        <field name="name">School year</field>
+        <field name="model">school_base.school_year</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget='handle'/>
+                <field name="name"/>
+                <field name="facts_id"/>
+                <field name="school_code_id"/>
+                <field name="active_admissions"/>
+                <field name="district_code_id" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_school_code_tree">
+        <field name="name">School codes</field>
+        <field name="model">school_base.school_code</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget='handle'/>
+                <field name="name"/>
+                <field name="district_code_id"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_grade_level_tree">
+        <field name="name">Grade level</field>
+        <field name="model">school_base.grade_level</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget='handle'/>
+                <field name="name"/>
+                <field name="user_type_id"/>
+                <field name="capacity"/>
+                <field name="school_code_id"/>
+                <field name="district_code_id" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_district_level_tree">
+        <field name="name">District Code</field>
+        <field name="model">school_base.district_code</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget='handle'/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_service_tree">
+        <field name="name">Services</field>
+        <field name="model">school_base.service</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_sub_status_tree">
+        <field name="name">Substatus</field>
+        <field name="model">school_base.enrollment.sub_status</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="id"/>
+                <field name="status_id"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="school_base_grade_level_type_view_tree" model="ir.ui.view">
+        <field name="name">school.base.grade.level.type.view.tree</field>
+        <field name="model">school_base.grade_level.type</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="type"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_relationship_tree" model="ir.ui.view">
+        <field name="name">Relationship</field>
+        <field name="model">school_base.relationship</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="family_id"/>
+                <field name="partner_1"/>
+                <field name="partner_2"/>
+                <field name="relationship_type_id"/>
+                <field name="is_emergency_contact"/>
+                <field name="custody"/>
+                <field name="correspondence"/>
+                <field name="grand_parent"/>
+                <field name="grade_related"/>
+                <field name="family_portal"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_relationship_type_tree" model="ir.ui.view">
+        <field name="name">Relationship</field>
+        <field name="model">school_base.relationship_type</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="key"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+
+    <t t-name="PaymentRegister.components.invoiceList">
+        <div class="invoice-list__container">
+            <div class="touch-scrollable scrollable-y" style="height: 100%; margin-bottom:">
+                <table class="invoice-list ">
+                    <thead>
+                        <tr class="invoice-list__column-names">
+                            <th>Name</th>
+                            <th>Customer</th>
+                            <th>Student</th>
+                            <th>Family</th>
+<!--                            <th>Journal</th>-->
+<!--                            <th>Invoice date</th>-->
+                            <th>Due date</th>
+                            <th>Amount total</th>
+                            <th>Amount due</th>
+                            <th>Expected final due</th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice-list__content"/>
+                </table>
+            </div>
+            <section class="invoice-list__message oe_hidden">
+                <h1 class="js_message_content "></h1>
+            </section>
+        </div>
+    </t>
+
+    <t t-name="PaymentRegister.components.invoiceList.row">
+        <tr class="invoice-list__content-line" t-att-data-id="widget.invoice_id.id">
+            <td class="js-name"><t t-esc="widget.invoice_id.name"/></td>
+            <td class="js-partner-id"><t t-esc="widget.invoice_id.partner_id.name"/></td>
+            <td class="js-partner-id"><t t-if="widget.invoice_id.student_id" t-esc="widget.invoice_id.student_id.name"/></td>
+            <td class="js-partner-id"><t t-if="widget.invoice_id.family_id" t-esc="widget.invoice_id.family_id.name"/></td>
+<!--            <td class="js-invoice-journal"><t t-esc="widget.invoice_id.journal_id.name"/></td>-->
+<!--            <td class="js-invoice-date"><t t-esc="widget.invoice_id.invoice_date"/></td>-->
+            <td class="js-invoice-date_due"><t t-esc="widget.invoice_id.invoice_date_due"/></td>
+            <td class="js-amount-total"><t t-esc="widget.invoice_id.amount_total"/></td>
+            <td class="js-amount-residual"><t t-esc="widget.format_currency(widget.invoice_id.amount_residual)"/></td>
+            <td class="js-expected-final-due"><t t-esc="widget.format_currency(widget.invoice_id.expected_final_due)"/></td>
+        </tr>
+    </t>
+
+</templates>

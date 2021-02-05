@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="templates">
+
+    <t t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+        <xpath expr="//ul[hasclass('info-list')]" position="inside">
+            <li t-if="line.get_analytic_account().id">
+                <strong>Analytic account: </strong>
+                <span class="js_analytic_account"><t t-esc="line.get_analytic_account().name"/></span>
+            </li>
+        </xpath>
+    </t>
+
+    <t t-inherit="point_of_sale.ProductScreenWidget" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('subwindow-container-fix', 'pads')]" position="inside">
+            <div class="placeholder-SelectAnalyticWidget"/>
+        </xpath>
+    </t>
+
+    <t t-name="SelectAnalyticWidget">
+        <div class="SelectAnalyticWidget-pad">
+            <div class="analyticAccount-select-group">
+                <label for="analyticSelectionWidget-select"><strong>Analytic</strong></label>
+                <select id="analyticSelectionWidget-select">
+                    <option t-foreach="widget.pos.db.analytic_accounts || []" t-as="analytic_account"
+                            t-att-value="analytic_account.id"><t
+                            t-esc="analytic_account.name"/></option>
+                </select>
+            </div>
+            <div class="analyticAccount-button">
+                <button class="js_set_analytic">Set</button>
+            </div>
+        </div>
+    </t>
+
+</templates>

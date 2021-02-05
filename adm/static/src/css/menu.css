@@ -1,0 +1,26 @@
+.nav-link{
+    color: white !important;
+    font-weight: 500px;
+}
+
+
+.nav-item-menu{
+    color: white !important;
+    padding-bottom: 5px;
+}
+.nav-item-menu{
+  color: #666;
+  display:inline-block;
+  margin:5px;
+  text-transform:uppercase;
+ }
+.nav-item-menu:after {
+  display:block;
+  content: '';
+  border-bottom: solid 4px #808284;
+  transform: scaleX(0);
+  transition: transform 300ms ease-in-out;
+}
+.nav-item-menu:hover:after {
+ transform: scaleX(1);
+}

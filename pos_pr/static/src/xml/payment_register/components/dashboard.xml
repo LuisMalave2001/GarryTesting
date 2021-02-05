@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+
+    <t t-name="PaymentRegister.components.Dashboard">
+        <section>
+            <table class="payment-global-details">
+                <tr>
+                    <td>Total:</td>
+                    <td><span class="js-global-total-paid"/></td>
+                </tr>
+                <tr>
+                    <td>Total due:</td>
+                    <td><span class="js-global-total-due"/></td>
+                </tr>
+
+                <tr class="js_hidden_when_surcharge">
+                    <td colspan="2"><h1>You have no surcharges</h1></td>
+                </tr>
+                <tr class="js-global-total-surcharge js_hidden_when_no_surcharge">
+                    <td>Surcharge:</td>
+                    <td>
+                        <div class="input-group">
+                            <label class="input-addon"><t t-esc="widget.pos.currency.symbol"/></label>
+                            <input class="form-select js-global-total-surcharge-input"
+                                   readonly="readonly"
+                                   type="text" disabled="disabled"/>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="js-global-free-surcharge js_hidden_when_no_surcharge">
+                    <td>
+                        Free of surcharge:
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <label class="input-addon"><t t-esc="widget.pos.currency.symbol"/></label>
+                            <input class="form-select js-global-free-surcharge-input" type="text"/>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <hr/>
+            <div class="invoice-details-contents"/>
+        </section>
+    </t>
+
+
+    <t t-name="PaymentRegister.components.Dashboard.InvoiceDetails">
+        <section class="invoice-details">
+            <t t-if="widget.invoice">
+                <t t-set="ID_ARRAY_POS" t-value="0"/>
+                <t t-set="NAME_ARRAY_POS" t-value="1"/>
+                <h2><t t-esc="widget.invoice.name"/></h2>
+                <div class="invoice-details-box clearfix">
+
+                    <!--Left dashboard-->
+                    <div class="invoice-details-left">
+                        <div class="invoice-detail">
+                            <span class="label">Amount total</span>
+                            <t t-if="widget.invoice.amount_total">
+                                <span class="detail invoice-total">
+                                    <t t-esc="widget.format_currency(widget.invoice.amount_total)"/>
+                                </span>
+                            </t>
+                            <t t-if="!widget.invoice.amount_total">
+                                <span class="detail invoice-total empty">N/A</span>
+                            </t>
+                        </div>
+
+                        <div class="invoice-detail">
+                            <span class="label">Amount due</span>
+                            <t t-if="widget.invoice.amount_residual">
+                                <span class="detail invoice-residual">
+                                    <t t-esc="widget.format_currency(widget.invoice.amount_residual)" widget="monetary"/>
+                                </span>
+                            </t>
+                            <t t-if="!widget.invoice.amount_residual">
+                                <span class="detail invoice-residual empty">N/A</span>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!-- Right dashboard -->
+                    <div class="invoice-details-right">
+                        <div class="invoice-detail">
+                            <span class="label">Invoice date</span>
+                            <t t-if="widget.invoice.invoice_date">
+                                <span class="detail invoice-date">
+                                    <t t-esc="widget.invoice.invoice_date"/>
+                                </span>
+                            </t>
+                            <t t-if="!widget.invoice.invoice_date">
+                                <span class="detail invoice-invoice_date empty">N/A</span>
+                            </t>
+                        </div>
+
+                        <div class="invoice-detail">
+                            <span class="label">Journal</span>
+                            <t t-if="widget.invoice.journal_id">
+                                <span class="detail invoice-journal">
+                                    <t t-esc="widget.pos.db.journal_by_id[widget.invoice.journal_id.id].display_name"/>
+                                </span>
+                            </t>
+                            <t t-if="!widget.invoice.journal_id">
+                                <span class="detail invoice-journal empty">N/A</span>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </section>
+    </t>
+
+    <t t-name="PaymentRegister.components.Dashboard.PaymentList">
+        <section>
+            <h2>Payments</h2>
+            <table class="payment-method-list">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+<!--                        <th>invoice paid amount</th>-->
+<!--                        <th>session total paid</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="widget.pos.payment_methods" t-as="payment_method_id">
+                        <tr class="input-payment-method" t-att-data-id="payment_method_id.id">
+                            <td><t t-esc="payment_method_id.name"/></td>
+                            <td>
+                                <div class="input-group">
+                                    <label class="input-addon"><t t-esc="widget.pos.currency.symbol"/></label>
+                                    <input class="form-select numeric-input input-payment-method" type="text" step="0.01" mix="0"
+                                           t-att-value="widget.payment_methods_amounts[payment_method_id.id]"/>
+                                </div>
+                            </td>
+<!--                            <td/>-->
+<!--                            <td>-->
+<!--                                <t t-if="invoice" t-esc="widget.getParent().invoice.payment_amount"/>-->
+<!--                                <t t-else="">0</t>-->
+<!--                            </td>-->
+                        </tr>
+                    </t>
+                    <tr class="input-payment-discount">
+                        <td>
+                            <span>Discount type</span>
+                        </td>
+                        <td colspan="3">
+                            <div class="input-group">
+                                <label for="discount_type-radio-fixed">Fixed</label>
+                                <input type="radio" class="js_radio_discount_type" checked="checked" id="discount_type-radio-fixed"
+                                       name="discount_type" value="fixed"/>
+                                <label for="discount_type-radio-percentage">Percentage</label>
+                                <input type="radio" class="js_radio_discount_type" id="discount_type-radio-percentage"
+                                       data-target="#discount_percentage-group" name="discount_type" value="percentage"/>
+                            </div>
+                            <div class="input-group oe_hidden" id="discount_percentage-group">
+                                <label class="input-addon" for="discount_percentage">%</label>
+                                <input class="form-select" id="discount_percentage" name="discount_percentage"
+                                       data-target="input[name='input_payment_discount']"
+                                       type="text" step="0.01" mix="0"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="input-payment-discount">
+                        <td>
+                            <span>Discount</span>
+                        </td>
+                        <td colspan="3">
+                            <div class="input-group">
+                                <label class="input-addon"><t t-esc="widget.pos.currency.symbol"/></label>
+                                <input class="form-select numeric-input" type="text" step="0.01" mix="0"
+                                       name="input_payment_discount"/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </t>
+
+</templates>

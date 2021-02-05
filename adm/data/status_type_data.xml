@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="type_stage" model="adm.inquiry.status.type">
+        <field name="name">Stage</field>
+    </record>
+    <record id="type_done" model="adm.inquiry.status.type">
+        <field name="name">Done</field>
+    </record>
+    <record id="type_cancelled" model="adm.inquiry.status.type">
+        <field name="name">Cancelled</field>
+    </record>
+
+</odoo>

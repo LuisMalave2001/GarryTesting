@@ -1,0 +1,35 @@
+.pos {
+    .pos-payment-register {
+        @import "components/texts";
+        @import "components/forms";
+        @import "components/sizes";
+
+        @import "layout/header";
+        @import "layout/screen";
+        @import "layout/invoice-list";
+        @import "layout/payment-dashboard";
+        @import "layout/filter_screen";
+
+        @for $i from 1 through 100 {
+            .w-#{$i} {
+               width: percentage($i);
+            }
+        }
+
+    }
+
+    .invoice-receipt-screen, .surcharge-receipt-screen {
+        @import "components/receipt";
+        @import "components/invoice_payment_list";
+    }
+
+    .pos-payment-receipt-container{
+        @import "components/markwater";
+    }
+
+
+    .pos-bootstrap {
+        @import '../../lib/bootstrap/css/bootstrap';
+    }
+
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">School finance Configuration</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="School Finance Data-String" string="School Finance" data-key="school_finance">
+                    <div id="school_finance_invoicing">
+                        <h2>Invoicing</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <label for="receivable_behaviour"/>
+                                    <div class="text-muted">
+                                        Where the system should get the receivable account for invoices sale orders
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="receivable_behaviour" class="o_light_label" widget="radio"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="school_finance_settings_action" model="ir.actions.act_window">
+        <field name="name">School finance Configuration</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form" />
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'school_finance'}</field>
+    </record>
+
+    <!--     <menuitem id="school_finance_settings_menu" name="Configuration"
+              parent="main_school_finance_menu" action="school_finance_settings_action"/> -->
+</odoo>

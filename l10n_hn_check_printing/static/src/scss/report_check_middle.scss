@@ -1,0 +1,91 @@
+.ckhn_middle_page {
+    .ckhn_stub_1 {
+        top: 0.0in;
+    }
+    .ckhn_check {
+        top: 2.0in;
+    }
+    .ckhn_stub_2 {
+        top: 5.85in;
+    }
+
+    .ckhn_stub_1 .ckhn_date {
+        top: 0.73in;
+        left: 4.72in;
+        width: 1.47in;
+        text-align: left;
+    }
+    .ckhn_stub_1 .ckhn_payee_name {
+        top: 1.22in;
+        left: 3.5in;
+        width: 2.0in;
+        text-align: left;
+    }
+    .ckhn_stub_1 .ckhn_amount {
+        top: 1.22in;
+        left: 6.45in;
+        width: 1.0in;
+        text-align: left;
+    }
+    .ckhn_stub_1 .ckhn_memo {
+        top: 1.56in;
+        left: 4.0in;
+        width: 1.47in;
+        text-align: left;
+    }
+    
+    .ckhn_check .ckhn_date {
+        top: 0.75in;
+        left: 4.0in;
+        width: 1.47in;
+        text-align: left;
+    }
+    .ckhn_check .ckhn_payee_name {
+        top: 1.38in;
+        left: 0.5in;
+        width: 3.5in;
+        text-align: left;
+    }
+    .ckhn_check .ckhn_amount {
+        top: 1.35in;
+        left: 6.5in;
+        width: 1.07in;
+        text-align: left;
+    }
+    .ckhn_check .ckhn_amount_in_word {
+        top: 1.87in;
+        left: 0.5in;
+        width: 6.0in;
+        text-align: left;
+        font-weight: bold;
+        overflow: hidden;
+    }
+    
+    .ckhn_stub_2 .ckhn_sequence {
+        top: 0.1in;
+        left: 6.5in;
+        width: 1.0in;
+        text-align: left;
+    }
+    .ckhn_stub_2 .ckhn_memo {
+        top: 0.65in;
+        left: 0.0in;
+        width: 8.0in;
+        text-align: center;
+    }
+    .ckhn_stub_2 .ckhn_move_lines {
+        top: 1.7in;
+        left: 0.5in;
+        width: 7.5in;
+    }
+    .ckhn_stub_2 .ckhn_total_debit {
+        top: 3.53in;
+        left: 5.6in;
+        width: 0.5in;
+    }
+    .ckhn_stub_2 .ckhn_total_credit {
+        top: 3.53in;
+        left: 6.7in;
+        width: 0.5in;
+    }
+}

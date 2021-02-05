@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="load_wallet_reports">
+
+    <t t-name="LoadWalletReports.Receipt.Screen">
+        <div class='receipt-screen screen'>
+            <div class='screen-content'>
+                <div class='top-content'>
+                    <span class='button next'>
+                        Next Order
+                        <i class='fa fa-angle-double-right'></i>
+                    </span>
+                </div>
+                <div class="centered-content">
+                    <div class="button print"><i class='fa fa-print'></i> Print Receipt</div>
+                    <div class="touch-scrollable scrollable-y pos_wallet" ref="pos_wallet_load_receipt">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="LoadWalletReport.Receipt.Document.header">
+        <div class="header">
+            <div class="logo-container"><img
+                    t-att-src='widget.pos.company_logo_base64'
+                    alt="Logo"/></div>
+            <div class="company-info">
+                <table>
+                    <tr>
+                        <td colspan="2">
+                            <h3><t t-esc="widget.pos.company.name"/></h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><t t-esc="widget.pos.getFormattedCompanyAddress()"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>VAT: </b><t t-esc="widget.pos.company.vat"/></td>
+                        <td><b>Email: </b><t t-esc="widget.pos.company.email"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Phone: </b><t t-esc="widget.pos.company.phone"/></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="payment-info text-center" style="word-wrap: break-word;">
+                <h3>Wallet load receipt</h3>
+                <p><t t-esc="widget.wallet_load.name"/></p>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="LoadWalletReport.Receipt.Document">
+        <div class="page-load-wallet-receipt">
+            <t t-call="LoadWalletReport.Receipt.Document.header"/>
+            <div class="wallet-info">
+                <h3 class="text-center">Customer: <t t-esc="widget.partner.name"/></h3>
+                <h3 class="text-center">Wallet load: <t t-esc="widget.wallet.name"/></h3>
+                <table>
+                    <tr>
+                        <td class="label">Amount total</td>
+                        <td><t t-esc="widget.format_currency(widget.wallet_load.amount)"/></td>
+                        <td class="label">Before wallet load</td>
+                        <td><t t-esc="widget.format_currency(widget.wallet_load.amount)"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Invoice Date</td>
+                        <td><t t-esc="widget.wallet_load.date"/></td>
+                        <td class="label">After wallet load</td>
+                        <td><t t-esc="widget.format_currency(widget.wallet_load.amount)"/></td>
+                    </tr>
+                </table>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center">Payment Date</th>
+                        <th class="text-center">Payment method</th>
+                        <th class="text-center">Amount paid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center"><t t-esc="widget.wallet_load.date"/></td>
+                        <td class="text-center"><t t-esc="widget.payment_method.name"/></td>
+                        <td class="text-center"><t t-esc="widget.format_currency(widget.wallet_load.amount)"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="footer clearfix">
+                <div class="stamp-space">
+                    <div>sign and casher stamp</div>
+                </div>
+                <div class="sign-space"></div>
+            </div>
+        </div>
+    </t>
+
+</templates>

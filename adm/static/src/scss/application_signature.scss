@@ -1,0 +1,112 @@
+$aisj_color: rgb(26, 24, 60);
+
+.o_adm_aisj {
+    &_parent_profile {
+        border: 1px solid black;
+        height: 100%;
+        overflow: visible;
+
+        &_title {
+            float: left;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            overflow: visible;
+        }
+
+        &_image {
+            float: left;
+            overflow: visible;
+
+            img {
+                z-index: 100;
+                width: 260px;
+            }
+        }
+
+        &_title_text {
+            float: left;
+            color: white;
+            font-size: 48px;
+        }
+
+        &_background {
+            height: 240px;
+            overflow: hidden;
+            float: left;
+            width: 100%;
+
+            &_purple {
+                background: $aisj_color;
+                float: left;
+                width: 50%;
+                height: 100%;
+            }
+
+            &_image {
+                position: relative;
+                float: left;
+                width: 50%;
+                height: 100%;
+
+                &_separator {
+                    width: 50%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 100;
+                    background: $aisj_color;
+                    background: linear-gradient(74deg, rgba(26, 24, 60, 1) 0%, rgba(26, 24, 60, 1) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+                }
+
+                img {
+                    width: 80.7%;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                }
+            }
+
+            border-bottom: 16px solid #a51f2c;
+            z-index: -1000;
+            text-align: right;
+        }
+    }
+
+    &_header {
+        overflow: visible;
+        float: left;
+        clear: both;
+        width: 100%;
+        position: relative;
+    }
+
+    &_parent_profile_image {
+        float: left;
+    }
+
+    .o_adm_aisj_parent_profile_title {
+        float: left;
+    }
+
+    &_body {
+        float: left;
+        clear: both;
+        margin-top: 80px;
+        padding: 30px;
+
+        &_statement {
+            text-align: center;
+            background: #e3e3e3;
+            padding: 20px;
+            margin-bottom: 32px;
+        }
+    }
+    &_footer_line {
+        height: 20px;
+        width: 100%;
+        background: $aisj_color;
+    }
+}

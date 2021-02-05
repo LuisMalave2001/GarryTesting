@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="res_partner_report_collectionstub_half" name="Collection Stub Half">
+        <style>
+            .table-sm th, .table-sm td { padding: 0 !important; }
+        </style>
+        <h4 align="center" style="color:blue;"><strong t-esc="o.company_id.name.upper()"/></h4>
+        <div class="row">
+            <div class="col-8">
+                Tel: <span t-field="o.company_id.phone"/><br/>
+                AÑO ESCOLAR: <span>
+                    <t t-esc="details[o.id]['start_year']"/>
+                    <t t-if="details[o.id]['start_year'] != details[o.id]['end_year']">
+                        - <t t-esc="details[o.id]['end_year']"/>
+                    </t>
+                </span>
+            </div>
+            <div class="col-4">
+                <img t-att-src="image_data_uri(o.company_id.logo)" style="max-height:90px;" alt="Logo"/>
+            </div>
+        </div>
+        <table class="table table-sm table-borderless mb0">
+            <tr>
+                <td width="1" style="white-space:nowrap;">Código Alumno:</td>
+                <td colspan="3" style="color:darkred;"><strong t-field="o.facts_id"/></td>
+            </tr>
+            <tr>
+                <td>Nombre:</td>
+                <td colspan="3"><span t-field="o.first_name"/> <span t-field="o.middle_name"/> <span t-field="o.last_name"/></td>
+            </tr>
+            <tr>
+                <td>Grado:</td>
+                <td colspan="3"><span t-field="o.grade_level_id.name"/></td>
+            </tr>
+            <tr>
+                <td>Mes:</td>
+                <td><strong t-esc="months[installment[0]]"/></td>
+                <td width="1" style="white-space:nowrap;">Mensualidad Lps:</td>
+                <td class="text-right border-bottom border-dark" style="color:red;">
+                    <span t-esc="installment[1]" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"/>
+                <td style="padding-left:2rem !important;">Total:</td>
+                <td class="text-right" style="color:red;">
+                    <span t-esc="installment[1]" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"/>
+                <td>Recargo:</td>
+                <td/>
+            </tr>
+            <tr>
+                <td colspan="2"/>
+                <td>Total a Pagar:</td>
+                <td/>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-center" style="padding-top:0.5rem !important;" t-esc="mode"/>
+            </tr>
+        </table>
+        <div class="w-75 border border-dark rounded text-center mx-auto mt0" style="padding-top:0.2rem;padding-bottom:0.2rem;">
+            <strong><i>
+                Aquí  construimos el camino<br/>
+                de tus sueños...
+            </i></strong>
+        </div>
+    </template>
+
+    <template id="res_partner_report_collectionstub" name="Collection Stub">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="months" t-value="{
+                        1: 'ENERO',
+                        2: 'FEBRERO',
+                        3: 'MARZO',
+                        4: 'ABRIL',
+                        5: 'MAYO',
+                        6: 'JUNIO',
+                        7: 'JULIO',
+                        8: 'AGOSTO',
+                        9: 'SEPTIEMBRE',
+                        10: 'OCTUBRE',
+                        11: 'NOVIEMBRE',
+                        12: 'DICIEMBRE',
+                    }"/>
+                    <t t-foreach="details[o.id]['installments']" t-as="installment">
+                        <div class="row" style="page-break-inside:avoid;">
+                            <div class="col-6 border-right" style="padding-right:1rem;">
+                                <t t-call="honduras_tuition_plan.res_partner_report_collectionstub_half">
+                                    <t t-set="mode" t-value="'CONTABILIDAD'"/>
+                                </t>
+                            </div>
+                            <div class="col-6 border-left" style="padding-left:1rem;">
+                                <t t-call="honduras_tuition_plan.res_partner_report_collectionstub_half">
+                                    <t t-set="mode" t-value="'BANCO'"/>
+                                </t>
+                            </div> 
+                        </div>
+                        <hr/>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="res_partner_report_collectionstub2" name="Collection Stub">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="months" t-value="{
+                        1: 'ENERO',
+                        2: 'FEBRERO',
+                        3: 'MARZO',
+                        4: 'ABRIL',
+                        5: 'MAYO',
+                        6: 'JUNIO',
+                        7: 'JULIO',
+                        8: 'AGOSTO',
+                        9: 'SEPTIEMBRE',
+                        10: 'OCTUBRE',
+                        11: 'NOVIEMBRE',
+                        12: 'DICIEMBRE',
+                    }"/>
+                    <t t-foreach="details[o.id]['installments']" t-as="installment">
+                        <div class="row" style="page-break-inside:avoid;">
+                            <div class="col-6 border-right" style="padding-right:1rem;">
+                                <t t-call="honduras_tuition_plan.res_partner_report_collectionstub_half">
+                                    <t t-set="mode" t-value="'CONTABILIDAD'"/>
+                                </t>
+                            </div>
+                            <div class="col-6 border-left" style="padding-left:1rem;">
+                                <t t-call="honduras_tuition_plan.res_partner_report_collectionstub_half">
+                                    <t t-set="mode" t-value="'BANCO'"/>
+                                </t>
+                            </div> 
+                        </div>
+                        <hr/>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

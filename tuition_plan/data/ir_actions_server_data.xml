@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tuition_plan_action_server_generate_forecast" model="ir.actions.server">
+        <field name="name">Generate Forecast</field>
+        <field name="model_id" ref="model_tuition_plan"/>
+        <field name="binding_model_id" ref="model_tuition_plan"/>
+        <field name="state">code</field>
+        <field name="code">records.action_generate_forecast()</field>
+    </record>
+</odoo>

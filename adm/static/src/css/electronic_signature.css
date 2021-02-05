@@ -1,0 +1,35 @@
+
+
+.wrapper {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#signature-pad{
+    border: solid 1px #550404;
+    border-radius: 5px;
+}
+
+img {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#img_footer{
+    vertical-align: middle;
+    border-style: none;
+    position: relative;
+}
+
+.signature-pad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width:400px;
+  height:200px;
+}

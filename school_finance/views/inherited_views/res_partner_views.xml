@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="view_res_partner_school_finance_form_view">
+        <field name="name">view.res.partner.school.finance.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Family Invoices" readonly="0" force_save="1" attrs="{'invisible': ['|', ('is_family', '=', False), ('is_company', '=', True)]}">
+                    <field name="family_invoice_ids" widget="many2many" domain="[('type', 'in', ('out_invoice', 'out_refund','out_receipt'))]">
+                        <tree string="Invoices" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" banner_route="/account/account_invoice_onboarding" js_class="account_tree">
+                            <field name="name" />
+                            <field name="partner_id" invisible="1" />
+                            <field name="invoice_source_email" invisible="1" />
+                            <field name="invoice_partner_icon" string=" " />
+                            <field name="invoice_partner_display_name" groups="base.group_user" string="Customer" />
+                            <field name="invoice_date" optional="show" string="Invoice Date" />
+                            <field name="invoice_origin" optional="show" string="Source Document" />
+                            <field name="invoice_payment_ref" optional="hide" />
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" optional="show" />
+                            <field name="invoice_date_due" optional="show" />
+                            <field name="amount_untaxed_signed" string="Tax Excluded" optional="show" />
+                            <field name="amount_tax_signed" string="Tax" optional="hide" />
+                            <field name="amount_total_signed" string="Total" optional="show" />
+                            <field name="amount_residual_signed" string="Amount Due" optional="show" />
+                            <field name="currency_id" invisible="1" />
+                            <field name="company_currency_id" invisible="1" />
+                            <field name="state" optional="show" />
+                            <field name="invoice_payment_state" optional="show" />
+                        </tree>
+                    </field>
+                    <group class="oe_subtotal_footer" string="Totals">
+                        <field name="family_invoice_amount_untaxed_signed" string="Tax Excluded"/>
+                        <field name="family_invoice_amount_tax_signed" string="Tax"/>
+                        <field name="family_invoice_amount_total_signed" class="oe_subtotal_footer_separator" string="Total"/>
+                        <field name="family_invoice_amount_residual_signed" class="oe_subtotal_footer_separator" string="Amount Due"/>
+                    </group>
+                </page>
+                <page string="Invoices" attrs="{'invisible': [('person_type', '=', 'student')]}">
+                    <field name="sc_invoice_ids" readonly="0" force_save="1" context="{'default_type': 'out_invoice', 'default_partner_id': active_id}" domain="[('type', 'in', ('out_invoice', 'out_refund','out_receipt'))]">
+                        <tree string="Invoices" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" banner_route="/account/account_invoice_onboarding" js_class="account_tree">
+                            <field name="name" />
+                            <field name="partner_id" invisible="1" />
+                            <field name="invoice_source_email" invisible="1" />
+                            <field name="invoice_partner_icon" string=" " />
+                            <field name="invoice_partner_display_name" groups="base.group_user" string="Customer" />
+                            <field name="invoice_date" optional="show" string="Invoice Date" />
+                            <field name="invoice_origin" optional="show" string="Source Document" />
+                            <field name="invoice_payment_ref" optional="hide" />
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" optional="show" />
+                            <field name="invoice_date_due" optional="show" />
+                            <field name="amount_untaxed_signed" string="Tax Excluded" optional="show" />
+                            <field name="amount_tax_signed" string="Tax" optional="hide" />
+                            <field name="amount_total_signed" string="Total" optional="show" />
+                            <field name="amount_residual_signed" string="Amount Due" optional="show" />
+                            <field name="currency_id" invisible="1" />
+                            <field name="company_currency_id" invisible="1" />
+                            <field name="state" optional="show" />
+                            <field name="invoice_payment_state" optional="show" />
+                        </tree>
+                    </field>
+                    <group class="oe_subtotal_footer" string="Totals">
+                        <field name="invoice_amount_untaxed_signed" string="Tax Excluded"/>
+                        <field name="invoice_amount_tax_signed" string="Tax"/>
+                        <field name="invoice_amount_total_signed" class="oe_subtotal_footer_separator" string="Total"/>
+                        <field name="invoice_amount_residual_signed" class="oe_subtotal_footer_separator" string="Amount Due"/>
+                    </group>
+                </page>
+
+                <page string="Invoices" attrs="{'invisible': [('person_type', '!=', 'student')]}">
+                    <field name="student_invoice_ids" readonly="0" force_save="1" context="{'default_type': 'out_invoice', 'default_partner_id': active_id}" domain="[('type', 'in', ('out_invoice', 'out_refund','out_receipt'))]">
+                        <tree string="Invoices" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" banner_route="/account/account_invoice_onboarding" js_class="account_tree">
+                            <field name="name" />
+                            <field name="partner_id" invisible="1" />
+                            <field name="invoice_source_email" invisible="1" />
+                            <field name="invoice_partner_icon" string=" " />
+                            <field name="invoice_partner_display_name" groups="base.group_user" string="Customer" />
+                            <field name="invoice_date" optional="show" string="Invoice Date" />
+                            <field name="invoice_origin" optional="show" string="Source Document" />
+                            <field name="invoice_payment_ref" optional="hide" />
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" optional="show" />
+                            <field name="invoice_date_due" optional="show" />
+                            <field name="amount_untaxed_signed" string="Tax Excluded" optional="show" />
+                            <field name="amount_tax_signed" string="Tax" optional="hide" />
+                            <field name="amount_total_signed" string="Total" optional="show" />
+                            <field name="amount_residual_signed" string="Amount Due" optional="show" />
+                            <field name="currency_id" invisible="1" />
+                            <field name="company_currency_id" invisible="1" />
+                            <field name="state" optional="show" />
+                            <field name="invoice_payment_state" optional="show" />
+                        </tree>
+                    </field>
+                    <group class="oe_subtotal_footer" string="Totals">
+                        <field name="student_invoice_amount_untaxed_signed" string="Tax Excluded"/>
+                        <field name="student_invoice_amount_tax_signed" string="Tax"/>
+                        <field name="student_invoice_amount_total_signed" class="oe_subtotal_footer_separator" string="Total"/>
+                        <field name="student_invoice_amount_residual_signed" class="oe_subtotal_footer_separator" string="Amount Due"/>
+                    </group>
+                </page>
+
+                <page string="Finance" attrs="{'invisible': [ '|', '&amp;', ('is_company', '=', False), ('person_type', '=', False), '&amp;', ('is_company', '=', True), ('is_family', '=', False)]}">
+                    <group attrs="{'invisible': ['|', ('is_family', '=', False), ('is_company', '=', False)]}">
+                        <!--                     <group invisible="1">  -->
+                        <field name="id" invisible="1" />
+                        <field name="financial_res_ids" widget="many2many_checkboxes" domain='["&amp;", "|", ("id", "=", id), ("id", "in", member_ids), ("person_type", "!=", "student")]' />
+                        <field name="invoice_address_id" domain='["&amp;", "|", ("id", "=", id), ("id", "in", member_ids), ("person_type", "!=", "student")]' attrs="{'required': [('is_family','=',True)]}"/>
+                    </group>
+                    <group attrs="{'invisible': ['|', ('person_type', '!=', 'student'), ('is_company', '=', True)]}">
+                        <field name="family_res_finance_ids" domain='[("family_id", "in", family_ids)]'>
+                            <tree editable="bottom">
+                                <field name="family_id" />
+                                <field name="category_id" />
+                                <field name="percent" />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

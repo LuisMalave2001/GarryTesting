@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_mail_template_statement" model="mail.template">
+        <field name="name">Contact: Statement</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="subject">Statement</field>
+        <field name="body_html" type="html">
+            <div>
+                Dear Parent,<br/>
+                <br/>
+                Please find attached a copy of your statement.<br/>
+                <br/>
+                Thank you.<br/>
+            </div>
+        </field>
+        <field name="partner_to">${object.id}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="report_template" ref="school_statement_report.res_partner_action_report_statement"/>
+        <field name="report_name">Statement</field>
+    </record>
+</odoo>

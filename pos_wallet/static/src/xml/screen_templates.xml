@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template">
+
+    <t t-inherit="point_of_sale.ProductScreenWidget" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('subwindow-container-fix', 'pads')]/*[1]" position="before">
+            <div class="placeholder-LoadWalletWidget"/>
+        </xpath>
+    </t>
+
+    <t t-name="LoadWalletPadWidget">
+        <div class="o_pos_wallet_load_pad">
+            <button class="o_pos_wallet_load_button">Load wallet</button>
+        </div>
+    </t>
+
+    <t t-name="PosWalletRow">
+        <tr t-attr-data-id="wallet.id">
+            <td class="js_wallet-name"><t t-esc="wallet.name"/></td>
+            <td class="js_wallet-amount"><t t-esc="wallet.amount"/></td>
+        </tr>
+    </t>
+
+    <t t-name="PosWalletLoadWalletForm">
+        <div role="dialog" class="modal-dialog">
+            <div class="popup popup-alert pos-bootstrap pos_wallet">
+                <form class="js_load_wallet_popup_form">
+                    <div class="js_load_wallet_owl_component"/>
+                </form>
+            </div>
+        </div>
+    </t>
+
+    <div owl="1" t-name="PosWalletLoadWalletComponent">
+        <p class="title">Load wallet</p>
+        <section class="body">
+            <div class="input-with-label">
+                <label>Choose your wallet</label>
+                <select class="form-select js_wallet_category" t-model="state.walletCategory">
+                    <t t-foreach="props.walletPopup.options.wallets" t-as="wallet" t-key="'option-walletPopup-categ-'+wallet.id">
+                        <option t-att-value="wallet.id"><t t-esc="wallet.name"/></option>
+                    </t>
+                </select>
+            </div>
+
+            <div class="input-with-label">
+                <label>Payment method</label>
+                <select class="form-select js_payment_method" t-model="state.paymentMethod" >
+                    <t t-foreach="props.pos.payment_methods" t-as="payment_method" t-key="'option-walletPopup-payment_method-'+payment_method.id">
+                        <option t-att-value="payment_method.id"><t t-esc="payment_method.name"/></option>
+                    </t>
+                </select>
+            </div>
+
+            <div class="input-with-label">
+                <label>Amount</label>
+                <input type="text" class="form-control wallet-amount js_wallet_amount"
+                       t-on-change="triggerInputAction"
+                       t-att-value="state.paymentAmount"
+                       t-ref="walletAmount" aria-label="Amount"/>
+            </div>
+
+        </section>
+        <div class="footer">
+            <button class="button cancel" type="button">Cancel</button>
+            <button class="confirm js_btn_submit_load_wallet"
+                    t-att-disabled="!formIsValid"
+                    type="submit">Load</button>
+        </div>
+    </div>
+
+    <t t-extend="PaymentScreen-Paymentlines">
+        <t t-jquery='.paymentlines-empty > .total' t-operation='replace'>
+            <div class='total'>
+                <t t-esc="widget.format_currency(order.get_total_with_tax() + order.get_rounding_applied() - order.get_wallet_payments_total())"/>
+            </div>
+        </t>
+    </t>
+
+</templates>

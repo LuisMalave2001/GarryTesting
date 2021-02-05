@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="adm.template_application_menu_upload_file_comun">
+        <t t-call="adm.template_application_form_commons">
+            <t t-set="head">
+                <!--<link rel="stylesheet" href="/adm/static/src/css/form_application_id..css"/>-->
+                <link rel="stylesheet" href="/adm/static/src/css/main.css"/>
+                <t t-call-assets="adm.assets_application_family_parents" defer_load="True"/>
+            </t>
+            <!--            <link rel="stylesheet" href="/adm/static/src/css/form_application.css"/>-->
+            <t t-set="title">Upload Documents</t>
+
+            <t t-set="url_prev" t-value="'/admission/applications/%s/medical-info' % application_id.id"/>
+            <t t-set="url_next" t-value="'/admission/applications/%s/signature' % application_id.id"/>
+
+            <div class="row" data-adm-model-fields="1" id="document_list">
+
+                <div class="col-12 text-center">
+                    <h1>Documents</h1>
+                </div>
+
+                <div class="col-12 col-md-6 form-group">
+                    <label for="immunization_history" class="label">Immunization History<span class="text-danger">
+                        *</span></label>
+                    <div class="form-upload">
+                        <label class="label-upload" for="immunization_history"><i
+                                class="fa fa-upload"></i></label>
+                        <input type="file" id="immunization_history"
+                               data-adm-field="immunization_history_attachment_id"
+                               data-adm-field-type="ATTACHMENT"/>
+                        <span class="js_input_file_label">
+                            <t t-if="application_id.immunization_history_attachment_id">
+                                <t t-esc="application_id.immunization_history_attachment_id.name"/>
+                            </t>
+                            <t t-else="">
+                                No file uploaded
+                            </t>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 form-group">
+                    <label for="report_cards" class="label">
+                        Report cards (3 previous years)<span class="text-danger"> *</span>
+                    </label>
+                    <div class="form-upload">
+                        <label class="label-upload" for="report_cards"><i
+                                class="fa fa-upload"></i></label>
+                        <input type="file" id="report_cards"
+                               data-adm-field="report_cards_attachment_id"
+                               data-adm-field-type="ATTACHMENT"/>
+                        <span class="js_input_file_label">
+                            <t t-if="application_id.report_cards_attachment_id">
+                                <t t-esc="application_id.report_cards_attachment_id.name"/>
+                            </t>
+                            <t t-else="">
+                                No file uploaded
+                            </t>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 form-group">
+                    <label for="previous_school_profile" class="label">
+                        Previous school profile with grading scale
+                    </label>
+                    <div class="form-upload">
+                        <label class="label-upload" for="previous_school_profile"><i
+                                class="fa fa-upload"></i></label>
+                        <input type="file" id="previous_school_profile"
+                               data-adm-field="previous_school_profile_attachment_id"
+                               data-adm-field-type="ATTACHMENT"/>
+                        <span class="js_input_file_label">
+                            <t t-if="application_id.previous_school_profile_attachment_id">
+                                <t t-esc="application_id.previous_school_profile_attachment_id.name"/>
+                            </t>
+                            <t t-else="">
+                                No file uploaded
+                            </t>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 form-group">
+                    <label for="standardized_tests" class="label">Standardized tests</label>
+                    <div class="form-upload">
+                        <label class="label-upload" for="standardized_tests"><i
+                                class="fa fa-upload"></i></label>
+                        <input type="file" id="standardized_tests"
+                               data-adm-field="standardized_tests_attachment_id"
+                               data-adm-field-type="ATTACHMENT"/>
+                        <span class="js_input_file_label">
+                            <t t-if="application_id.standardized_tests_attachment_id">
+                                <t t-esc="application_id.standardized_tests_attachment_id.name"/>
+                            </t>
+                            <t t-else="">
+                                No file uploaded
+                            </t>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 form-group">
+                    <label for="family_identification_document" class="label">
+                        Family ID (If Saudi)<span class="text-danger"> *</span>
+                    </label>
+                    <div class="form-upload">
+                        <label class="label-upload" for="family_identification_document"><i
+                                class="fa fa-upload"></i></label>
+                        <input type="file" id="family_identification_document"
+                               data-adm-field="family_identification_document_attachment_id"
+                               data-adm-field-type="ATTACHMENT"/>
+                        <span class="js_input_file_label">
+                            <t t-if="application_id.family_identification_document_attachment_id">
+                                <t t-esc="application_id.family_identification_document_attachment_id.name"/>
+                            </t>
+                            <t t-else="">
+                                No file uploaded
+                            </t>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 form-group">
+                    <label for="special_evaluation_report" class="label">
+                        Special evaluation report (if applicable)
+                    </label>
+                    <div class="form-upload">
+                        <label class="label-upload" for="special_evaluation_report"><i
+                                class="fa fa-upload"></i></label>
+                        <input type="file" id="special_evaluation_report"
+                               data-adm-field="special_evaluation_report_attachment_id"
+                               data-adm-field-type="ATTACHMENT"/>
+                        <span class="js_input_file_label">
+                            <t t-if="application_id.special_evaluation_report_attachment_id">
+                                <t t-esc="application_id.special_evaluation_report_attachment_id.name"/>
+                            </t>
+                            <t t-else="">
+                                No file uploaded
+                            </t>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 form-group">
+                    <label for="business_card" class="label">Business Card (Optional)</label>
+                    <div class="form-upload">
+                        <label class="label-upload" for="business_card"><i
+                                class="fa fa-upload"></i></label>
+                        <input type="file" id="business_card"
+                               data-adm-field="business_card_attachment_id"
+                               data-adm-field-type="ATTACHMENT"/>
+                        <span class="js_input_file_label">
+                            <t t-if="application_id.business_card_attachment_id">
+                                <t t-esc="application_id.business_card_attachment_id.name"/>
+                            </t>
+                            <t t-else="">
+                                No file uploaded
+                            </t>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

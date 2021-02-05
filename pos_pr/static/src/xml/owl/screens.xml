@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="templates">
+
+    <t owl="1" t-name="PosPRScreen">
+        <div class="pos-payment-register screen">
+            <!-- Header -->
+            <section class="top-content">
+                <span class="button back" style="display: inline-block; float: left; position: relative;">
+                    <i class="fa fa-angle-double-left"></i>
+                    Cancel
+                </span>
+
+                <span class="button payment_list" style="display: inline-block; float: left; position: relative;">
+                    Payment List
+                </span>
+                <div class="button-payment-dashboard">
+                    <button t-if="!surchargeAmount and !state.selectedInvoice.id" class="button highlight"
+                            t-on-click="applyGlobalPaymentsToInvoices">
+                        Apply amounts to invoices <i class="fa fa-angle-double-down"></i>
+                    </button>
+
+                    <!-- To integrate pos_pr_wallet we use this -->
+                    <t t-if="state.payWithWalletButton">
+                        <t t-if="state.selectedInvoice.id" t-component="state.payWithWalletButton" pos="props.pos"
+                           paymentRegister="props.paymentRegister"
+                           surchargeAmount="surchargeAmount"
+                           posPrState="state"/>
+                    </t>
+
+                    <button t-if="!surchargeAmount" class="button" t-on-click="validatePayments">
+                        Validate payments <i class="fa fa-angle-double-right"></i>
+                    </button>
+                    <button t-else="" class="button" t-on-click="validateSurchargePayments">
+                        Pay surcharge <i class="fa fa-angle-double-right"></i>
+                    </button>
+                </div>
+            </section>
+            <!-- Body -->
+            <section class="full-content">
+
+                <!-- Left -->
+                <PosPRScreenLeftSide
+                        pos="props.pos"
+                        paymentRegister="props.paymentRegister"
+                        partner="state.partner"
+                        invoiceList="filteredInvoiceList"
+                        posPrState="state"
+                        t-on-select-invoice="selectInvoice"
+                />
+
+                <!-- Right -->
+                <PosPRScreenRightSide pos="props.pos"
+                                      paymentRegister="props.paymentRegister"
+                                      changeAmount="changeAmount"
+                                      surchargeAmount="surchargeAmount"
+                                      posPrState="state"/>
+            </section>
+        </div>
+    </t>
+    <!-- Left Side Invoice Payment Register -->
+    <!-- Invoice List -->
+    <div owl="1" t-name="PosPRScreenLeftSide">
+        <section class="screen-left">
+            <div class="js_invoice_list_container h-100">
+                <div class="invoice-list__container">
+                    <div class="touch-scrollable scrollable-y" style="height: 100%; margin-bottom:">
+                        <table class="invoice-list ">
+                            <thead>
+                                <tr class="invoice-list__column-names">
+                                    <th>Name</th>
+                                    <th>Customer</th>
+                                    <th>Due date</th>
+                                    <th>Amount total</th>
+                                    <th>Amount due</th>
+                                    <th>Expected final due</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice-list__content">
+                                <t t-foreach="props.invoiceList" t-as="invoice" t-key="'invoice-list-'+invoice.id">
+                                    <PosPRScreenInvoiceListRow pos="props.pos"
+                                                               paymentRegister="props.paymentRegister"
+                                                               posPrState="props.posPrState"
+                                                               t-on-click="selectInvoice(invoice)"
+                                                               invoice="invoice"/>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <section class="invoice-list__message oe_hidden">
+                        <h1 class="js_message_content "></h1>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <tr owl="1" t-name="PosPRScreenInvoiceListRow"
+        t-attf-class="invoice-list__content-line {{ props.posPrState.selectedInvoice.id === props.invoice.id and 'invoice-list__content-line--selected' }}">
+        <td class="js-name"><t t-esc="props.invoice.name"/></td>
+        <td class="js-partner-id"><t t-esc="props.invoice.partner_id.name"/></td>
+        <td class="js-invoice-date_due"><t t-esc="props.invoice.invoice_date_due"/></td>
+        <td class="js-amount-total"><t t-esc="props.paymentRegister.format_currency(props.invoice.amount_total)"/></td>
+        <td class="js-amount-residual"><t
+                t-esc="props.paymentRegister.format_currency(props.invoice.amount_residual)"/></td>
+        <td class="js-expected-final-due"><t t-esc="props.paymentRegister.format_currency(expected_final_due)"/></td>
+    </tr>
+
+    <!-- Right Side Invoice Payment Register -->
+    <!-- Payment dashboard -->
+    <div owl="1" t-name="PosPRScreenRightSide">
+        <section class="screen-right touch-scrollable scrollable-y">
+            <PosPRGlobalPaymentDetails pos="props.pos" paymentRegister="props.paymentRegister"
+                                       surchargeAmount="props.surchargeAmount"
+                                       posPrState="props.posPrState"/>
+            <hr style="width: 100%;"/>
+            <t t-if="props.posPrState.selectedInvoice.id">
+                <PosPRInvoiceDetails pos="props.pos" paymentRegister="props.paymentRegister"
+                                     posPrState="props.posPrState"/>
+                <hr style="width: 100%;"/>
+            </t>
+            <PosPRPaymentList pos="props.pos" paymentRegister="props.paymentRegister" posPrState="props.posPrState"/>
+            <hr style="width: 100%;"/>
+            <h2>Change: <t t-esc="props.paymentRegister.format_currency(props.changeAmount)"/></h2>
+        </section>
+    </div>
+
+    <!-- Payment & Invoice Details -->
+    <table owl="1" t-name="PosPRGlobalPaymentDetails" class="payment-global-details">
+        <tr>
+            <td>Total:</td>
+            <td><span class="js-global-total-paid"/></td>
+        </tr>
+        <tr>
+            <td>Total due:</td>
+            <td><span class="js-global-total-due"/></td>
+        </tr>
+
+        <t t-if="!props.posPrState.selectedInvoice.id">
+            <tr t-if="!props.surchargeAmount">
+                <td colspan="2"><h1>You have no surcharges</h1></td>
+            </tr>
+            <t t-if="props.surchargeAmount">
+                <tr class="js-global-total-surcharge">
+                    <td>Surcharge:</td>
+                    <td>
+                        <div class="input-group">
+                            <label class="input-addon">
+                                <!--                                <t t-esc="widget.pos.currency.symbol"/>-->
+                            </label>
+                            <input class=" form-select w-100"
+                                   readonly="readonly"
+                                   t-att-value="props.paymentRegister.format_currency_no_symbol(computedSurcharge)"
+                                   type="text" disabled="disabled"/>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="js-global-free-surcharge js_hidden_when_no_surcharge">
+                    <td>
+                        Free of surcharge:
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <label class="input-addon">
+                                <!--                                <t t-esc="widget.pos.currency.symbol"/>-->
+                            </label>
+                            <input class=" form-select w-100" type="text"/>
+                        </div>
+                    </td>
+                </tr>
+            </t>
+        </t>
+    </table>
+    <table owl="1" t-name="PosPRInvoiceDetails" class="invoice-details">
+        <tr>
+            <td>
+                <h1><t t-esc="props.posPrState.selectedInvoice.name"/></h1>
+            </td>
+            <td class="js-more-detail" colspan="2">
+                <button type="button" t-on-click="toggleMoreDetails">
+                    <t t-if="!state.toggleDetails">
+                        <i class="fa fa-eye fa-hover-show"/>
+                        <i class="fa fa-eye-slash fa-hover-hidden"/>
+                    </t>
+                    <t t-else="">
+                        <i class="fa fa-eye"/>
+                    </t>
+                </button>
+            </td>
+            <td class="js-more-detail" colspan="3">
+                <button type="button" t-on-click="printInvoice">
+                    <i class="fa fa-print"/>
+                </button>
+            </td>
+        </tr>
+
+        <tr t-if="state.toggleDetails">
+            <td colspan="4">
+                <t t-esc="invoice_lines"/>
+                <hr style="width: 100%"/>
+                <table style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Label</th>
+                            <th>Qnty.</th>
+                            <th>Price Unit</th>
+                            <th>Disc.</th>
+                            <th>Taxes</th>
+                            <th>Amount subtotal</th>
+                            <th>Amount total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="props.posPrState.selectedInvoice.invoice_lines"
+                           t-as="invoiceLine" t-key="'invoice-line-detail-'+invoiceLine.id">
+                            <tr>
+                                <td><t t-esc="invoiceLine.product_id.name"/></td>
+                                <td><t t-esc="invoiceLine.name"/></td>
+                                <td><t t-esc="invoiceLine.quantity"/></td>
+                                <td><t t-esc="invoiceLine.price_unit"/></td>
+                                <td><t t-esc="invoiceLine.discount"/></td>
+                                <td><t t-esc="invoiceLine.taxes_joined"/></td>
+                                <td><t t-esc="invoiceLine.price_subtotal"/></td>
+                                <td><t t-esc="invoiceLine.price_total"/></td>
+                            </tr>
+                        </t>
+<!--                        <t t-foreach=""-->
+                    </tbody>
+                </table>
+                <hr style="width: 100%"/>
+            </td>
+        </tr>
+
+        <tr>
+            <!-- Amount total -->
+            <td>
+                <strong>Amount Total: </strong>
+            </td>
+            <td>
+                <t t-esc="props.paymentRegister.format_currency(props.posPrState.selectedInvoice.amount_total)"/>
+            </td>
+
+            <!-- Invoice Date -->
+            <td>
+                <strong>Invoice date: </strong>
+            </td>
+            <td>
+                <t t-esc="props.posPrState.selectedInvoice.invoice_date || 'No date'"/>
+            </td>
+        </tr>
+
+        <tr>
+            <!-- Amount Due -->
+            <td>
+                <strong>Amount due: </strong>
+            </td>
+            <td>
+                <t t-esc="props.paymentRegister.format_currency(props.posPrState.selectedInvoice.amount_residual)"/>
+            </td>
+
+            <!-- Journal -->
+            <td>
+                <strong>Journal: </strong>
+            </td>
+            <td>
+                <t t-esc="props.posPrState.selectedInvoice.journal_id &amp;&amp; props.posPrState.selectedInvoice.journal_id.name"/>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Invoice Payment List -->
+    <section owl="1" t-name="PosPRPaymentList" class="invoice-payment-section">
+        <h2>Payments</h2>
+        <table class="payment-method-list">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <!--                        <th>invoice paid amount</th>-->
+                    <!--                        <th>session total paid</th>-->
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="props.pos.payment_methods" t-as="payment_method"
+                   t-key="'PosPRPaymentListRow-'+payment_method.id">
+                    <PosPRPaymentListRow paymentMethod="payment_method" pos="props.pos"
+                                         paymentRegister="props.paymentRegister" posPrState="props.posPrState"/>
+                </t>
+
+            </tbody>
+            <PosPRDiscountRow t-if="props.posPrState.selectedInvoice.id" pos="props.pos"
+                              paymentRegister="props.paymentRegister" posPrState="props.posPrState"/>
+        </table>
+    </section>
+
+    <tr owl="1" t-name="PosPRPaymentListRow" class="input-payment-method">
+        <td>
+            <t t-esc="props.paymentMethod.name"/>
+        </td>
+        <td>
+            <div class="input-group">
+                <label class="input-addon">
+                    <t t-esc="props.pos.currency.symbol"/>
+                </label>
+                <t t-if="props.posPrState.selectedInvoice.id">
+                    <input class=" form-select w-100"
+                           t-on-input="updateInvoicePaymentAmount"
+                           t-att-value="props.posPrState.invoicePayments[props.posPrState.selectedInvoice.id][props.paymentMethod.id]"
+                           type="text"/>
+                </t>
+                <t t-else="">
+                    <input class=" form-select w-100"
+                           t-on-input="updateGlobalPaymentAmount"
+                           t-att-value="props.posPrState.globalInvoicesPayment[props.paymentMethod.id]"
+                           type="text"/>
+                </t>
+            </div>
+        </td>
+        <!--                            <td/>-->
+        <!--                            <td>-->
+        <!--                                <t t-if="invoice" t-esc="widget.getParent().invoice.payment_amount"/>-->
+        <!--                                <t t-else="">0</t>-->
+        <!--                            </td>-->
+    </tr>
+
+    <tfoot owl="1" t-name="PosPRDiscountRow">
+        <tr class="input-payment-discount">
+            <td>
+                <span>Discount type</span>
+            </td>
+            <td>
+                <div class="input-group">
+                    <label for="discount_type-radio-fixed">Fixed</label>
+                    <input type="radio" class="js_radio_discount_type" checked="checked"
+                           id="discount_type-radio-fixed"
+                           name="discount_type" value="fixed"/>
+                    <!--                    <label for="discount_type-radio-percentage">Percentage</label>-->
+                    <!--                    <input type="radio" class="js_radio_discount_type" id="discount_type-radio-percentage"-->
+                    <!--                           data-target="#discount_percentage-group" name="discount_type" value="percentage"/>-->
+                </div>
+                <div class="input-group oe_hidden" id="discount_percentage-group">
+                    <label class="input-addon" for="discount_percentage">%</label>
+                    <input class=" form-select w-100" id="discount_percentage" name="discount_percentage"
+                           data-target="input[name='input_payment_discount']"
+                           type="text" step="0.01" mix="0"/>
+                </div>
+            </td>
+        </tr>
+        <tr class="input-payment-discount">
+            <td>
+                <span>Discount</span>
+            </td>
+            <td>
+                <div class="input-group">
+                    <label class="input-addon">
+                        <!--                        <t t-esc="widget.pos.currency.symbol"/>-->
+                    </label>
+                    <input class=" form-select w-100 numeric-input"
+                           type="text" step="0.01" mix="0"
+                           name="input_payment_discount"
+                           t-att-value="props.posPrState.selectedInvoice.discount_amount"
+                           t-on-input="updateDiscount"
+                    />
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+
+    <!-- ==================== -->
+    <!-- INVOICE PAYMENT LIST -->
+    <!-- ==================== -->
+    <t owl="1" t-name="InvoicePaymentListScreen">
+        <div class="pos-payment-register screen">
+            <!-- Header -->
+            <div class="screen-content">
+                <section class="top-content">
+                    <span class="button back" style="display: inline-block;float: left;">
+                        <i class="fa fa-angle-double-left"></i>
+                        Cancel
+                    </span>
+                </section>
+                <section class="full-content">
+                    <div class="window">
+                        <section class="subwindow">
+                            <div class="subwindow-container">
+                                <div class="subwindow-container-fix touch-scrollable scrollable-y"
+                                     style="height: 664px;">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h2>Payments</h2>
+                                            <div class="tabs">
+                                                <t t-foreach="state.paymentGroupList"
+                                                   t-as="paymentGroup" t-key="'payment-group-'+paymentGroup.name">
+                                                    <InvoicePaymentGroupRow
+                                                            t-on-cancel_payments="onCancelPayment"
+                                                            t-on-print_payment_group="onPrintPaymentGroup"
+                                                            paymentGroup="paymentGroup"/>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+
+    <div class="tab" owl="1" t-name="InvoicePaymentGroupRow">
+        <input type="checkbox" t-attf-id="chck--{{state.paymentGroup.name}}"/>
+        <label class="tab-label" t-attf-for="chck--{{state.paymentGroup.name}}">
+            <t t-esc="state.paymentGroup.name"/>
+            <button t-on-click="print" type="button" class="o_pos_pr_payment_actions--print">Print</button>
+            <button t-if="!arePaymentCancelled" t-on-click="onCancelAllPayments" type="button"
+                    class="o_pos_pr_payment_actions--cancel">Cancel payments</button>
+        </label>
+        <div class="tab-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Method</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="state.paymentGroup.invoice_payment_ids"
+                       t-as="payment" t-key="'invoice-payment-'+payment.name">
+                        <InvoicePaymentRow t-on-cancel_payment="onCancelPayment" payment="payment"/>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <tr owl="1" t-name="InvoicePaymentRow"
+        t-attf-class="{{ props.payment.state === 'cancelled' and 'o_pos_pr_payment_row__cancelled' }}">
+        <td>
+            <t t-esc="props.payment.name"/>
+        </td>
+        <td>
+            <t t-esc="props.payment.payment_method_id.name"/>
+        </td>
+        <td>
+            <t t-esc="props.payment.payment_amount + props.payment.discount_amount"/>
+        </td>
+        <td>
+            <t t-esc="props.payment.date"/>
+        </td>
+        <td class="o_pos_pr_payment_actions">
+            <button t-if="props.payment.state !== 'cancelled'" t-on-click="cancel" type="button"
+                    class="o_pos_pr_payment_actions--cancel">
+                Cancel
+            </button>
+        </td>
+    </tr>
+
+</templates>

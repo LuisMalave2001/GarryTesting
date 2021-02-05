@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_account_bnk_stmt_cashbox" model="ir.ui.view">
+        <field name="name">account.bnk_stmt_cashbox.form</field>
+        <field name="model">account.bank.statement.cashbox</field>
+        <field name="inherit_id" ref="account.view_account_bnk_stmt_cashbox"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='cashbox_lines_ids']/tree/field[1]" position="before">
+                <field name="payment_method_id"/>
+            </xpath>
+
+            <xpath expr="//field[@name='cashbox_lines_ids']/tree" position="inside">
+                <field name="cashbox_currency_id" invisible="1"/>
+                <field name="converted_amount" widget="monetary"
+                        options="{'currency_field': 'cashbox_currency_id'}"
+                        optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

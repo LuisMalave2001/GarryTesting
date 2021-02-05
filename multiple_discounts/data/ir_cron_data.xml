@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="multiple_discounts_discount_cron" model="ir.cron">
+        <field name="name">Notify Discounts Misconfigurations</field>
+        <field name="model_id" ref="model_multiple_discounts_discount"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="state">code</field>
+        <field name="code">
+no_product = env["multiple_discounts.discount"]
+archived_product = env["multiple_discounts.discount"]
+discounts = env["multiple_discounts.discount"].search([])
+for discount in discounts:
+    if not discount.product_id:
+        no_product |= discount
+        continue
+    if not discount.product_id.active:
+        archived_product |= discount
+        continue
+
+if no_product or archived_product:
+    env.ref("multiple_discounts.multiple_discounts_discount_mail_template").with_context(
+        no_product=no_product,
+        archived_product=archived_product
+    ).send_mail(discounts[0].id)
+        </field>
+    </record>
+</odoo>

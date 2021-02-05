@@ -1,0 +1,7 @@
+# Specify filepatterns you want git to ignore.
+**/__pycache__
+**/theme*
+**/.git
+**/*.pyc
+**/.idea
+**/.ipynb_checkpoints

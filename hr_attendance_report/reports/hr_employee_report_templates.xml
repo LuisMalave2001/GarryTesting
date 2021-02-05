@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="hr_employee_report_attendance" name="Employee Attendance">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 80px;" alt="Logo"/>
+                        <div class="mt8">
+                            <t t-if="o.company_id.street"><span t-field="o.company_id.street"/>,<br/></t>
+                            <t t-if="o.company_id.street2"><span t-field="o.company_id.street2"/>,<br/></t>
+                            <t t-if="o.company_id.city"><span t-field="o.company_id.city"/>,</t>
+                            <span t-if="o.company_id.country_id" t-field="o.company_id.country_id"/><br/>
+                            <span t-if="o.company_id.phone" t-field="o.company_id.phone"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-6"/>
+                            <div class="text-center col-6">
+                                <h3>ATTENDANCE</h3>
+                                <t t-esc="data['form']['start_date']" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/>
+                                -
+                                <t t-esc="data['form']['end_date']" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/>
+                            </div>
+                        </div>
+                        <table class="table table-bordered table-sm mt16">
+                            <tbody>
+                                <tr>
+                                    <td class="w-50"><strong>EMPLOYEE NAME:</strong> <span t-field="o.name"/></td>
+                                    <td class="w-50"><strong>DESIGNATION:</strong> <span t-field="o.job_id"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><strong>EMPLOYEE ID NUMBER:</strong> <span t-field="o.identification_id"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">DATE</th>
+                                    <th class="text-center">START TIME</th>
+                                    <th class="text-center">END TIME</th>
+                                    <th class="text-center">REGULAR<br/>HOURS</th>
+                                    <th class="text-center">OVERTIME<br/>HOURS</th>
+                                    <th class="text-center">TOTAL<br/>HOURS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_regular_hours" t-value="0"/>
+                                <t t-set="total_ot_hours" t-value="0"/>
+                                <t t-set="total_worked_hours" t-value="0"/>
+                                <t t-set="old_date" t-value=""/>
+                                <tr t-foreach="attendances[o.id]" t-as="attendance">
+                                    <td>
+                                        <t t-if="old_date != attendance.check_in.date()">
+                                            <span t-field="attendance.check_in" t-options="{'date_only': 'true', 'format': 'dd/MM/yyyy'}"/>
+                                            <t t-set="old_date" t-value="attendance.check_in.date()"/>
+                                            <t t-set="remaining_hours" t-value="o.company_id.overtime_start"/>
+                                        </t>
+                                    </td>
+                                    <t t-set="regular_hours" t-value="min(attendance.worked_hours, remaining_hours)"/>
+                                    <t t-set="remaining_hours" t-value="remaining_hours - regular_hours"/>
+                                    <t t-set="ot_hours" t-value="attendance.worked_hours - regular_hours"/>
+                                    <t t-set="total_regular_hours" t-value="total_regular_hours + regular_hours"/>
+                                    <t t-set="total_ot_hours" t-value="total_ot_hours + ot_hours"/>
+                                    <t t-set="total_worked_hours" t-value="total_worked_hours + attendance.worked_hours"/>
+                                    <td><span t-field="attendance.check_in" t-options="{'time_only': 'true'}"/></td>
+                                    <td><span t-field="attendance.check_out" t-options="{'time_only': 'true'}"/></td>
+                                    <td><span t-esc="round(regular_hours, 2) if duration_format == 'decimal' else format_duration(regular_hours)"/></td>
+                                    <td><span t-esc="round(ot_hours, 2) if duration_format == 'decimal' else format_duration(ot_hours)"/></td>
+                                    <td><span t-esc="round(attendance.worked_hours, 2) if duration_format == 'decimal' else format_duration(attendance.worked_hours)"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><strong>TOTALS</strong></td>
+                                    <td><strong t-esc="round(total_regular_hours, 2) if duration_format == 'decimal' else format_duration(total_regular_hours)"/></td>
+                                    <td><strong t-esc="round(total_ot_hours, 2) if duration_format == 'decimal' else format_duration(total_ot_hours)"/></td>
+                                    <td><strong t-esc="round(total_worked_hours, 2) if duration_format == 'decimal' else format_duration(total_worked_hours)"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td style="width:70%;"><strong>EMPLOYEE SIGNATURE:</strong></td>
+                                    <td style="width:30%;"><strong>DATE:</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:70%;"><strong>LINE MANAGER SIGNATURE:</strong></td>
+                                    <td style="width:30%;"><strong>DATE:</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

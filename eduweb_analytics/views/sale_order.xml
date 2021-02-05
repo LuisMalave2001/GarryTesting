@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_order_form_inherit_analytics" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.analytics</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="autofill_analytics" type="object" string="Autofill Analytics"/>
+            </header>
+            <xpath expr='//field[@name="order_line"]/tree/field[@name="name"]' position="after">
+                <field name="analytic_account_id" optional="hide" groups="analytic.group_analytic_accounting"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

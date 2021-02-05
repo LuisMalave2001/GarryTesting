@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="wallet_category_company_rule" model="ir.rule">
+        <field name="name">Wallet category company rule</field>
+        <field name="model_id" ref="wallet.model_wallet_category"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="wallet_category_unlink_default_rule" model="ir.rule">
+        <field name="name">Wallet category cannot delete default wallet</field>
+        <field name="model_id" ref="wallet.model_wallet_category"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('is_default_wallet', '=', False)]</field>
+    </record>
+
+</odoo>

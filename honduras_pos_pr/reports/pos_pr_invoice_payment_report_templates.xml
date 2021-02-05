@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pos_pr_invoice_payment_report" name="Invoice Payment Report">
+        <t t-call="web.html_container">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+            <header class="font-weight-bold">
+                <table class="w-100">
+                    <tr>
+                        <td rowspan="4" style="text-align: center; width: 110px; vertical-align: middle !important;">
+                            <img t-if="session.company_id.logo" t-att-src="image_data_uri(session.company_id.logo)" style="width: 100px;" alt="Logo"/>
+                        </td>
+                        <td colspan="3">
+                            <div class="h1">Fundación Centros Educativos Adventistas</div>
+                            <div class="h3" t-field="session.company_id.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                    <td colspan="2">
+                        <t t-if="session.company_id.country_id">
+                            <span t-field="session.company_id.country_id"/>
+                            ,
+                        </t>
+                        <t t-if="session.company_id.state_id">
+                            <span t-field="session.company_id.state_id"/>
+                            ,
+                        </t>
+                        <t t-if="session.company_id.city">
+                            <span t-field="session.company_id.city"/>
+                            ,
+                        </t>
+                        <t t-if="session.company_id.street">
+                            <span t-field="session.company_id.street"/>
+                        </t>
+                    </td>
+                    <td style="font-size: 24px; font-weight: 1000 !important; text-align: center;" class="w-25">
+                        <span t-field="session.name"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Correo:
+                        <span t-field="session.company_id.email"/>
+                    </td>
+                    <td>
+                        TEL.
+                        <span t-field="session.company_id.phone" class="col"/>
+                    </td>
+                </tr>
+                </table>
+            </header>
+            <table class="table table-sm table-bordered" style="margin-top:1rem;">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Invoice</th>
+                        <th>Customer</th>
+                        <th>Payment Group</th>
+                        <th>Date</th>
+                        <th>POS Session</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="currency" t-value="docs[0].currency_id"/>
+                    <t t-foreach="groups" t-as="group">
+                        <t t-if="grouping == 'method'">
+                            <t t-set="group_field" t-value="'payment_method_id'"/>
+                        </t>
+                        <t t-else="">
+                            <t t-set="group_field" t-value="'payment_group_id'"/>
+                        </t>
+                        <tr style="background:lightgray;">
+                            <td class="font-weight-bold"><span t-field="group.name"/></td>
+                            <td class="text-right font-weight-bold">
+                                <span t-esc="sum(docs.filtered(lambda d: getattr(d, group_field) == group).mapped('display_amount'))"
+                                    t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                            </td>
+                            <td colspan="5"/>
+                        </tr>
+                        <tr t-foreach="docs.filtered(lambda d: getattr(d, group_field) == group)" t-as="o">
+                            <td><span t-field="o.name"/></td>
+                            <td class="text-right">
+                                <span t-field="o.display_amount" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                            </td>
+                            <td><span t-field="o.move_id"/></td>
+                            <td><span t-field="o.partner_id"/></td>
+                            <td><span t-field="o.payment_group_id"/></td>
+                            <td><span t-field="o.date"/></td>
+                            <td><span t-field="o.pos_session_id"/></td>
+                        </tr>
+                    </t>
+                    <tr>
+                        <td/>
+                        <td class="text-right font-weight-bold"><span t-esc="sum(docs.mapped('display_amount'))" t-options="{'widget': 'monetary', 'display_currency': currency}"/></td>
+                        <td colspan="5"/>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-sm table-borderless" style="margin-top:3rem;">
+                <tr>
+                    <td class="w-25">Sign and casher stamp</td>
+                    <td class="border-bottom border-dark"/>
+                </tr>
+            </table>
+        </t>
+    </template>
+</odoo>

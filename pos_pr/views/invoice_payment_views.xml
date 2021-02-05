@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="invoice_payment_action" model="ir.actions.act_window">
+        <field name="name">Invoice Payment</field>
+        <field name="res_model">pos_pr.invoice.payment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="pos_pr_invoice_payment_view_tree" model="ir.ui.view">
+        <field name="name">pos.pr.invoice.payment.view.tree</field>
+        <field name="model">pos_pr.invoice.payment</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="display_amount" sum="Total paid"/>
+                <field name="move_id"/>
+                <field name="partner_id"/>
+                <field name="payment_group_id" groups="base.group_no_one"/>
+                <field name="date"/>
+                <field name="pos_session_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pos_pr_invoice_payment_view_form" model="ir.ui.view">
+        <field name="name">pos.pr.invoice.payment.view.form</field>
+        <field name="model">pos_pr.invoice.payment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="cancel" type="object"  class="btn-danger" string="Cancel" attrs="{'invisible': [('state', '=', 'cancelled')]}"/>
+<!--                    <button name="reset_draft" type="object"  class="btn-primary" string="Reset to draft" attrs="{'invisible': [('state', '!=', 'cancelled')]}"/>-->
+                    <field name="state" widget="statusbar"  statusbar_visible="draft,posted" nolabel="1" />
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Posted" attrs="{'invisible': [('state', '!=', 'posted')]}"/>
+                    <widget name="web_ribbon" text="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'cancelled')]}"/>
+                    <group>
+                        <group name="left_group">
+                            <field name="name"/>
+                            <field name="display_amount" sum="Total paid"/>
+                            <field name="move_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group name="right_group">
+                            <field name="payment_group_id" groups="base.group_no_one"/>
+                            <field name="date"/>
+                            <field name="pos_session_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pos_pr_invoice_payment_view_search" model="ir.ui.view">
+        <field name="name">pos.pr.invoice.payment.view.search</field>
+        <field name="model">pos_pr.invoice.payment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="payment_amount"/>
+                <field name="payment_method_id"/>
+                <field name="move_id"/>
+                <field name="date"/>
+                <field name="pos_session_id"/>
+
+                <filter name="group_by_payment_method_id" string="Payment method"
+                        context="{'group_by':'payment_method_id'}"/>
+                <group>
+                    <filter name="show_posted" string="Posted" domain="[('state', '=', 'posted')]"/>
+                    <filter name="show_posted" string="Draft" domain="[('state', '=', 'posted')]"/>
+                    <filter name="show_posted" string="Cancelled" domain="[('state', '=', 'posted')]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

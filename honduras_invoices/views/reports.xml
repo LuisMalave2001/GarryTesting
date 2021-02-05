@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="honduras_paper_format" model="report.paperformat">
+            <field name="name">Honduras Paper Format</field>
+            <field name="format">Letter</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">3</field>
+            <field name="dpi">125</field>
+        </record>
+        
+        <record id="account.action_report_payment_receipt" model="ir.actions.report">
+            <field name="paperformat_id" ref="honduras_invoices.honduras_paper_format"/>
+        </record>
+        <record id="print_with_journal_entry.action_report_payment_receipt" model="ir.actions.report">
+            <field name="paperformat_id" ref="honduras_invoices.honduras_paper_format"/>
+        </record>
+
+        <record id="account.account_invoices" model="ir.actions.report">
+            <field name="paperformat_id" ref="honduras_invoices.honduras_paper_format"/>
+            <field name="attachment_use">1</field>
+        </record>
+        <record id="print_with_journal_entry.account_invoices" model="ir.actions.report">
+            <field name="paperformat_id" ref="honduras_invoices.honduras_paper_format"/>
+        </record>
+
+        <record id="invoice_payments_report" model="ir.actions.report">
+            <field name="model">account.move</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+    
+            <field name="name">Invoice Payments</field>
+            <field name="paperformat_id" ref="base.paperformat_us" />
+            <field name="report_name">honduras_invoices.invoice_payments_template</field>
+        </record>
+        
+        <record id="invoice_payments_report_with_journal_entry" model="ir.actions.report">
+            <field name="model">account.move</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="name">Invoice Payments (w/ Journal Entry)</field>
+            <field name="paperformat_id" ref="base.paperformat_us" />
+            <field name="report_name">honduras_invoices.invoice_payments_template_with_journal_entry</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,840 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* pos_pr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-15 18:41+0000\n"
+"PO-Revision-Date: 2020-09-15 18:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/js/screens/payment_register/components/invoice_list/screen.js:0
+#, python-format
+msgid "%s has no due invoice"
+msgstr "%s No tiene facturas vencidas"
+
+#. module: pos_pr
+#: code:addons/pos_pr/models/pos_config.py:0
+#, python-format
+msgid "%s is only for aesthetic use"
+msgstr ""
+
+#. module: pos_pr
+#: code:addons/pos_pr/models/invoice_payment.py:0
+#, python-format
+msgid "%s to %s"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__display_amount
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__amount
+#, python-format
+msgid "Amount"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Amount Paid"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_account_cashbox_line__converted_amount
+msgid "Amount currency"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#: code:addons/pos_pr/static/src/xml/payment_register/components/invoice_list.xml:0
+#, python-format
+msgid "Amount due"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Amount due:"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#: code:addons/pos_pr/static/src/xml/payment_register/components/invoice_list.xml:0
+#, python-format
+msgid "Amount total"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Amount total:"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/pos_view.xml:0
+#, python-format
+msgid "Apply to invoices"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_account_bank_statement_cashbox
+msgid "Bank Statement Cashbox"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/pos_view.xml:0
+#, python-format
+msgid "Cancel"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_account_cashbox_line
+msgid "CashBox Line"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/js/save_data/save_invoice_payments.js:0
+#, python-format
+msgid "Changes saved correctly"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__create_uid
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__create_uid
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_payment_group__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__create_date
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__create_date
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_payment_group__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_account_cashbox_line__cashbox_currency_id
+#: model:ir.model.fields,field_description:pos_pr.field_account_cashbox_line__currency_id
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/invoice_list.xml:0
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__partner_id
+#, python-format
+msgid "Customer"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#: code:addons/pos_pr/static/src/xml/templates/surcharge_reports.xml:0
+#, python-format
+msgid "Customer:"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__date
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__date
+msgid "Date"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_res_config_settings__pos_pr_discount_default_account_id
+msgid "Default discount account"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#: model:pos.payment.method,name:pos_pr.discount_payment_method
+#: model:product.product,name:pos_pr.default_discount_product
+#: model:product.template,name:pos_pr.default_discount_product_product_template
+#, python-format
+msgid "Discount"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__discount_amount
+msgid "Discount Amount"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_res_config_settings__pos_pr_discount_product_id
+msgid "Discount Product"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#, python-format
+msgid "Discount type"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__display_name
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__display_name
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_payment_group__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/invoice_list.xml:0
+#, python-format
+msgid "Due date"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#: code:addons/pos_pr/static/src/xml/templates/surcharge_reports.xml:0
+#, python-format
+msgid "Email:"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/invoice_list.xml:0
+#, python-format
+msgid "Expected final due"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#, python-format
+msgid "Fixed"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__free_of_surcharge
+msgid "Free of surcharge"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#, python-format
+msgid "Free of surcharge:"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__id
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__id
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_payment_group__id
+msgid "ID"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/js/save_data/save_invoice_payments.js:0
+#, python-format
+msgid ""
+"In order to apply the changes in backend the Point of sale needs to be "
+"closed and validated"
+msgstr ""
+
+#. module: pos_pr
+#: model_terms:ir.ui.view,arch_db:pos_pr.view_pos_session_form
+msgid "Inv. Payments"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__move_id
+msgid "Invoice"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Invoice Balance"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_session__invoice_payment_ids
+msgid "Invoice Payment"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_session__invoice_payment_amount
+msgid "Invoice Payment Amount"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_session__invoice_payment_groups_ids
+msgid "Invoice Payment Groups"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_session__invoice_surcharge_ids
+msgid "Invoice Surcharge"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#: code:addons/pos_pr/static/src/xml/payment_register/components/invoice_list.xml:0
+#, python-format
+msgid "Invoice date"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Invoice date:"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Invoice due"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Invoice due date:"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_session__invoice_payment_move_id
+msgid "Invoice payment misc move"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Invoice:"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_account_move__is_overdue
+msgid "Is Overdue"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_account_move__is_overdue_stored
+msgid "Is Overdue Stored"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_config__is_pos_pr_discount
+#: model:ir.model.fields,field_description:pos_pr.field_pos_payment_method__is_pos_pr_discount
+msgid "Is Pos Pr Discount"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#: model:ir.model,name:pos_pr.model_account_journal
+#, python-format
+msgid "Journal"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment____last_update
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge____last_update
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_payment_group____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__write_uid
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__write_uid
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_payment_group__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__write_date
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__write_date
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_payment_group__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#: code:addons/pos_pr/static/src/xml/templates/surcharge_reports.xml:0
+#, python-format
+msgid "Logo"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__move_ids
+msgid "Move"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#, python-format
+msgid "N/A"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#: code:addons/pos_pr/static/src/xml/payment_register/components/invoice_list.xml:0
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__name
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_payment_group__name
+#, python-format
+msgid "Name"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/screens/invoice_payment_receipt.xml:0
+#: code:addons/pos_pr/static/src/xml/screens/surchare_payment_receipt.xml:0
+#, python-format
+msgid "Next Order"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/js/screens/payment_register/components/invoice_list/screen.js:0
+#, python-format
+msgid "No customer has been selected"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_account_move_line__pos_payment_id
+msgid "POS Invoice Payment"
+msgstr ""
+
+#. module: pos_pr
+#: model_terms:ir.ui.view,arch_db:pos_pr.res_config_settings_view_form
+msgid "POS Payment Register"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_account_move_line__pos_payment_method_id
+msgid "POS Payment method"
+msgstr ""
+
+#. module: pos_pr
+#: model_terms:ir.ui.view,arch_db:pos_pr.view_account_journal_form
+msgid "POS Payment register"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/pos_view.xml:0
+#, python-format
+msgid "Pay surcharge"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__payment_ids
+msgid "Payment"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__payment_amount
+msgid "Payment Amount"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Payment Date"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Payment Date:"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__payment_group_id
+msgid "Payment Group"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__payment_method_id
+msgid "Payment Method"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Payment Number"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/pos_view.xml:0
+#, python-format
+msgid "Payment Register"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/models/account_bank_statement.py:0
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#: model:ir.model.fields,field_description:pos_pr.field_account_cashbox_line__payment_method_id
+#: model_terms:ir.ui.view,arch_db:pos_pr.invoice_payment_search
+#, python-format
+msgid "Payment method"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Payment recipment:"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/js/core/chrome.js:0
+#, python-format
+msgid "Payment register"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#: model:ir.model,name:pos_pr.model_account_payment
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_payment_group__invoice_payment_ids
+#, python-format
+msgid "Payments"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_pos_pr_payment_group
+msgid "Payments groups"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#, python-format
+msgid "Percentage"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#: code:addons/pos_pr/static/src/xml/templates/surcharge_reports.xml:0
+#, python-format
+msgid "Phone"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_pos_order
+msgid "Point of Sale Orders"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_pos_payment_method
+msgid "Point of Sale Payment Methods"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_pos_session
+msgid "Point of Sale Session"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_account_move__pos_pr_paid_amount
+msgid "Pos Pr Paid Amount"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_account_move__pos_pr_payment_ids
+msgid "Pos Pr Payment"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_res_config_settings__pos_pr_surcharge_default_amount
+msgid "Pos Pr Surcharge Default Amount"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_payment__pos_session_id
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__pos_session_id
+msgid "Pos Session"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/screens/invoice_payment_receipt.xml:0
+#: code:addons/pos_pr/static/src/xml/screens/surchare_payment_receipt.xml:0
+#, python-format
+msgid "Print Receipt"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/js/screens/invoice_payment_receipt/screen.js:0
+#: code:addons/pos_pr/static/src/js/screens/surcharge_payment_receipt/screen.js:0
+#, python-format
+msgid "Printing is not supported on some android browsers"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/js/screens/invoice_payment_receipt/screen.js:0
+#: code:addons/pos_pr/static/src/js/screens/surcharge_payment_receipt/screen.js:0
+#, python-format
+msgid ""
+"Printing is not supported on some android browsers due to no default "
+"printing protocol is available. It is possible to print your tickets by "
+"making use of an IoT Box."
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/pos_view.xml:0
+#, python-format
+msgid "Search Invoice"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/invoice_list.xml:0
+#, python-format
+msgid "Session payment"
+msgstr ""
+
+#. module: pos_pr
+#: model_terms:ir.ui.view,arch_db:pos_pr.res_config_settings_view_form
+msgid "Set default account for default discount product"
+msgstr ""
+
+#. module: pos_pr
+#: model_terms:ir.ui.view,arch_db:pos_pr.res_config_settings_view_form
+msgid ""
+"Set default amount for every overdue invoice when is paid with the payment "
+"register"
+msgstr ""
+
+#. module: pos_pr
+#: model_terms:ir.ui.view,arch_db:pos_pr.res_config_settings_view_form
+msgid "Set default discount product for point of sale payment register"
+msgstr ""
+
+#. module: pos_pr
+#: model_terms:ir.ui.view,arch_db:pos_pr.res_config_settings_view_form
+msgid "Set default product for surcharge invoices."
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#: code:addons/pos_pr/static/src/xml/templates/surcharge_reports.xml:0
+#, python-format
+msgid "Sign and casher stamp"
+msgstr ""
+
+#. module: pos_pr
+#: model:product.product,name:pos_pr.default_surcharge_product
+#: model:product.template,name:pos_pr.default_surcharge_product_product_template
+msgid "Surcharge"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_account_bank_statement_import_journal_creation__surcharge_amount
+#: model:ir.model.fields,field_description:pos_pr.field_account_journal__surcharge_amount
+#: model:ir.model.fields,field_description:pos_pr.field_account_move__surcharge_amount
+msgid "Surcharge Amount"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_account_move__surcharge_invoice_id
+msgid "Surcharge Invoice"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_pos_pr_invoice_surcharge__surcharge_move_id
+msgid "Surcharge Move"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model.fields,field_description:pos_pr.field_account_bank_statement_import_journal_creation__surcharge_product_id
+#: model:ir.model.fields,field_description:pos_pr.field_account_journal__surcharge_product_id
+#: model:ir.model.fields,field_description:pos_pr.field_res_config_settings__pos_pr_surcharge_product_id
+msgid "Surcharge Product"
+msgstr ""
+
+#. module: pos_pr
+#: model_terms:ir.ui.view,arch_db:pos_pr.view_account_journal_form
+msgid "Surcharge settings"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#, python-format
+msgid "Surcharge:"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/core/chrome.xml:0
+#: code:addons/pos_pr/static/src/xml/core/chrome.xml:0
+#, python-format
+msgid "Synchronisation Connected"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/core/chrome.xml:0
+#, python-format
+msgid "Synchronisation Connecting"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/core/chrome.xml:0
+#, python-format
+msgid "Synchronisation Disconnected"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/screens/invoice_payment_receipt.xml:0
+#: code:addons/pos_pr/static/src/xml/screens/surchare_payment_receipt.xml:0
+#, python-format
+msgid ""
+"The order has been synchronized earlier. To print the invoice please refer "
+"to the order in the backend"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#, python-format
+msgid "Total due:"
+msgstr ""
+
+#. module: pos_pr
+#: model_terms:ir.ui.view,arch_db:pos_pr.invoice_payment_tree
+msgid "Total paid"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#, python-format
+msgid "Total paid:"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#, python-format
+msgid "Total:"
+msgstr ""
+
+#. module: pos_pr
+#: model:product.product,uom_name:pos_pr.default_discount_product
+#: model:product.product,uom_name:pos_pr.default_surcharge_product
+#: model:product.template,uom_name:pos_pr.default_discount_product_product_template
+#: model:product.template,uom_name:pos_pr.default_surcharge_product_product_template
+msgid "Units"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/templates/payment_reports.xml:0
+#: code:addons/pos_pr/static/src/xml/templates/surcharge_reports.xml:0
+#, python-format
+msgid "VAT:"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/pos_view.xml:0
+#, python-format
+msgid "Validate payments"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/xml/payment_register/components/dashboard.xml:0
+#, python-format
+msgid "You have no surcharges"
+msgstr ""
+
+#. module: pos_pr
+#. openerp-web
+#: code:addons/pos_pr/static/src/js/screens/payment_register/components/dashboard/screen.js:0
+#, python-format
+msgid "You need pay the surcharge first"
+msgstr ""
+
+#. module: pos_pr
+#: code:addons/pos_pr/models/invoice_payment.py:0
+#, python-format
+msgid "You need to set up a discount product first"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.actions.act_window,name:pos_pr.action_invoice_payment
+msgid "action.invoice.payment"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_pos_pr_invoice_payment
+msgid "pos_pr.invoice.payment"
+msgstr ""
+
+#. module: pos_pr
+#: model:ir.model,name:pos_pr.model_pos_pr_invoice_surcharge
+msgid "pos_pr.invoice.surcharge"
+msgstr ""

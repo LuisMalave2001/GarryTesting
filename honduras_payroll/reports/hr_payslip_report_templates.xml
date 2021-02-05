@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payslip_inherit" inherit_id="hr_payroll.report_payslip">
+        <xpath expr="//p" position="before">
+            <h4 t-if="o.deduction_ids">Paid Invoices</h4>
+            <table t-if="o.deduction_ids" class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="total_invoice_paid" t-value="0"/>
+                    <tr t-foreach="o.deduction_ids" t-as="deduction">
+                        <td><span t-field="deduction.move_id.name"/></td>
+                        <td><span t-field="deduction.amount"/></td>
+                        <t t-set="total_invoice_paid" t-value="total_invoice_paid + deduction.amount"/>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong><span t-esc="total_invoice_paid" t-options="{'widget': 'monetary', 'display_currency': o.deduction_ids[0].currency_id}"/></strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </xpath>
+    </template>
+</odoo>

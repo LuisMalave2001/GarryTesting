@@ -1,0 +1,20 @@
+
+.input-with-label {
+
+    width: 100%;
+    clear: both;
+    display: flex;
+
+    align-items: center;
+
+    label {
+        width: 20%;
+        display: block;
+        float: left;
+    }
+
+    input, select, textarea {
+        width: 80%;
+        display: block;
+    }
+}

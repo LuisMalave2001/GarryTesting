@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="language_type_write" model="adm.language.skill.type">
+        <field name="name">Write</field>
+    </record>
+    <record id="language_type_read" model="adm.language.skill.type">
+        <field name="name">Read</field>
+    </record>
+    <record id="language_type_speak" model="adm.language.skill.type">
+        <field name="name">Speak</field>
+    </record>
+    <record id="language_type_listen" model="adm.language.skill.type">
+        <field name="name">Listen</field>
+    </record>
+</odoo>

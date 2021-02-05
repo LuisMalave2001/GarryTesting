@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_payment_receipt" model="ir.actions.report">
+        <field name="model">account.payment</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_type">report</field>
+        <field name="name">Payment Receipt (w/ Journal Entry)</field>
+        <field name="report_name">print_with_journal_entry.report_payment_receipt_with_journal_entry</field>
+    </record>
+</odoo>

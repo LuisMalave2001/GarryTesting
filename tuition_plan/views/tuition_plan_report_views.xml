@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tuition_plan_report_view_tree" model="ir.ui.view">
+        <field name="name">tuition.plan.report.view.tree</field>
+        <field name="model">tuition.plan.report</field>
+        <field name="arch" type="xml">
+            <tree string="Tuition Plan Report List">
+                <field name="date"/>
+                <field name="plan_id"/>
+                <field name="partner_id"/>
+                <field name="family_id"/>
+                <field name="student_id"/>
+                <field name="grade_level_id"/>
+                <field name="homeroom"/>
+                <field name="product_id"/>
+                <field name="price_subtotal"/>
+                <field name="price_tax"/>
+                <field name="price_total"/>
+                <field name="currency_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tuition_plan_report_view_graph" model="ir.ui.view">
+        <field name="name">tuition.plan.report.view.graph</field>
+        <field name="model">tuition.plan.report</field>
+        <field name="arch" type="xml">
+            <graph string="Tuition Plan Report Graph" type="line">
+                <field name="date" interval="month"/>
+                <field name="price_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="tuition_plan_report_view_pivot" model="ir.ui.view">
+        <field name="name">tuition.plan.report.view.pivot</field>
+        <field name="model">tuition.plan.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Tuition Plan Report Pivot" disable_linking="true">
+                <field name="grade_level_id" type="row"/>
+                <field name="price_subtotal" type="measure"/>
+                <field name="price_tax" type="measure"/>
+                <field name="price_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="tuition_plan_report_view_dashboard" model="ir.ui.view">
+        <field name="name">tuition.plan.report.view.dashboard</field>
+        <field name="model">tuition.plan.report</field>
+        <field name="arch" type="xml">
+            <dashboard>
+                <view type="graph" ref="tuition_plan_report_view_graph"/>
+                <group>
+                    <group>
+                        <aggregate name="students_aggregate" field="student_id" string="# of Students"/>
+                        <aggregate name="price_subtotal_aggregate" field="price_subtotal" string="Total Untaxed"/>
+                        <aggregate name="price_tax_aggregate" field="price_tax" string="Total Tax"/>
+                        <aggregate name="price_total_aggregate" field="price_total" string="Total Amount"/>
+                    </group>
+                    <group col="1">
+                        <widget name="pie_chart" title="Grade Level" attrs="{'groupby': 'grade_level_id', 'measure': 'price_total'}"/>
+                        <widget name="pie_chart" title="Homeroom" attrs="{'groupby': 'homeroom', 'measure': 'price_total'}"/>
+                    </group>
+                </group>
+                <view type="pivot" ref="tuition_plan_report_view_pivot"/>
+            </dashboard>
+        </field>
+    </record>
+
+    <record id="tuition_plan_report_view_search" model="ir.ui.view">
+        <field name="name">tuition.plan.report.view.search</field>
+        <field name="model">tuition.plan.report</field>
+        <field name="arch" type="xml">
+            <search string="Tuition Plan Report Search">
+                <field name="student_id"/>
+                <field name="partner_id"/>
+                <field name="family_id"/>
+                <field name="product_id"/>
+                <field name="plan_id"/>
+                <field name="grade_level_id"/>
+                <field name="homeroom"/>
+                <group expand="0" string="Group By">
+                    <filter string="Student" name="group_by_student" domain="[]" context="{'group_by':'student_id'}"/>
+                    <filter string="Customer" name="group_by_partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Family" name="group_by_family" domain="[]" context="{'group_by':'family_id'}"/>
+                    <filter string="Product" name="group_by_product" domain="[]" context="{'group_by':'product_id'}"/>
+                    <filter string="Tuition Plan" name="group_by_plan" domain="[]" context="{'group_by':'plan_id'}"/>
+                    <filter string="Grade Level" name="group_by_grade_level" domain="[]" context="{'group_by':'grade_level_id'}"/>
+                    <filter string="Homeroom" name="group_by_homeroom" domain="[]" context="{'group_by':'homeroom'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="tuition_plan_report_action" model="ir.actions.act_window">
+        <field name="name">Tuition Plan Report</field>
+        <field name="res_model">tuition.plan.report</field>
+        <field name="view_mode">dashboard,graph,pivot,tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{'create': 0, 'edit': 0, 'delete': 0}</field>
+    </record>
+
+    <menuitem
+        id="tuition_plan_report_menu"
+        name="Tuition Plans"
+        action="tuition_plan_report_action"
+        parent="sale.menu_sale_report"
+        sequence="5"/>
+</odoo>

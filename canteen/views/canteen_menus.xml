@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="sale_order_menu_reporting"
+        name="Canteen"
+        parent="sale.menu_sale_report"
+        sequence="10"/>
+</odoo>

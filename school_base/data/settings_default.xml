@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.config_parameter" id="school_base.allow_edit_person_name">
+        <field name="key">school_base.allow_edit_person_name</field>
+        <field name="value" eval="0"/>
+    </record>
+
+    <record model="ir.config_parameter" id="school_base.allow_edit_student_name">
+        <field name="key">school_base.allow_edit_student_name</field>
+        <field name="value" eval="0"/>
+    </record>
+
+    <record model="ir.config_parameter" id="school_base.allow_edit_parent_name">
+        <field name="key">school_base.allow_edit_parent_name</field>
+        <field name="value" eval="0"/>
+    </record>
+
+
+</odoo>

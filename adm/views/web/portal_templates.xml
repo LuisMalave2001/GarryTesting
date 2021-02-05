@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="portal_my_home_adm" name="Portal My Home : Admissions" inherit_id="portal.portal_my_home"
+              priority="50">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Applications</t>
+                <t t-set="url" t-value="'/admission/applications'"/>
+                <t t-set="count" t-value="application_count or 0"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

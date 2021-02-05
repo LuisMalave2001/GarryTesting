@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="adm.report_internal">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <style>
+                        .h1{
+                        font-size: 65px;
+                        }
+                        .bg-iae{
+                        background-color: #1b4176;
+                        }
+                        .text-iae{
+                        color: #1b4176;
+                        }
+                        .bg-secondary-iae{
+                        background-color: #808284;
+                        }
+                        .text-secondary-iae{
+                        color: #808284;
+                        }
+                        .hr{
+                        height: 2px;
+                        background-color: #1b4176;
+                        }
+                        .span-check {
+                        content: "\2713";
+                        }
+                    </style>
+                    <div class="col-12 text-center bg-iae text-light pt-1 h5 mt-0">
+                        <b>PROCESO Y DOCUMENTOS DE ESTUDIANTES NUEVOS DE PRE-ESCOLAR</b>
+                    </div>
+                    <div class="col-12 text-center text-iae pt-1 pb-1 h5 text-center">
+                        <span>Nivel</span>
+                        <span class="ml-1" type="text" t-field="o.grade_level.name"/>
+                        <span class="ml-1 ml-4" type="text" t-field="o.inquiry_id.school_year_id.name"/>
+                    </div>
+                    <div class="col-12 hr"></div>
+                    <div class="col-12 pl-2">
+                        <div class="col-12 text-center text-iae pt-1 pb-1 h2 text-center">
+                            <span class="ml-1" type="text" t-field="o.first_name"/>
+                            <span t-if="o.middle_name" class="ml-1" type="text" t-field="o.middle_name"/>
+                            <span class="ml-1" type="text" t-field="o.last_name"/>
+                        </div>
+                        <div class="col-12 text-left h4 bg-secondary-iae text-light">
+                            Documentos recibidos:
+                        </div>
+                        <div class="col-12 text-left">
+                            <t t-foreach="o.state_tasks" t-as="state_task">
+                                <t t-set="rowCount" t-value="0"/>
+                                <t t-foreach="o.task_ids" t-as="task">
+                                    <t t-if="task.name == state_task.name">
+                                        <t t-set="rowCount" t-value="rowCount + 1"/>
+                                    </t>
+                                </t>
+                                <img t-if="rowCount > 0" src="/adm/static/img/check_mark.png" width="25"/>
+                                <img t-else="" src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/792/Close_Icon_Dark-512.png" width="25"/>
+                                <span class="ml-1 h5" type="text" t-field="state_task.name"/>
+                                <br></br>
+                            </t>
+
+                        </div>
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

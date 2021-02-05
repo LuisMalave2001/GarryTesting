@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.admission</field>
+        <field name="model">res.partner</field>
+        <field eval="1" name="priority" />
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Admission">
+                    <group>
+                        <field name="is_in_application" />
+                        <field name="application_id" />
+                        <field name="inquiry_id" />
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//group[1]/group[1]" position="inside">
+                <field name="citizenship"/>
+                <field name="identification"/>
+                <field name="marital_status"/>
+                <field name="parental_responsability"/>
+                <field name="title"/>
+                <field name="work_address"/>
+                <field name="work_phone"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

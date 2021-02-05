@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contribution_table_view_tree" model="ir.ui.view">
+        <field name="name">hr.contribution.table.view.tree</field>
+        <field name="model">hr.contribution.table</field>
+        <field name="arch" type="xml">
+            <tree string="Contribution Tables">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_contribution_table_view_form" model="ir.ui.view">
+        <field name="name">hr.contribution.table.view.form</field>
+        <field name="model">hr.contribution.table</field>
+        <field name="arch" type="xml">
+            <form string="Contribution Table">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. SS"/></h1>
+                    </div>
+                    <notebook>
+                        <page name="brackets" string="Brackets">
+                            <field name="bracket_ids">
+                                <tree editable="bottom">
+                                    <field name="lower_limit"/>
+                                    <field name="upper_limit_text"/>
+                                    <field name="fixed_amount"/>
+                                    <field name="percentage_amount"/>
+                                    <field name="rate_text"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_contribution_table_action" model="ir.actions.act_window">
+        <field name="name">Contribution Tables</field>
+        <field name="res_model">hr.contribution.table</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem
+        id="hr_contribution_table_menu"
+        name="Contribution Tables"
+        action="hr_contribution_table_action"
+        parent="hr_payroll.menu_hr_payroll_configuration"
+        sequence="90"/>
+</odoo>

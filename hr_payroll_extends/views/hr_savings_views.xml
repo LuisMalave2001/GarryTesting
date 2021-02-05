@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_savings_view_tree" model="ir.ui.view">
+        <field name="name">hr.savings.view.tree</field>
+        <field name="model">hr.savings</field>
+        <field name="arch" type="xml">
+            <tree string="Savings">
+                <field name="name"/>
+                <field name="code" optional="hide"/>
+                <field name="employee_id"/>
+                <field name="partner_id"/>
+                <field name="total_saved"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_savings_view_form" model="ir.ui.view">
+        <field name="name">hr.savings.view.form</field>
+        <field name="model">hr.savings</field>
+        <field name="arch" type="xml">
+            <form string="Savings">
+                <header>
+                    <button string="Confirm" name="action_savings_open" type="object" class="oe_highlight" states="draft" confirm="Are you sure you would like to confirm this savings details?"/>
+                    <button string="Cancel" name="action_savings_cancel" type="object" states="open" confirm="Are you sure you would like to cancel this savings?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. SS Savings"/></h1>
+                    </div>
+                    <group>
+                        <group name="details" col="2">
+                            <field name="active" invisible="1"/>
+                            <field name="code"/>
+                            <field name="employee_id"/>
+                            <field name="partner_id"/>
+                            <field name="initial_balance"/>
+                            <field name="percentage_of_wage"/>
+                            <label for="payslip_deduction"/>
+                            <div>
+                                <field name="payslip_deduction" nolabel="1" class="oe_inline"/>
+                                <span attrs="{'invisible': [('percentage_of_wage','=',False)]}" class="oe_inline">%</span>
+                            </div>
+                        </group>
+                        <group name="dates">
+                            <field name="date_deduction"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="payments" string="Payments">
+                            <field name="payment_ids">
+                                <tree string="Payments" create="false" edit="false" delete="false">
+                                    <field name="payslip_id"/>
+                                    <field name="payslip_state"/>
+                                    <field name="date_paid"/>
+                                    <field name="amount"/>
+                                    <field name="credit_note"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_saved" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_savings_view_search" model="ir.ui.view">
+        <field name="name">hr.savings.view.search</field>
+        <field name="model">hr.savings</field>
+        <field name="arch" type="xml">
+            <search string="Search Savings">
+                <field name="employee_id"/>
+                <field name="partner_id"/>
+                <field name="code"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <separator/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Open" name="open" domain="[('state','=','open')]"/>
+                <filter string="Canceled" name="cancel" domain="[('state','=','cancel')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Employee" name="group_by_employee" domain="[]" context="{'group_by':'employee_id'}"/>
+                    <filter string="Partner" name="group_by_partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="State" name="group_by_state" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_savings_action" model="ir.actions.act_window">
+        <field name="name">Employee Savings</field>
+        <field name="res_model">hr.savings</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{
+            'search_default_group_by_state': 1
+        }</field>
+    </record>
+
+    <record id="hr_savings_action_employee_savings" model="ir.actions.act_window">
+        <field name="name">Employee Savings</field>
+        <field name="res_model">hr.savings</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{
+            'search_default_employee_id': [active_id],
+            'default_employee_id': active_id,
+            'search_default_group_by_state': 1
+        }</field>
+    </record>
+
+    <menuitem
+        id="hr_savings_menu"
+        name="Savings"
+        action="hr_savings_action"
+        groups="hr_payroll.group_hr_payroll_user"
+        parent="hr_payroll.menu_hr_payroll_employees_root"
+        sequence="40"/>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="portal_names_editables" inherit_id="portal.portal_my_details" name="Portal My Details Names">
+        <input name="name" position="attributes">
+            <attribute name="readonly">readonly</attribute>
+        </input>
+        <input name="name" position="inside">
+            <label class="col-form-label" for="name">First Name</label>
+            <input type="text" name="first_name" t-attf-class="form-control #{error.get('first_name') and 'is-invalid' or ''}" t-att-value="first_name or partner.first_name" />
+
+            <label class="col-form-label" for="name">Middle Name</label>
+            <input type="text" name="middle_name" t-attf-class="form-control #{error.get('middle_name') and 'is-invalid' or ''}" t-att-value="middle_name or partner.middle_name" />
+
+            <label class="col-form-label" for="name">Last Name</label>
+            <input type="text" name="last_name" t-attf-class="form-control #{error.get('middle_name') and 'is-invalid' or ''}" t-att-value="last_name or partner.last_name" />
+        </input>
+    </template>
+</odoo>

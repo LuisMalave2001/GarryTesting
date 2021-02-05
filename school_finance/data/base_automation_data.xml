@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_move_automation_add_followers_by_family" model="base.automation">
+        <field name="name">Invoice: Add Followers by Family</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="trigger">on_create_or_write</field>
+        <field name="trigger_field_ids" eval="[(6,0,[ref('school_finance.field_account_move__family_id')])]"/>
+        <field name="filter_domain">[('type','=','out_invoice')]</field>
+        <field name="state">code</field>
+        <field name="code">
+if record.family_id:
+    record.message_subscribe(record.family_id.financial_res_ids.ids)
+        </field>
+    </record>
+
+    <record id="sale_order_automation_add_followers_by_family" model="base.automation">
+        <field name="name">Sale Order: Add Followers by Family</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="trigger">on_create_or_write</field>
+        <field name="trigger_field_ids" eval="[(6,0,[ref('school_finance.field_account_move__family_id')])]"/>
+        <field name="state">code</field>
+        <field name="code">
+if record.family_id:
+    record.message_subscribe(record.family_id.financial_res_ids.ids)
+        </field>
+    </record>
+</odoo>

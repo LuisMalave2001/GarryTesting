@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_invoices" model="ir.actions.report">
+        <field name="model">account.move</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="name">Invoices (w/ Journal Entry)</field>
+        <field name="report_name">print_with_journal_entry.selectable_report_with_payments_with_journal_entry</field>
+    </record>
+
+    <record id="account_invoices_without_payment" model="ir.actions.report">
+        <field name="model">account.move</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="name">Invoices without Payment (w/ Journal Entry)</field>
+        <field name="report_name">print_with_journal_entry.selectable_report_with_journal_entry</field>
+    </record>
+</odoo>

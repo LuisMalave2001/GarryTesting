@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_session_view_form_inherit" model="ir.ui.view">
+        <field name="name">pos.session.view.form.inherit</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <button string="POS Session Report" name="%(action_pos_session_report)d" type="action" class="oe_highlight"
+                    attrs="{'invisible': [('state','!=','closed')]}"/>
+                <button string="POS Session Report" name="%(action_pos_session_report)d" type="action"
+                    attrs="{'invisible': [('state','=','closed')]}"
+                    confirm="This session is not yet closed. Are you you would like to generate the report?"/>
+            </field>
+        </field>
+    </record>
+</odoo>

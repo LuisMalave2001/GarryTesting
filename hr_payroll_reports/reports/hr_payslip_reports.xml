@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="action_hr_payslip_report_summary_xlsx"
+        model="hr.payslip"
+        string="Payroll Summary (xslx)"
+        report_type="xlsx"
+        name="hr_payroll_reports.hr_payslip_report_summary_xlsx"
+        file="hr_payslip_report_summary_xlsx"
+        menu="False"/>
+</odoo>

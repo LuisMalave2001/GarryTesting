@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="filter_info_template" inherit_id="account_reports.filter_info_template">
+        <xpath expr="//t[@t-esc='analytic_account_value']/../.." position="before">
+            <div class="col-12">
+                <t t-if="options.get('accounts') != None">
+                    Accounts:
+                    <t t-set="account_value" t-value="'All'"/>
+                    <t t-foreach="options['selected_account_names']" t-as="account_name">
+                        <t t-set="account_value" t-value="''"/>
+                        <t t-esc="account_name"/>
+                    </t>
+                    <t t-esc="account_value"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

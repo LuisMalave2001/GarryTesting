@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_school" model="ir.module.category">
+        <field name="name">School</field>
+    </record>
+</odoo>

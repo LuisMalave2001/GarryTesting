@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" name="Portal Assets" inherit_id="web_editor.assets_frontend" priority="15">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/canteen/static/src/js/canteen_order_portal_form.js"></script>
+        </xpath>
+    </template>
+</odoo>

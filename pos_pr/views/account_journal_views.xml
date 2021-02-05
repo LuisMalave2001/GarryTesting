@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="name">pos.payment.register.view.account.form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="POS Payment register">
+                    <h2>Surcharge settings</h2>
+                    <group>
+                        <field name="surcharge_product_id"/>
+                        <field name="surcharge_amount"/>
+                   </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

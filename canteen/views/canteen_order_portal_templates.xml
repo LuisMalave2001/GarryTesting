@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_menu_canteen_order" name="Portal layout: canteen_order menu entry" inherit_id="portal.portal_breadcrumbs" priority="50">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'canteen_order' or canteen_order or create_canteen_order" t-attf-class="breadcrumb-item #{'active ' if not (canteen_order and create_canteen_order) else ''}">
+                <a t-if="canteen_order or create_canteen_order" t-attf-href="/my/canteen_order?{{ keep_query() }}">Canteen Orders</a>
+                <t t-else="">Canteen Orders</t>
+            </li>
+            <li t-if="canteen_order" class="breadcrumb-item active">
+                <span t-field="canteen_order.name"/>
+            </li>
+            <li t-if="create_canteen_order" class="breadcrumb-item active">
+                New
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_canteen_order" name="Portal My Home : canteen_order entry" inherit_id="portal.portal_my_home" priority="50">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="user.partner_id.person_type == 'parent' and canteen_order_eligible" t-call="portal.portal_docs_entry">
+                <t t-set="title">Canteen Orders</t>
+                <t t-set="url" t-value="'/my/canteen_order'"/>
+                <t t-set="count" t-value="canteen_order_count"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_canteen_orders" name="My Canteen Orders">
+        <t t-call="portal.portal_layout">
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Canteen Orders</t>
+            </t>
+            <div class="mb4">
+                <a t-attf-href="/my/canteen_order/create?{{ keep_query() }}" class="btn btn-primary">Create Order</a>
+            </div>
+            <t t-if="not canteen_orders">
+                <p>There are no canteen orders found.</p>
+            </t>
+            <t t-if="canteen_orders" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Order #</th>
+                        <th>Student</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="canteen_orders" t-as="canteen_order">
+                        <td>
+                            <a t-attf-href="/my/canteen_order/#{canteen_order.id}?{{ keep_query() }}"><span t-field="canteen_order.name"/></a>
+                        </td>
+                        <td><span t-field="canteen_order.student_id"/></td>
+                        <td><span t-field="canteen_order.canteen_order_date"/></td>
+                        <td><span t-field="canteen_order.amount_total"/></td>
+                        <td>
+                            <span t-if="canteen_order.state in ['draft','sent']" class="badge" style="background:lightgray;">Draft</span>
+                            <span t-if="canteen_order.state in ['sale','done']" class="badge badge-success">Confirmed</span>
+                            <span t-if="canteen_order.state == 'cancel'" class="badge badge-danger">Cancelled</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_my_canteen_order" name="My Canteen Order">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <form action="/my/canteen_order/save" method="post">
+                    <div class="card o_canteen_order_portal_form">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-8">
+                                    <h4>
+                                        <t t-if="canteen_order">
+                                            <span t-field="canteen_order.name"/>
+                                        </t>
+                                        <t t-else="">New</t>
+                                        <span t-if="canteen_order.state in ['draft','sent']" class="badge" style="background:lightgray;">Draft</span>
+                                        <span t-if="canteen_order.state in ['sale','done']" class="badge badge-success">Confirmed</span>
+                                        <span t-if="canteen_order.state == 'cancel'" class="badge badge-danger">Cancelled</span>
+                                    </h4>
+                                    <div>
+                                        <button t-if="not readonly" type="submit" class="btn btn-primary mr4">Save</button>
+                                        <a t-if="readonly and canteen_order.state in ['draft','sent']" t-attf-href="/my/canteen_order/#{canteen_order.id}/edit?{{ keep_query() }}" class="btn btn-primary mr4">Edit</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4 text-right">
+                                    <a t-if="readonly and canteen_order.state == 'sent'" t-attf-href="/my/canteen_order/#{canteen_order.id}/confirm?{{ keep_query() }}" class="btn btn-success ml4">Confirm</a>
+                                    <a t-if="readonly and canteen_order.state in ['draft','sent']" t-attf-href="/my/canteen_order/#{canteen_order.id}/cancel?{{ keep_query() }}" class="btn btn-danger ml4">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="id" t-att-value="canteen_order.id"/>
+                            <div class="mb32">
+                                <div class="row mb8">
+                                    <div class="col-sm-12 col-md-3 col-lg-2"><label for="student_id">Student *</label></div>
+                                    <div class="col-sm-12 col-md-9 col-lg-10">
+                                        <select name="student_id" id="student_id" required="true" class="form-control o_canteen_order_portal_form_student_id" t-att-disabled="readonly">
+                                            <option value="">--- Student ---</option>
+                                            <t t-foreach="students" t-as="student">
+                                                <option t-att-selected="student == canteen_order.student_id" t-att-value="student.id" t-esc="student.name"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb8">
+                                    <div class="col-sm-12 col-md-3 col-lg-2"><label for="canteen_order_date">Date *</label></div>
+                                    <div class="col-sm-12 col-md-9 col-lg-10">
+                                        <input class="form-control o_canteen_order_portal_form_canteen_order_date" type="date" name="canteen_order_date" id="canteen_order_date" required="true" t-att-disabled="readonly"
+                                            t-att-value="canteen_order.canteen_order_date"/>
+                                    </div>
+                                </div>
+                                <h4 class="mt32">Items</h4>
+                                <div class="row">
+                                    <div class="col-md-3 d-none d-md-block"><label>Item</label></div>
+                                    <div class="col-md-3 d-none d-md-block"><label>Description</label></div>
+                                    <div class="col-md-2 d-none d-md-block"><label>Quantity</label></div>
+                                    <div t-att-class="('col-4 col-md-2' if readonly else 'col-3 col-md-1') + ' d-none d-md-block text-right'"><label>Unit Price</label></div>
+                                    <div t-att-class="('col-4 col-md-2' if readonly else 'col-3 col-md-2') + ' d-none d-md-block text-right'"><label>Subtotal</label></div>
+                                </div>
+                                <div class="o_canteen_order_portal_form_lines">
+                                    <div class="row mb8" t-if="not canteen_order" id="line_0">
+                                        <input type="hidden" name="line_id_0" id="line_id_0" value="0"/>
+                                        <div class="col-12 col-md-3 mb8">
+                                            <select name="product_id_0" id="product_id_0" required="true" class="form-control o_canteen_order_portal_form_product_id">
+                                                <option value="">--- Item ---</option>
+                                                <t t-foreach="products" t-as="product">
+                                                    <option t-att-value="product.id" t-esc="product.name"/>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-md-3 o_canteen_order_portal_form_name" id="name_0"><p>-</p></div>
+                                        <div class="col-4 col-md-2">
+                                            <input type="number" step="0.01" name="product_uom_qty_0" id="product_uom_qty_0" class="form-control o_canteen_order_portal_form_product_uom_qty" required="true"/>
+                                        </div>
+                                        <div t-att-class="('col-4 col-md-2' if readonly else 'col-3 col-md-1') + ' o_canteen_order_portal_form_price_unit_text text-right'" id="price_unit_text_0">-</div>
+                                        <input class="o_canteen_order_portal_form_price_unit" type="hidden" name="price_unit_0" id="price_unit_0" value="-"/>
+                                        <div t-att-class="('col-4 col-md-2' if readonly else 'col-3 col-md-2') + ' o_canteen_order_portal_form_price_subtotal text-right'" id="price_subtotal_0">-</div>
+                                        <div t-if="not readonly" class="col-2 col-md-1">
+                                            <button type="button" class="btn btn-danger w-100 o_canteen_order_portal_form_remove_line">-</button>
+                                        </div>
+                                    </div>
+                                    <t t-else="">
+                                        <t t-foreach="canteen_order.order_line" t-as="line">
+                                            <div class="row mb8" t-att-id="'line_' + str(line_index)">
+                                                <input type="hidden" t-att-name="'line_id_' + str(line_index)" t-att-id="'line_id_' + str(line_index)" t-att-value="line.id"/>
+                                                <div class="col-12 col-md-3 mb8">
+                                                    <select t-att-name="'product_id_' + str(line_index)" t-att-id="'product_id_' + str(line_index)" required="true" t-att-disabled="readonly"
+                                                        class="form-control o_canteen_order_portal_form_product_id">
+                                                        <option value="">--- Item ---</option>
+                                                        <t t-foreach="products" t-as="product">
+                                                            <option t-att-selected="product == line.product_id" t-att-value="product.id" t-esc="product.name"/>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-md-3 o_canteen_order_portal_form_name" t-att-id="'name_' + str(line_index)"><t t-raw="plaintext2html(line.product_id.description_sale or '-')"/></div>
+                                                <div class="col-4 col-md-2">
+                                                    <input type="number" step="0.01" t-att-name="'product_uom_qty_' + str(line_index)" t-att-id="'product_uom_qty_' + str(line_index)"
+                                                        class="form-control o_canteen_order_portal_form_product_uom_qty" required="true" t-att-disabled="readonly" t-att-value="line.product_uom_qty"/>
+                                                </div>
+                                                <div t-att-class="('col-4 col-md-2' if readonly else 'col-3 col-md-1') + ' o_canteen_order_portal_form_price_unit_text text-right'" t-att-id="'price_unit_text_' + str(line_index)"><t t-esc="line.price_unit"/></div>
+                                                <input class="o_canteen_order_portal_form_price_unit" type="hidden" t-att-name="'price_unit_' + str(line_index)" t-att-id="'price_unit_' + str(line_index)" t-att-value="line.price_unit"/>
+                                                <div t-att-class="('col-4 col-md-2' if readonly else 'col-3 col-md-2') + ' o_canteen_order_portal_form_price_subtotal text-right'" t-att-id="'price_subtotal_' + str(line_index)"><t t-esc="line.price_unit * line.product_uom_qty"/></div>
+                                                <div t-if="not readonly" class="col-2 col-md-1">
+                                                    <button type="button" class="btn btn-danger w-100 o_canteen_order_portal_form_remove_line">-</button>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </t>
+                                </div>
+                                <button t-if="not readonly" type="button" class="btn btn-success col-12 mt8 o_canteen_order_portal_form_add_line">Add Item</button>
+                            </div>
+                            <div t-if="readonly" id="total" class="row" name="total">
+                                <div class="col-12 col-md-6 col-lg-4 ml-auto">
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td>Subtotal</td>
+                                            <td class="text-right">
+                                                <span t-field="canteen_order.amount_untaxed"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tax</td>
+                                            <td class="text-right">
+                                                <span t-field="canteen_order.amount_tax"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total</strong></td>
+                                            <td class="text-right">
+                                                <span t-field="canteen_order.amount_total"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

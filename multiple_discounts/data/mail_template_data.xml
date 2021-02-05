@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="multiple_discounts_discount_mail_template" model="mail.template">
+            <field name="name">Notify Discount Misconfigurations</field>
+            <field name="model_id" ref="model_multiple_discounts_discount"/>
+            <field name="subject">Possible Discount Misconfigurations</field>
+            <field name="body_html" type="html">
+                <div>
+                    % set no_product = ctx.get("no_product")
+                    % set archived_product = ctx.get("archived_product")
+                    % if no_product:
+                        <strong>Discounts with NO Product</strong><br/>
+                        <ul>
+                            % for discount in no_product:
+                                <li>
+                                    ${discount.name}
+                                </li>
+                            % endfor
+                        </ul>
+                    % endif
+                    % if archived_product:
+                        <strong>Discounts with ARCHIVED Product</strong><br/>
+                        <ul>
+                            % for discount in archived_product:
+                                <li>
+                                    ${discount.name}
+                                </li>
+                            % endfor
+                        </ul>
+                    % endif
+                </div>
+            </field>
+            <field name="email_from">"${user.company_id.name | safe}" &lt;${(user.company_id.email or user.email) | safe}&gt;</field>
+            <field name="email_to">${object.env.ref('base.user_admin').email}</field>
+        </record>
+    </data>
+</odoo>

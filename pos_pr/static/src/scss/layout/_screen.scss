@@ -1,0 +1,15 @@
+@import "../abstract/placeholders";
+
+.screen {
+    &-right {
+        @extend %screen-half-width;
+        float: right;
+        height: calc(100vh - 113px);
+    }
+
+    &-left {
+        @extend %screen-half-width;
+        float: left;
+        height: calc(100vh - 113px);
+    }
+}

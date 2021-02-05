@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="template_application_signature_webpage">
+        <t t-call="adm.template_application_form_commons">
+            <t t-set="title">Signature</t>
+            <t t-set="head">
+                <t t-call-assets="adm.assets_application_signature" defer_load="True"/>
+            </t>
+
+            <t t-set="url_prev" t-value="'/admission/applications/%s/document-comun' % application_id.id"/>
+            <t t-set="url_next"
+               t-value="'/admission/applications/%s/photo-permission-grant-signature' % application_id.id"/>
+
+            <!-- Body -->
+            <div data-adm-model-fields="1">
+                <div class="row h3">
+                    Electronic Signature
+                </div>
+                <div class="row">
+                    <p>
+                        The electronic signatures below and their related fields are treated by American International
+                        School of Jeddah like a physical handwritten signature on a paper form.
+                    </p>
+                </div>
+                <div class="row h3">
+                    Agreements
+                </div>
+                <div class="row">
+                    <p>
+                        My signature below affirms that all of the information contained in this application is correct,
+                        complete, and honestly presented. I understand that withholding or misrepresenting information
+                        in
+                        this application may jeopardize my child's admission.
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p>My signature below affirms that I adhere to the parent profile.</p>
+                    </div>
+                    <div class="col-12">
+
+                        <div class="o_adm_aisj_parent_profile">
+                            <div class="o_adm_aisj_header">
+                                <div class="o_adm_aisj_parent_profile_title">
+                                    <div class="o_adm_aisj_parent_profile_image"><img
+                                            src="/adm/static/img/aisj_logo_transparent.png" alt="AISJ"
+                                            border="0"/></div>
+                                    <div class="o_adm_aisj_parent_profile_title_text">
+                                        <div>AISJ</div>
+                                        <div>PARENT</div>
+                                        <div>PROFILE</div>
+                                    </div>
+                                </div>
+                                <div class="o_adm_aisj_parent_profile_background">
+                                    <div class="o_adm_aisj_parent_profile_background_purple"></div>
+                                    <div class="o_adm_aisj_parent_profile_background_image">
+                                        <div class="o_adm_aisj_parent_profile_background_image_separator"></div><img
+                                            src="/adm/static/img/aisj_parent_profile_background.png" alt="aisj-photo2"
+                                            border="0"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_adm_aisj_body">
+                                <p><strong>
+                                    It is the belief of AISJ that the success of our students can only take place when
+                                    there is a positive partnership
+                                    between parents and the school. To ensure parents fully understand what is expected
+                                    of them, they are
+                                    asked to affirm their willingness to be part of this partnership by adhering to the
+                                    points listed below.</strong></p>
+                                <div class="o_adm_aisj_body_statement" >
+                                    <h1>AISJ Mission Statement</h1>
+                                    <p>
+                                        <b><i>
+                                            Our mission is to inspire and facilitate learners through an authentic
+                                            American
+                                            education in order to nurture their
+                                            passion for knowledge, so they may pursue their dreams and become successful
+                                            global citizens.
+                                        </i></b>
+                                    </p>
+                                </div>
+                                <h2>As a member and a stakeholder of the AISJ community, I agree to:</h2>
+                                <ul>
+                                    <li>Be an advocate for AISJ in the larger community.</li>
+                                    <li>Read and promote the AISJ mission statement.</li>
+                                    <li>Model the mission of AISJ for my children in my day-to-day
+                                        behaviors.</li>
+                                    <li>Model respect to all AISJ staff and AISJ parents in my communication
+                                        with them.</li>
+                                    <li>Seek to resolve issues/concerns in a positive way and follow the
+                                        appropriate lines of communication.</li>
+                                    <li>Not put other parents, staff, or students in a position where they are
+                                        asked or obliged to compromise their own</li>
+                                    <li>religious or moral values, in or outside of school.</li>
+                                    <li>Meet my financial obligations in a timely manner.</li>
+                                    <li>Find ways to volunteer my time at AISJ when possible and actively
+                                        contribute to the positive atmosphere of the</li>
+                                    <li>school.</li>
+                                    <li>Be an active partner in my child’s education by attending school events,
+                                        parent conferences, and other school</li>
+                                    <li>activities.</li>
+                                    <li>Understand that AISJ is an apolitical inclusive learning institution
+                                        that presents a range of political, economics,</li>
+                                    <li>religious and social ideas without promoting any one.</li>
+                                    <li>Adhere to the policies and guidelines outlined by AISJ.</li>
+                                    <li>Follow the rules and laws of the host country.</li>
+                                    <li>Commit to reading all information that comes from the school.</li>
+                                    <li>Always assume the school has the best interest for my child and the
+                                        greater community.</li>
+                                    <li>Actively supervise my child at AISJ events.</li>
+                                </ul>
+                                <div class="o_adm_aisj_footer_line"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mt-4">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" data-adm-field="signature_agreements"
+                                   t-att-value="application_id.signature_agreements"
+                                   t-attf-name="signature_agreements"
+                                   t-attf-id="signature_agreements_checkbox"
+                                   t-att-checked="application_id.signature_agreements"
+                                   data-adm-field-type="BOOLEAN"
+                                   class="custom-control-input"/>
+                            <label class="custom-control-label"
+                                   t-attf-for="signature_agreements_checkbox">
+                                Check for electronic signature<span class="text-danger"> *</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mt-4 position-relative">
+                        <div class="row">
+                            <div class="col text-right">
+                                <div id="js_spin_lag_loader"
+                                     class="position-absolute d-flex justify-content-center align-content-center mr-3"
+                                     style="width: 400px; height: 200px;background: #8080807a; margin: 1px; right: 0;">
+                                    <span class="fa fa-circle-o-notch fa-spin fa-4x m-auto"></span>
+                                </div>
+                                <canvas id="signature-pad" class="signature-pad border border-dark rounded" width="400"
+                                        height="200"/>
+
+                                <input class="form-control" type="hidden"
+                                       t-att-value="application_id.signature_attach_url"
+                                       data-adm-field="signature_attach_url"
+                                       name="signature_attach_url"/>
+                            </div>
+                        </div>
+                        <div class="row text-right">
+                            <div class="col">
+                                <div id="clear_signature" class="mt-1 btn btn-secondary ">Clear</div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="col-12"/>
+                    <div class="col-12 col-md-6 form-group">
+                        <label>Name</label>
+                        <input class="form-control" type="text"
+                               t-att-value="application_id.signature_person_name or application_id.responsible_user_id.name"
+                               data-adm-field="signature_person_name" name="signature_person_name"/>
+                    </div>
+                    <div class="col-12 col-md-6 form-group">
+                        <label>Date</label>
+                        <input class="form-control" type="date"
+                               t-att-value="application_id.signature_date or datetime.date.today()"
+                               disabled="disabled"
+                               data-adm-field="signature_date" name="signature_date"/>
+                    </div>
+                </div>
+                <div class="row h3">
+                    Release of Records
+                </div>
+                <div class="row">
+                    <p>I waive my right to access confidential information contained in my child's admission file.</p>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" data-adm-field="check_confidential_info_adm_file"
+                                   t-att-value="application_id.check_confidential_info_adm_file"
+                                   t-attf-name="check_confidential_info_adm_file"
+                                   t-attf-id="check_confidential_info_adm_file_checkbox"
+                                   t-att-checked="application_id.check_confidential_info_adm_file"
+                                   data-adm-field-type="BOOLEAN"
+                                   class="custom-control-input"/>
+                            <label class="custom-control-label"
+                                   t-attf-for="check_confidential_info_adm_file_checkbox">
+                                Check for electronic signature<span class="text-danger"> *</span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-md-6 form-group">
+                        <label>Date</label>
+                        <input class="form-control" type="date"
+                               t-att-value="application_id.signature_date or datetime.date.today()"
+                               disabled="disabled"
+                               data-adm-field="signature_date" name="signature_date"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

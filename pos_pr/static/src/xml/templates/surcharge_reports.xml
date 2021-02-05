@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+
+    <t t-name="PosPr.SurchargePaymentReceipt">
+        <div t-attf-class="payment-receipt pos-bootstrap #{widget.copy and 'markwater'}">
+            <!--            <h1 t-if="modo == 'COPIA'" class="markwater">COPIA</h1>-->
+            <header class="font-weight-bold row">
+                <!-- Yes, we bring bootstrap to point of sale -->
+                <!-- Calculo de cantidad a pagar -->
+                <div class="col-12">
+                    <table class="w-100">
+                        <tr>
+                            <td rowspan="4"
+                                style="text-align: center; width: 110px; vertical-align: middle !important;">
+                                <img class="pos-receipt-logo" t-att-src='widget.pos.company_logo_base64'
+                                     style="width: 100px;" alt="Logo"/>
+                            </td>
+                            <td colspan="2">
+                                <div class="h3 company_name" t-esc="widget.company.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="company-address">
+                                    <t t-esc="widget.pos.getFormattedCompanyAddress()"/>
+                                </div>
+                            </td>
+                            <td style="font-size: 24px; text-align: center;">
+                                <div class="payment-receipt">
+                                    <strong class="label">Surcharge recipment</strong>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="company-vat" t-if="widget.company.vat">
+                                    <strong class="label">VAT:</strong>
+                                    <span t-esc="widget.company.vat" class="col"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="company-email" t-if="widget.company.email">
+                                    <strong class="label">Email:</strong>
+                                    <span t-esc="widget.company.email"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="company-email" t-if="widget.company.phone">
+                                    <strong class="label">Phone</strong>
+                                    <span t-esc="widget.company.phone" class="col"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </header>
+            <div class="row">
+                <t t-if="widget.customer">
+                    <div class="col-12 h2">
+                        <strong>Customer:</strong>
+                        <t t-esc="widget.customer.name"/>
+                    </div>
+                </t>
+            </div>
+
+            <div class="row invoice_payments">
+                <div class="col-12">
+                    <h1>
+                        <span>
+                            <strong>Surcharge</strong>
+                        </span>
+                    </h1>
+
+                    <div class="row mb-4">
+                        <div class="col-12 h3">Related to invoices:</div>
+                        <div class="col-12">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th><span>Invoice number</span></th>
+                                        <th><span>Invoice due date</span></th>
+                                        <th><span>Family</span></th>
+                                        <th><span>Student</span></th>
+                                        <th class="text-right">
+                                            <span>Invoice surcharge</span>
+                                        </th>
+                                        <th class="text-right">
+                                            <span>Surcharge paid</span>
+                                        </th>
+                                        <th class="text-right">
+                                            <span>Final surcharge balance</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="col-12" t-foreach="widget.invoices" t-as="invoice">
+                                        <td><t t-esc="invoice.name"/></td>
+                                        <td><t t-esc="invoice.invoice_date_due"/></td>
+                                        <td><t t-if="invoice.family_id" t-esc="invoice.family_id.name"/></td>
+                                        <td><t t-if="invoice.student_id" t-esc="invoice.student_id.name"/></td>
+                                        <td class="text-right"><t
+                                                t-esc="widget.format_currency(invoice.last_surcharge_amount)"/></td>
+                                        <td class="text-right"><t
+                                                t-esc="widget.format_currency(invoice.last_surcharge_amount - invoice.surcharge_amount)"/></td>
+                                        <td class="text-right"><t
+                                                t-esc="widget.format_currency(invoice.surcharge_amount)"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 h6 text-right"><strong>Amount total:</strong></div>
+                        <div class="col-3 h6"><t
+                                t-esc="widget.format_currency(widget.surcharge.amount)"/></div>
+                        <div class="col-3 h6 text-right"><strong>Amount due:</strong></div>
+                        <div class="col-3 h6"><t
+                                t-esc="widget.format_currency(widget.surcharge.amount)"/></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 h6 text-right"><strong>Invoice date:</strong></div>
+                        <div class="col-3 h6"><t t-esc="widget.surcharge.date"/></div>
+                        <div class="col-3 h6 text-right"><strong>Invoice due date:</strong></div>
+                        <div class="col-3 h6"><t t-esc="widget.surcharge.date"/></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="h6">Invoice payments</div>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span>Payment Date</span>
+                                        </th>
+                                        <th>
+                                            <span>Payment Number</span>
+                                        </th>
+                                        <th class="text-right">
+                                            <span>Payment method</span>
+                                        </th>
+                                        <th class="text-right">
+                                            <span>Invoice due</span>
+                                        </th>
+                                        <th class="text-right">
+                                            <span>Amount Paid</span>
+                                        </th>
+                                        <th class="text-right">
+                                            <span>Invoice Balance</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="invoice_balance" t-value="widget.surcharge.amount"/>
+                                    <tr t-foreach="widget.surcharge.payment_ids" t-as="payment">
+                                        <td><t t-esc="payment.date"/></td>
+                                        <td><t t-esc="payment.name"/></td>
+                                        <td class="text-right"><t t-esc="payment.payment_method_id.name"/></td>
+                                        <td class="text-right"><t
+                                                t-esc="widget.format_currency(invoice_balance)"/></td>
+                                        <td class="text-right"><t
+                                                t-esc="widget.format_currency(payment.payment_amount)"/></td>
+
+                                        <t t-set="invoice_balance" t-value="invoice_balance - payment.payment_amount"/>
+                                        <td class="text-right"><t t-esc="widget.format_currency(invoice_balance)"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <section class="row mb-4">
+                        <div class="col-12 h6">Payment group details</div>
+                        <div class="col-6"/>
+                        <div class="col-6 payment-amounts">
+                            <div class="row text-right payment-amount-total justify-content-end pr-4 h4">
+                                <div class="col-6"><strong class="label">Total paid: </strong></div>
+                                <div class="col-6">
+                                    <t t-esc="widget.format_currency(widget.surcharge.amount)"/>
+                                </div>
+                            </div>
+
+                            <div class="row text-right justify-content-end pr-4 h6"
+                                 t-foreach="widget.surcharge.payment_ids"
+                                 t-as="payment">
+                                <div class="col-6"><strong class="label"><t t-esc="payment.payment_method_id.name"/>
+                                    : </strong></div>
+                                <div class="col-6">
+                                    <t t-esc="widget.format_currency(payment.payment_amount)"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                    <div class="row" style="margin-top: 2cm;">
+                        <div class="col-3 h6">Sign and casher stamp</div>
+                        <div class="col-9" style="border-bottom: 2px solid black !important;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

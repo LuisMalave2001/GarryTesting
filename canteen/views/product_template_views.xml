@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_view_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.view.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <div name="options" position="inside">
+                <div>
+                    <field name="canteen_ok"/>
+                    <label for="canteen_ok"/>
+                </div>
+            </div>
+            <notebook position="inside">
+                <page name="canteen" string="Canteen" attrs="{'invisible': [('canteen_ok','=',False)]}">
+                    <group string="Availability">
+                        <field name="canteen_recur_monday" string="Monday"/>
+                        <field name="canteen_recur_tuesday" string="Tuesday"/>
+                        <field name="canteen_recur_wednesday" string="Wednesday"/>
+                        <field name="canteen_recur_thursday" string="Thursday"/>
+                        <field name="canteen_recur_friday" string="Friday"/>
+                        <field name="canteen_recur_saturday" string="Saturday"/>
+                        <field name="canteen_recur_sunday" string="Sunday"/>
+                        <field name="canteen_availability_dates" string="Dates" widget="many2many_tags"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

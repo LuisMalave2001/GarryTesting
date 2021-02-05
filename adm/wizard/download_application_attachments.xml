@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="download_application_attachments_view_form" model="ir.ui.view">
+        <field name="name">download.application.attachments.view.form</field>
+        <field name="model">download.application.attachments</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="application_ids" widget="one2many" context="{'group_by': 'status_id'}">
+                        <tree>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight"/>
+                    <button name="download_attachments" string="Download" type="object" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="download_application_attachments_action" model="ir.actions.act_window">
+        <field name="name">Download application attachments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">download.application.attachments</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="adm.download_application_attachments_view_form"/>
+        <field name="binding_model_id" ref="adm.model_adm_application"/>
+        <field name="binding_view_types">list</field>
+        <field name="context">{'default_application_ids': active_ids}</field>
+    </record>
+
+</odoo>

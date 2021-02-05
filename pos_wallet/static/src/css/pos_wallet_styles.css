@@ -1,0 +1,288 @@
+.pos_wallet .input-with-label {
+  width: 100%;
+  clear: both;
+  display: flex;
+  align-items: center;
+}
+.pos_wallet .input-with-label label {
+  width: 20%;
+  display: block;
+  float: left;
+}
+.pos_wallet .input-with-label input, .pos_wallet .input-with-label select, .pos_wallet .input-with-label textarea {
+  width: 80%;
+  display: block;
+}
+.pos_wallet .wallet-layout-tree {
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 1em;
+  overflow: scroll;
+}
+.pos_wallet .wallet-layout-tree > .wallet-layout-tree__root, .pos_wallet .wallet-layout-tree > .wallet-layout-tree__root > .wallet-layout-tree__branch {
+  padding: 0;
+}
+.pos_wallet .wallet-layout-tree > .wallet-layout-tree__root::before, .pos_wallet .wallet-layout-tree > .wallet-layout-tree__root::after, .pos_wallet .wallet-layout-tree > .wallet-layout-tree__root > .wallet-layout-tree__branch::before, .pos_wallet .wallet-layout-tree > .wallet-layout-tree__root > .wallet-layout-tree__branch::after {
+  display: none;
+}
+.pos_wallet .wallet-layout-tree__root {
+  position: relative;
+  padding-left: 2vw;
+}
+.pos_wallet .wallet-layout-tree__root::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  border-top: 1px solid;
+  width: 2vw;
+}
+.pos_wallet .wallet-layout-tree__branch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 2vw;
+  position: relative;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+.pos_wallet .wallet-layout-tree__branch__container {
+  display: block;
+  border: 1px solid black;
+  position: relative;
+}
+.pos_wallet .wallet-layout-tree__branch::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  border-top: 1px solid;
+  width: 2vw;
+}
+.pos_wallet .wallet-layout-tree__branch::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  border-left: 1px solid;
+}
+.pos_wallet .wallet-layout-tree__branch:last-of-type::after {
+  height: 50%;
+  top: 0;
+}
+.pos_wallet .wallet-layout-tree__branch:first-of-type::after {
+  height: 50%;
+  bottom: 0;
+}
+.pos_wallet .wallet-layout-tree__branch:only-child {
+  padding-top: 0;
+}
+.pos_wallet .wallet-layout-tree__branch:only-child::after {
+  display: none;
+}
+.pos_wallet .wallet-layout-tree__branch:not(:first-of-type):not(:last-of-type)::after {
+  height: 100%;
+}
+.pos_wallet .o_pos_wallet_load_button {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  width: 140px;
+}
+.pos_wallet .vertical-separator {
+  width: 1px;
+  height: 100%;
+  border: 1px solid #2b2b2b;
+  display: inline-block;
+}
+.pos_wallet .pos_wallet_payment_space_tree {
+  width: 100%;
+  height: 100%;
+}
+.pos_wallet .wallet-payment-card {
+  box-sizing: border-box;
+  width: 250px;
+  padding: 1em;
+  background-color: #c4f5ff;
+}
+.pos_wallet .wallet-payment-card * {
+  box-sizing: border-box;
+}
+.pos_wallet .wallet-payment-card .header {
+  background-color: #a2dcff;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.pos_wallet .wallet-payment-card .body input.payment-amount, .pos_wallet .wallet-payment-card .body .wallet-balances {
+  width: 100%;
+  padding: 0.25rem;
+  margin-top: 10px;
+}
+.pos_wallet .wallet-payment-card .body .wallet-balances td.amount {
+  text-align: right;
+}
+.pos_wallet .wallet-payment-card .body .label {
+  font-weight: bold;
+}
+.pos_wallet .customer-screen-wallet-list {
+  width: 100%;
+}
+.pos_wallet .form-select {
+  text-align: left;
+  display: inline-block;
+  background: white;
+  min-height: 44px;
+  font-family: "Lato", serif;
+  font-size: 20px;
+  color: #444;
+  padding: 10px;
+  border-radius: 3px;
+  border: none;
+  box-shadow: 0px 0px 0px 1px gainsboro inset;
+  box-sizing: border-box;
+  width: 80%;
+}
+.pos_wallet button {
+  width: 110px;
+  height: 40px;
+  text-align: center;
+  border-radius: 2px;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border: solid 1px rgba(60, 60, 60, 0.1);
+  background: rgba(0, 0, 0, 0.05);
+}
+.pos_wallet button.button {
+  line-height: 0 !important;
+}
+.pos_wallet .confirm {
+  float: right;
+}
+.pos_wallet .cancel {
+  float: left !important;
+  margin-left: 10px;
+  background: #ff5d5d !important;
+  color: white;
+}
+.pos_wallet .wallet-list-table {
+  width: 100%;
+}
+.pos_wallet .wallet-list-table td, .pos_wallet .wallet-list-table th {
+  padding: 0.6rem;
+}
+.pos_wallet .wallet-list-table thead tr {
+  background: #ebe1c9;
+}
+.pos_wallet .wallet-list-table tbody tr:nth-child(odd) {
+  background: #fff6e2;
+}
+.pos_wallet .wallet-list-table tbody tr:nth-child(even) {
+  background: white;
+}
+.pos_wallet input.wallet-amount:invalid {
+  border: 5px solid red;
+}
+.pos_wallet .page-load-wallet-receipt {
+  width: 100%;
+  background-color: white;
+}
+.pos_wallet .page-load-wallet-receipt table {
+  width: 100%;
+}
+.pos_wallet .page-load-wallet-receipt .text-right {
+  text-align: right;
+}
+.pos_wallet .page-load-wallet-receipt .text-center {
+  text-align: center;
+}
+.pos_wallet .page-load-wallet-receipt .text-left {
+  text-align: left;
+}
+.pos_wallet .page-load-wallet-receipt .header {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1em;
+  float: left;
+}
+.pos_wallet .page-load-wallet-receipt .header .logo-container {
+  width: 10%;
+  height: 100%;
+  float: left;
+  display: inline-block;
+}
+.pos_wallet .page-load-wallet-receipt .header .logo-container img {
+  width: 100%;
+}
+.pos_wallet .page-load-wallet-receipt .header .company-info {
+  width: 70%;
+  height: 100%;
+  float: left;
+  display: inline-block;
+}
+.pos_wallet .page-load-wallet-receipt .header .payment-info {
+  width: 18%;
+  height: 100%;
+  float: left;
+  display: inline-block;
+}
+.pos_wallet .page-load-wallet-receipt .wallet-info {
+  width: 100%;
+  margin-bottom: 1em;
+  float: left;
+}
+.pos_wallet .page-load-wallet-receipt .wallet-info table tr td.label {
+  font-weight: bold;
+  text-align: right;
+  padding-right: 1em;
+}
+.pos_wallet .page-load-wallet-receipt .footer {
+  width: 100%;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+}
+.pos_wallet .page-load-wallet-receipt .footer .stamp-space {
+  display: flex;
+  height: 3cm;
+  float: left;
+  width: 30%;
+  align-items: flex-end;
+  justify-content: center;
+}
+.pos_wallet .page-load-wallet-receipt .footer .sign-space {
+  height: 3cm;
+  float: left;
+  border-bottom: 1px solid black;
+  width: calc(70% - 1rem);
+  margin-right: 1rem;
+}
+.pos_wallet.payment-wallet-dashboard {
+  position: absolute;
+  background: #f0eeee;
+  width: 100%;
+  transition: all 0.3s ease-out;
+  overflow: hidden;
+  bottom: 0;
+  height: 100%;
+}
+.pos_wallet.payment-wallet-dashboard--hidden {
+  height: 150px;
+}
+
+.content-row-hidden {
+  height: 0 !important;
+}
+
+.content-row {
+  transition: height 1s;
+  transition-timing-function: ease;
+}
+
+.client-name.font-small-client-title {
+  font-size: 24px !important;
+}
+
+/*# sourceMappingURL=pos_wallet_styles.css.map */

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        sibling_id: Used for html id and bootstrap collapse
+        sibling: Used for odoo fields values
+    -->
+    <template id="template_application_siblings_form">
+        <div>
+            <t t-if="sibling">
+                <input class="form-control" type="hidden"
+                       data-adm-field="id"
+                       t-att-value="sibling.id"
+                       data-adm-field-type="INTEGER"
+                       name="sibling"/>
+            </t>
+
+            <section class="card">
+                <div class="card-header position-relative">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block" type="button" data-toggle="collapse"
+                                t-attf-data-target="#parentCollapse_#{sibling and sibling.id}">
+                            <!--Full name-->
+                            <t t-if="sibling">
+                                <t t-esc="sibling.partner_id.name"/>
+                            </t>
+                            <t t-else="">
+                                New Sibling
+                            </t>
+                        </button>
+                    </h2>
+                    <button type="button" class="btn btn-danger remove-sibling position-absolute"
+                            style="top: 1em; right: 1em;">&#10006;</button>
+                </div>
+                <div class="collapse" t-attf-id="parentCollapse_#{sibling and sibling.id}">
+                    <div class="card-body">
+                        <article class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-8 offset-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                                        <div class="text-center" data-adm-field="partner_id"
+                                             data-adm-field-type="MANY2ONE">
+                                            <img t-attf-src="data:image/*;base64,{{sibling and sibling.partner_id.image_1920}}"
+                                                 widget="image"
+                                                 onerror="this.src = '/adm/static/img/contact_photo_placeholder.png';"
+                                                 class="avatar rounded-circle" alt="avatar" width="175"/>
+                                            <h6 class="mt-2 textUpload">Upload a different photo...</h6>
+                                            <input required="required" type="file"
+                                                   data-adm-field="image_1920"
+                                                   class="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <fieldset class="col-12 border">
+                                        <legend class="w-auto">Demographics</legend>
+                                        <section class="row" data-adm-field="partner_id" data-adm-field-type="MANY2ONE">
+                                            <div class="col-12 col-md-6 form-group">
+                                                <label>First name</label>
+                                                <input class="form-control" type="text"
+                                                       data-adm-field="first_name"
+                                                       t-att-value="sibling and sibling.partner_id.first_name"
+                                                       name="first_name"/>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 form-group">
+                                                <label>Family name</label>
+                                                <input class="form-control" type="text"
+                                                       t-att-value="sibling and sibling.partner_id.last_name"
+                                                       data-adm-field="last_name" name="last_name"/>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 form-group">
+                                                <label>Date of birth</label>
+                                                <input class="form-control" type="date"
+                                                       t-att-value="sibling and sibling.partner_id.date_of_birth"
+                                                       data-adm-field="date_of_birth" name="date_of_birth"/>
+                                            </div>
+                                        </section>
+
+                                        <section class="row">
+                                            <div class="col-12 col-md-6 form-group">
+                                                <label>Status</label>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                           t-att-checked="sibling and sibling.aisj_status == 'attending_to_aisj'"
+                                                           data-adm-field="aisj_status" value="attending_to_aisj"
+                                                           t-attf-name="aisj_status_#{sibling_id}"/>
+                                                    <label class="for-check-label">Attending AISJ</label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                           t-att-checked="sibling and sibling.aisj_status == 'applying'"
+                                                           data-adm-field="aisj_status" value="applying"
+                                                           t-attf-name="aisj_status_#{sibling_id}"/>
+                                                    <label class="for-check-label">Applying to AISJ</label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                           t-att-checked="sibling and sibling.aisj_status == 'neither'"
+                                                           data-adm-field="aisj_status" value="neither"
+                                                           t-attf-name="aisj_status_#{sibling_id}"/>
+                                                    <label class="for-check-label">Neither</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 form-group">
+                                                <label>Sibling Grade</label>
+                                                <select class="form-control"
+                                                        data-adm-field="grade_level_id" data-adm-field-type="INTEGER">
+                                                    <t t-foreach="grade_level_ids" t-as="grade_level">
+                                                        <option t-att-selected="sibling and sibling.grade_level_id == grade_level"
+                                                                t-att-value="grade_level.id">
+                                                            <t t-esc="grade_level.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 form-group">
+                                                <label>Alumni or currently Enrolled Students</label>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                           t-att-checked="sibling and sibling.alumni_state == 'alumni'"
+                                                           data-adm-field="alumni_state" value="alumni"
+                                                           t-attf-name="alumni_state_#{sibling_id}"/>
+                                                    <label class="for-check-label">Alumni</label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                           t-att-checked="sibling and sibling.alumni_state == 'currently_enrolled'"
+                                                           data-adm-field="alumni_state" value="currently_enrolled"
+                                                           t-attf-name="alumni_state_#{sibling_id}"/>
+                                                    <label class="for-check-label">Currently Enrolled</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 form-group">
+                                                <label>Relationship to applicants</label>
+                                                <input class="form-control" type="text"
+                                                       t-att-value="sibling and sibling.c_aisj_relationship_to_application"
+                                                       data-adm-field="c_aisj_relationship_to_application" name=""/>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 form-group">
+                                                <label>Years attended</label>
+                                                <input class="form-control" type="text"
+                                                       data-adm-field="c_years_attended"
+                                                       t-att-value="sibling and sibling.c_years_attended"
+                                                       name=""/>
+                                            </div>
+
+                                        </section>
+                                    </fieldset>
+
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+
+    <template id="template_application_siblings_webpage" name="Student's siblings">
+        <t t-call="adm.template_application_form_commons">
+            <div id="template_sibling" style="display: none;">
+                <t t-call="adm.template_application_siblings_form"/>
+            </div>
+            <t t-set="head">
+                <!--<link rel="stylesheet" href="/adm/static/src/css/form_application.css"/>-->
+                <t t-call-assets="adm.assets_application_school_sibling" defer_load="True"/>
+            </t>
+            <t t-set="title">Siblings</t>
+            <t t-set="url_prev" t-value="'/admission/applications/%s/family/parents' % application_id.id"/>
+            <t t-set="url_next" t-value="'/admission/applications/%s/parent-questionnaire' % application_id.id"/>
+
+            <div class="row" data-adm-model-fields="1">
+                <div class="col-12">
+                    <div id="sibling_list"
+                         data-adm-field-type="ONE2MANY"
+                         data-adm-field="sibling_ids">
+                        <t t-foreach="application_id.sibling_ids" t-as="sibling">
+                            <div data-adm-rel="rel">
+                                <t t-call="adm.template_application_siblings_form"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="button"
+                            class="add-sibling btn btn-secondary d-block mt-2 ml-auto">
+                        &#10010; Add sibling</button>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

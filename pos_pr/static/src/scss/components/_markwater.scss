@@ -1,0 +1,10 @@
+@import "../abstract/mixins";
+
+.markwater {
+    //background-image: url('/pos_pr/static/storage/img/COPIA-01.svg') !important;
+    //background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='120px'><text transform='rotate(45)' x='0' y='15' fill='red' font-size='20'>I love SVG!</text></svg>") !important;
+    background-size: 50% 50% !important;
+    background-repeat: repeat-y !important;
+    background-origin: border-box !important;
+    background-position: top !important;
+}

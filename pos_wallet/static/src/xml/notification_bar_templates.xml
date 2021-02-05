@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template">
+
+    <t t-name="StatusSynchWalletTransaction">
+        <div class="oe_status js_synch_invoice_payment">
+            <span class='js_msg oe_hidden'>0</span>
+            <div class="js_connected oe_icon oe_green pos_wallet" style="width: 100%;">
+                    <i class="fa fa-fw fa-sort-asc" role="img" aria-hidden="true" aria-label="Synchronisation Connected"
+                       title="Synchronisation Connected"/>
+                    <i class="fa fa-fw fa-money" role="img" aria-hidden="true" aria-label="Synchronisation Connected"
+                       title="Synchronisation Connected"/>
+
+                    <span class="vertical-separator"/>
+
+                    <i class="fa fa-fw fa-sort-desc" role="img" aria-hidden="true" aria-label="Synchronisation Connected"
+                       title="Synchronisation Connected"/>
+                    <i class="fa fa-fw fa-money" role="img" aria-hidden="true" aria-label="Synchronisation Connected"
+                       title="Synchronisation Connected"/>
+            </div>
+
+            <div class="js_warning oe_icon oe_orange oe_hidden">
+                <i class='fa fa-fw fa-warning' role="img" aria-label="Synchronisation Connected"
+                   title="Synchronisation Connected"></i>
+            </div>
+            <div class="js_connecting oe_icon oe_hidden">
+                <i class='fa fa-fw fa-spin fa-repeat' role="img" aria-label="Synchronisation Connecting"
+                   title="Synchronisation Connecting"></i>
+            </div>
+            <div class="js_disconnected oe_icon oe_red oe_hidden">
+                <i class='fa fa-fw fa-exchange' role="img" aria-label="Synchronisation Disconnected"
+                   title="Synchronisation Disconnected"></i>
+            </div>
+            <!--            <div class="js_error oe_icon oe_red oe_hidden">-->
+            <!--                <i class='fa fa-fw fa-warning' role="img" aria-label="Synchronisation Error"-->
+            <!--                   title="Synchronisation Error"></i>-->
+            <!--            </div>-->
+        </div>
+    </t>
+
+</templates>

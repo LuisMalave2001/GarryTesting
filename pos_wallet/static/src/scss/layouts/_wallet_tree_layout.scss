@@ -1,0 +1,89 @@
+.wallet-layout-tree {
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 1em;
+    overflow: scroll;
+
+    & > .wallet-layout-tree__root, & > .wallet-layout-tree__root > .wallet-layout-tree__branch {
+        &::before, &::after {
+            display: none;
+        }
+        padding: 0;
+    }
+
+    &__root {
+        position: relative;
+        padding-left: 2vw;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            border-top: 1px solid;
+            width: 2vw;
+        }
+
+    }
+
+    &__branch {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 2vw;
+        position: relative;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+
+        &__container {
+            display: block;
+            border: 1px solid black;
+            position: relative;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            border-top: 1px solid;
+            width: 2vw;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            border-left: 1px solid;
+        }
+
+        // [connector] sibling-to-sibling:last-child
+        &:last-of-type::after {
+            height: 50%;
+            top: 0;
+        }
+
+        // [connector] sibling-to-sibling:first-child
+        &:first-of-type::after {
+            height: 50%;
+            bottom: 0;
+        }
+
+        &:only-child {
+            padding-top: 0;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        // [connector] sibling-to-sibling:middle-child(ren)
+        &:not(:first-of-type):not(:last-of-type)::after {
+            height: 100%;
+        }
+
+    }
+
+}

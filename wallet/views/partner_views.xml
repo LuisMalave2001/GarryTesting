@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherit Form View to Modify it -->
+
+    <record id="wallet_partner_dashboard_inherit_view" model="ir.ui.view">
+        <field name="name">wallet.partner.dashboard</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="sheet" position="before">
+                <header>
+                    <button id="load_wallet_button"
+                            name="%(wallet.action_load_wallet_wizard)d"
+                            _confirm="Are you sure?"
+                            type="action"
+                            class="oe_highlight"
+                            string="Load wallet" />
+                    <button id="autoclear_btn" name="execute_autoclear" confirm="Are you sure?" type="object" class="oe_highlight" string="Autoclear" />
+                </header>
+            </xpath>
+            <div name="button_box" position="inside">
+                <button type="object" class="oe_stat_button" icon="fa-credit-card" name="action_open_wallet_history">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="total_wallet_balance" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </span>
+                        <span class="o_stat_text">Wallet</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="product_template_form_view_inherit_wallet" model="ir.ui.view">
+        <field name="name">product.template.common.view.inherit.wallet</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <div name="options" position="after">
+                <div>
+                    <field name="wallet_ok"/>
+                    <label for="wallet_ok"/>
+                </div>
+            </div>
+
+            <div name="options" position="attributes">
+                <attribute name="attrs">{'invisible': [('wallet_ok', '=', True)]}</attribute>
+            </div>
+
+        </field>
+    </record>
+
+</odoo>

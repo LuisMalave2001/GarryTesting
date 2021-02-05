@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_journal_mail_template_issue_limit_warn" model="mail.template">
+        <field name="name">Journal: Issue Limit Warning Date</field>
+        <field name="model_id" ref="model_account_journal"/>
+        <field name="subject">Invoice Journal Issue Limit Date Warning</field>
+        <field name="body_html" type="html">
+            <div>
+                This is to inform that the Issue Limit Date for the journal <strong>${object.name}</strong> is on <strong>${object.issue_limit_date}</strong>.
+                <br/>
+                <br/>
+                This is an auto-generated message. Do not reply.
+            </div>
+        </field>
+        <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.company_id.email or user.email) | safe}&gt;</field>
+        <field name="email_to">${object.env.ref('account.group_account_invoice').get_members_email_to()}</field>
+    </record>
+
+    <record id="account_journal_mail_template_authorized_range_warn" model="mail.template">
+        <field name="name">Journal: Authorized Range Warning</field>
+        <field name="model_id" ref="model_account_journal"/>
+        <field name="subject">Invoice Journal Authorized Range Warning</field>
+        <field name="body_html" type="html">
+            <div>
+                This is to inform that the Authorized Range To for the journal <strong>${object.name}</strong> is <strong>${object.authorized_range_to}</strong>.
+                <br/>
+                The next number that will be used is <strong>${object.sequence_number_next}</strong>
+                <br/>
+                <br/>
+                This is an auto-generated message. Do not reply.
+            </div>
+        </field>
+        <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.company_id.email or user.email) | safe}&gt;</field>
+        <field name="email_to">${object.env.ref('account.group_account_invoice').get_members_email_to()}</field>
+    </record>
+</odoo>

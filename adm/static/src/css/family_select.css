@@ -1,0 +1,24 @@
+/**
+ This mixing is from the user Merott
+ in stack overflow:
+ https://stackoverflow.com/questions/23274338/how-to-keep-wrapped-flex-items-the-same-width-as-the-elements-on-the-previous-ro
+ */
+.o_adm_family_select_item {
+  flex: 0 1 10%;
+  min-width: 120px;
+  max-width: 120px;
+}
+.o_adm_family_select_item img {
+  opacity: 0.5;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.o_adm_family_select_item_add {
+  width: 120px !important;
+}
+.o_adm_family_selection li {
+  list-style: none;
+}
+
+/*# sourceMappingURL=family_select.css.map */

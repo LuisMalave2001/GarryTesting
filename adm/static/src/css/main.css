@@ -1,0 +1,28 @@
+.form-upload label.label-upload {
+  display: inline-block;
+  background-color: indigo;
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+.form-upload input[type=file] {
+  display: none;
+}
+
+.card-sticky-save {
+  position: sticky;
+}
+@media (min-height: 720px) {
+  .card-sticky-save {
+    top: 50%;
+  }
+}
+@media (max-height: 719px) {
+  .card-sticky-save {
+    bottom: 0;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

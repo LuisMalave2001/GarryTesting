@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="adm.template_application_parent_questionnaire_form">
+        <div></div>
+    </template>
+
+    <template id="adm.template_application_parent_questionnaire_webpage">
+        <t t-call="adm.template_application_form_commons">
+            <t t-set="title">Parent Questionnaire</t>
+            <t t-set="url_prev" t-value="'/admission/applications/%s/family/siblings' % application_id.id"/>
+            <t t-set="url_next" t-value="'/admission/applications/%s/additional-questions' % application_id.id"/>
+
+            <div data-adm-model-fields="1">
+                <t t-call="adm.template_application_parent_questionnaire_form"/>
+            </div>
+        </t>
+    </template>
+</odoo>

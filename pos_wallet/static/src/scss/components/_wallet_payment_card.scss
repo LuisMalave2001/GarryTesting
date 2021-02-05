@@ -1,0 +1,42 @@
+.pos_wallet_payment_space_tree {
+    width: 100%;
+    height: 100%;
+}
+
+.wallet-payment-card {
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+    }
+
+    width: 250px;
+    padding: 1em;
+    background-color: #c4f5ff;
+
+    .header {
+        background-color: #a2dcff;
+        text-align: center;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .body {
+        input.payment-amount, .wallet-balances {
+            width: 100%;
+            padding: 0.25rem;
+            margin-top: 10px;
+        }
+
+        .wallet-balances {
+            td.amount {
+                text-align: right;
+            }
+        }
+
+        .label {
+            font-weight: bold;
+        }
+    }
+
+}

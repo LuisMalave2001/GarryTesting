@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_contract_adjustment,access.hr.contract.adjustment,model_hr_contract_adjustment,hr_contract.group_hr_contract_manager,1,1,1,1
+access_hr_contract_contribution,access.hr.contract.contribution,model_hr_contract_contribution,hr_contract.group_hr_contract_manager,1,1,1,1
+access_hr_loan,access.hr.loan,model_hr_loan,hr_payroll.group_hr_payroll_user,1,1,1,1
+access_hr_loan_payment,access.hr.loan.payment,model_hr_loan_payment,hr_payroll.group_hr_payroll_user,1,1,1,1
+access_hr_savings,access.hr.savings,model_hr_savings,hr_payroll.group_hr_payroll_user,1,1,1,1
+access_hr_savings_payment,access.hr.savings.payment,model_hr_savings_payment,hr_payroll.group_hr_payroll_user,1,1,1,1
+access_hr_contribution_table,access.hr.contribution.table,model_hr_contribution_table,hr_payroll.group_hr_payroll_user,1,1,1,1
+access_hr_contribution_bracket,access.hr.contribution.bracket,model_hr_contribution_bracket,hr_payroll.group_hr_payroll_user,1,1,1,1

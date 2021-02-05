@@ -1,0 +1,140 @@
+@import "../abstract/fonts";
+
+.payment-global-details {
+    @extend %font-payment-dashboard;
+    width: 100%;
+}
+
+.payment-register-row {
+    float: left;
+    clear: left;
+    width: 100%;
+    margin-top: 20px;
+
+    .label {
+        width: 30%;
+        float: left;
+    }
+
+    .input {
+        width: 70%;
+        float: left;
+    }
+}
+
+.payment-row {
+    float: left;
+    clear: left;
+    width: 100%;
+    padding: 0.3em;
+
+    .label {
+        float: left;
+        clear: left;
+        width: 20%;
+        text-align: right;
+        font-weight: bold;
+        margin-right: 8px;
+    }
+
+    .payment-text {
+        width: 13%;
+        border-right: 1px solid black;
+    }
+
+    .payment-total {
+        width: 10%;
+        padding-left: 8px;
+    }
+
+    &:nth-child(odd) {
+        background-color: #e4e4e4;
+    }
+
+}
+
+.payment-method-list {
+    float: left;
+    width: 100%;
+}
+
+.invoice-details {
+    @extend %font-payment-dashboard;
+
+    * > .fa-hover-show, *:hover > .fa-hover-hidden {
+      display: none;
+    }
+    *:hover > .fa-hover-show {
+      display: inline-block;
+    }
+    .js-more-detail {
+        button {
+            font-size: 32px;
+            z-index: 10;
+            position: relative;
+            top: 0;
+            left: 0;
+            &:hover {
+                background: darken(white, 10%);
+            }
+
+
+        }
+    }
+
+    float: left;
+    width: 100% !important;
+
+    .invoice-details-left {
+        float: left;
+        width: 50%;
+    }
+
+    .invoice-details-right {
+        float: right;
+        width: 50%;
+    }
+
+    /* Taken from boostrap 4 input css this is not my code*/
+    //input {
+    //    padding: .375rem .75rem;
+    //    font-size: 1rem;
+    //    line-height: 1.5;
+    //    color: #495057;
+    //    background-color: #fff;
+    //    background-clip: padding-box;
+    //    border: 1px solid #ced4da;
+    //    border-radius: .25rem;
+    //    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    //    overflow: visible;
+    //    margin: 0;
+    //    font-family: inherit;
+    //}
+
+    .title {
+        background-color: #6EC89B !important;
+        border-bottom: solid 1px #40B379 !important;
+    }
+
+    .selection {
+        line-height: 40px !important;
+        max-height: 400px !important;
+        font-size: 13px !important;
+    }
+
+    .footer {
+        background-color: #6EC89B;
+        border-top: solid 1px #40B379 !important;
+
+        .button {
+            background-color: rgb(240, 238, 238) !important;
+        }
+    }
+
+}
+
+section.invoice-payment-section {
+    display: inline-block;
+    width: 100%;
+    padding-bottom: 1em;
+}

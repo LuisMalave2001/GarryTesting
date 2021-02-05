@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contract_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.contract.view.form.inherit</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_payroll_extends.hr_contract_view_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='allowance_ids']/tree/field[@name='amount']" position="after">
+                <field name="debit_account_id" attrs="{'required': ['|',('credit_account_id','!=',False),('analytic_account_id','!=',False)]}"/>
+                <field name="credit_account_id" attrs="{'required': ['|',('debit_account_id','!=',False),('analytic_account_id','!=',False)]}"/>
+                <field name="analytic_account_id" groups="analytic.group_analytic_accounting" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='other_allowance_ids']/tree/field[@name='amount']" position="after">
+                <field name="debit_account_id" attrs="{'readonly': [('is_locked','=',True)], 'required': ['|',('credit_account_id','!=',False),('analytic_account_id','!=',False)]}"/>
+                <field name="credit_account_id" attrs="{'readonly': [('is_locked','=',True)], 'required': ['|',('debit_account_id','!=',False),('analytic_account_id','!=',False)]}"/>
+                <field name="analytic_account_id" attrs="{'readonly': [('is_locked','=',True)]}" groups="analytic.group_analytic_accounting" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='deduction_ids']/tree/field[@name='amount']" position="after">
+                <field name="debit_account_id" attrs="{'required': ['|',('credit_account_id','!=',False),('analytic_account_id','!=',False)]}"/>
+                <field name="credit_account_id" attrs="{'required': ['|',('debit_account_id','!=',False),('analytic_account_id','!=',False)]}"/>
+                <field name="analytic_account_id" groups="analytic.group_analytic_accounting" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='other_deduction_ids']/tree/field[@name='amount']" position="after">
+                <field name="debit_account_id" attrs="{'readonly': [('is_locked','=',True)], 'required': ['|',('credit_account_id','!=',False),('analytic_account_id','!=',False)]}"/>
+                <field name="credit_account_id" attrs="{'readonly': [('is_locked','=',True)], 'required': ['|',('debit_account_id','!=',False),('analytic_account_id','!=',False)]}"/>
+                <field name="analytic_account_id" attrs="{'readonly': [('is_locked','=',True)]}" groups="analytic.group_analytic_accounting" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='contribution_ids']/tree/field[@name='employee_amount']" position="after">
+                <field name="emp_product_id"/>
+                <field name="emp_journal_id"/>
+            </xpath>
+            <xpath expr="//field[@name='contribution_ids']/tree/field[@name='company_amount']" position="after">
+                <field name="comp_product_id"/>
+                <field name="comp_journal_id"/>
+            </xpath>
+            <xpath expr="//div[hasclass('alert','alert-info')]" position="before">
+                <separator string="Contributions"/>
+            </xpath>
+            <xpath expr="//div[hasclass('alert','alert-info')]" position="inside">
+                <br/>Kindly save the contract first to be able to edit the accounting settings for new contribution lines.
+            </xpath>
+            <field name="contribution_ids" position="after">
+                <separator string="Employee Settings"/>
+                <field name="emp_contribution_ids">
+                    <tree editable="bottom" create="0">
+                        <field name="name" readonly="1"/>
+                        <field name="emp_debit_account_id"/>
+                        <field name="emp_credit_account_id"/>
+                        <field name="emp_analytic_account_id"/>
+                    </tree>
+                </field>
+                <separator string="Company Settings"/>
+                <field name="comp_contribution_ids">
+                    <tree editable="bottom" create="0">
+                        <field name="name" readonly="1"/>
+                        <field name="comp_debit_account_id"/>
+                        <field name="comp_credit_account_id"/>
+                        <field name="comp_analytic_account_id"/>
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+</odoo>

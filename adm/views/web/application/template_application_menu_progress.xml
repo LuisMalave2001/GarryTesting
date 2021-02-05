@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="adm.templat_application_progress_bar">
+
+    </template>
+    <template id="adm.template_application_menu_progress">
+        <t t-call="website.layout">
+            <t t-set="title">Application Review</t>
+            <link rel="stylesheet" href="/adm/static/src/css/form_application.css"/>
+
+            <div class="oe_struture"/>
+            <div class="oe_struture">
+                <t t-call="adm.template_application_menu"/>
+                <div class="container-fluid d-flex p-4">
+                    <main class="container-fluid p-4">
+>
+                    </main>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

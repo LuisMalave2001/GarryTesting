@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="hr_payroll_reports_menu_config"
+        name="Reports"
+        parent="hr_payroll.menu_hr_payroll_configuration"
+        sequence="100"/>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template">
+
+    <t t-inherit="pos_partner_panel.PosWalletPartnerScreenComponent" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('js_selection_filters')]" position="after">
+            <!--Ivoices-->
+<!--            <input type="checkbox" t-on-click="state.autoCompleteInput.toggleFilter('has_invoices')"-->
+<!--                   id="input_select_pos_filter&#45;&#45;invoices"/>-->
+<!--            <label for="input_select_pos_filter&#45;&#45;invoices">Invoices</label>-->
+
+            <!--Due Ivoices-->
+            <input type="checkbox" t-on-click="state.autoCompleteInput.toggleFilter('has_unpaid_invoices')"
+                   id="input_select_pos_filter--due-invoices"/>
+            <label for="input_select_pos_filter--due-invoices">Due invoices</label>
+        </xpath>
+    </t>
+
+</templates>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+
+    <t t-inherit="pos_wallet.PosWalletLoadWalletComponent" t-inherit-mode="extension">
+        <xpath expr="//section[hasclass('body')]" position="inside">
+
+            <!-- Invoice Address -->
+            <t t-if="props.pos.get_client() and props.pos.get_client().person_type === 'student'">
+                <div class="input-with-label">
+                    <label>Invoice Address</label>
+                    <select class="form-select" t-on-change="selectInvoiceAddress">
+                        <option t-foreach="invoiceAddressList" t-as="invoiceAddress"
+                                t-att-value="invoiceAddress.id"
+                                t-key="'invoiceAddressSelect-'+invoiceAddress.id">
+                            <t t-if="invoiceAddress_first">
+                                <t t-esc="invoiceAddress.name" selected="selected"/>
+                            </t>
+                            <t t-else="">
+                                <t t-esc="invoiceAddress.name"/>
+                            </t>
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Family -->
+                <div class="input-with-label">
+                    <label>Family</label>
+                    <select class="form-select" >
+                        <option t-foreach="familyRelatedByInvoiceAddressList || []" t-as="family"
+                                t-on-change="selectFamily"
+                                t-key="'relFamilyInvAddress-'+family.id">
+                            <t t-if="family_first">
+                                <t t-esc="family.name" selected="selected"/>
+                            </t>
+                            <t t-else="">
+                                <t t-esc="family.name"/>
+                            </t>
+                        </option>
+                    </select>
+                </div>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="action_pos_pr_invoice_payment_report"
+        model="pos_pr.invoice.payment"
+        string="POS Invoice Payment Report"
+        report_type="qweb-pdf"
+        name="honduras_pos_pr.pos_pr_invoice_payment_report"
+        file="honduras_pos_pr.pos_pr_invoice_payment_report"
+        paperformat="honduras_invoices.honduras_paper_format"/>
+</odoo>

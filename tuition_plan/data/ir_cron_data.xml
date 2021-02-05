@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_cron" model="ir.cron">
+        <field name="name">Contact: Send Statement Report by Email</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="state">code</field>
+        <field name="code">
+template = env.ref("tuition_plan.res_partner_mail_template_statement", raise_if_not_found=True)
+partners_to_email = model.search([("email_statement","=",True)])
+for partner in partners_to_email:
+    partner.write({"email_statement": False})
+for partner in partners_to_email:
+    template.sudo().send_mail(partner.id, force_send=True)
+        </field>
+    </record>
+</odoo>

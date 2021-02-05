@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="load_wallet_form" model="ir.ui.view">
+        <field name="name">load.wallet.wizard.inherit.school</field>
+        <field name="model">load.wallet</field>
+        <field name="inherit_id" ref="wallet.load_wallet_form"/>
+        <field name="arch" type="xml">
+
+            <field name="partner_id" position="replace">
+                <div class="o_td_label">
+                    <label colspan="1" for="partner_id" attrs="{'invisible': [('partner_person_type', '!=', 'student')]}" string="Student"/>
+                    <label colspan="1" for="partner_id" attrs="{'invisible': [('partner_person_type', '=', 'student')]}" string="Partner"/>
+                </div>
+                <field colspan="1" name="partner_id" nolabel="1"/>
+            </field>
+
+            <field name="wallet_id" position="after">
+                    <field name="student_invoice_address_ids" invisible="1"/>
+                    <field name="partner_person_type" invisible="1"/>
+                    <field name="invoice_address_id"
+                           attrs="{'invisible': ['|', ('partner_person_type', '!=', 'student'), ('wallet_id', '=', False)],
+                                   'required': ['|', ('partner_person_type', '==', 'student')]}"
+                           domain="[('id', 'in', student_invoice_address_ids)]" nolabel="0"/>
+                    <field name="family_id" domain="[('is_family', '=', True), ('invoice_address_id', '=', invoice_address_id)]"
+                           attrs="{'invisible': ['|', ('partner_person_type', '!=', 'student'), ('invoice_address_id', '=', False)],
+                           'required': ['|', ('partner_person_type', '==', 'student')]}"
+                        />
+            </field>
+
+            <xpath expr="//group[1]/group[2]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('wallet_id', '=', False), '&amp;', ('partner_person_type', '=', 'student'), '|', ('wallet_id', '=', False), ('invoice_address_id', '=', False)]}</attribute>
+            </xpath>
+
+            <field name="payment_ids" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('wallet_id', '=', False), '&amp;', ('partner_person_type', '=', 'student'), '|', ('wallet_id', '=', False), ('invoice_address_id', '=', False)]}</attribute>
+            </field>
+
+        </field>
+    </record>
+</odoo>

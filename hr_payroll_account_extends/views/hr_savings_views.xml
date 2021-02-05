@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_savings_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.savings.view.form.inherit</field>
+        <field name="model">hr.savings</field>
+        <field name="inherit_id" ref="hr_payroll_extends.hr_savings_view_form"/>
+        <field name="arch" type="xml">
+            <page name="payments" position="after">
+                <page name="accounting" string="Accounting">
+                    <group>
+                        <field name="debit_account_id"/>
+                        <field name="credit_account_id"/>
+                        <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

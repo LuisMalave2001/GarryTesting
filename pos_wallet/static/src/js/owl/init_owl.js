@@ -1,0 +1,20 @@
+odoo.define("pos_wallet.owl.init", function (require) {
+    /*
+    * This is used to init all OWL stuff like templates...
+    * */
+
+    require('eduweb_js_util.init_owl');
+
+    async function loadTemplate() {
+        try {
+            const templates = await owl.utils.loadFile('/pos_wallet/static/src/xml/owl/screens.xml');
+            owl.Component.env.qweb.addTemplates(templates);
+            console.log('Templates /pos_wallet/static/src/xml/owl/screens.xml loaded successfully!');
+        } catch (e) {
+            console.error(`Couldn't load templates correctly`);
+            throw e;
+        }
+    }
+
+    return loadTemplate();
+});

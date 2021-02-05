@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <template id="template" xml:space="preserve">
+          <t t-extend="KanbanView.buttons">
+            <t t-jquery="button" t-operation="before">
+<!--
+    <t t-extend="KanbanView.buttons">
+            <t t-jquery="button.o-kanban-button-new" t-operation="before">-->
+<!--            <t t-if="widget.modelName == 'adm.reenrollment'">-->
+<!--                    <button id="custom_print_btn" class="btn btn-success o_kanban_button_import_students" type="button" >IMPORT OPEN STUDENTS</button>-->
+<!--                    <button id="custom_print_btn" class="btn btn-success o_kanban_button_import_students2" type="button" >IMPORT OPEN STUDENTS 2</button>-->
+<!--            </t>-->
+            </t>
+          </t>
+      </template>

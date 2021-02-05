@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Actions -->
+    <record model="ir.actions.act_window" id="action_language">
+        <field name="name">Languages</field>
+        <field name="res_model">adm.language</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_language_level">
+        <field name="name">Language Levels</field>
+        <field name="res_model">adm.language.level</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_degree_program">
+        <field name="name">Degree Program</field>
+        <field name="res_model">adm.degree_program</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_contact_time">
+        <field name="name">Contact time</field>
+        <field name="res_model">adm.contact_time</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <!-- Inquiries -->
+	<record model="ir.actions.act_window" id="action_inquiry">
+		<field name="name">Inquiries</field>
+		<field name="res_model">adm.inquiry</field>
+		<field name="view_mode">kanban,tree,form</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_status">
+		<field name="name">Inquiry Status</field>
+		<field name="res_model">adm.inquiry.status</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+    <!-- Inquiry SOURCE -->
+     <record model="ir.actions.act_window" id="action_inquiry_source">
+        <field name="name">Inquiry Source</field>
+        <field name="res_model">adm.inquiry.source</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!-- Applications -->
+    <record model="ir.actions.act_window" id="action_application">
+        <field name="name">Applications</field>
+        <field name="res_model">adm.application</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_group_status_id': True, 'search_default_current_school_year': True}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_application_status">
+        <field name="name">Application Status</field>
+        <field name="res_model">adm.application.status</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_application_download_file">
+        <field name="name">Application Download</field>
+        <field name="res_model">adm.application.status</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- Principal -->
+	<menuitem id="adm_menu" name="Admission" />
+    <!--Configuration -->
+    <menuitem id="adm_menu_configurations"
+        parent="adm_menu" name="Configurations" />
+    <!-- Principal -->
+	<menuitem id="adm_menu" name="Admissions" web_icon="adm,static/description/icon.png"/>
+
+    <!-- For customizations -->
+    <menuitem id="adm_custom_menu" parent="adm_menu" name="Custom" />
+
+    <!-- Inquiry -->
+	<menuitem  id="adm_menu_inquiry" action="action_inquiry"
+		name="Inquiry" parent="adm_menu" sequence="1" />
+
+    <menuitem id="adm_menu_inquiry_source"
+        parent="adm_menu_configurations" name="Inquiry Source"
+        action="action_inquiry_source" />
+
+    <!-- Application -->
+	<menuitem id="adm_menu_application" action="action_application"
+		name="Application" parent="adm_menu" sequence="2"/>
+
+    <!--Configuration -->
+    <menuitem id="adm_menu_configurations" sequence="4"
+        parent="adm_menu" name="Configurations" />
+
+    <!-- Status -->
+    <menuitem id="adm_menu_status"
+        parent="adm_menu_configurations" name="Inquiry Status"
+        action="action_status" />
+        
+    <menuitem id="adm_menu_application_status"
+        parent="adm_menu_configurations" name="Application Status"
+        action="action_application_status" />
+
+    <menuitem id="adm_menu_language"
+        parent="adm_menu_configurations" name="Languages"
+        action="action_language" />
+        
+    <menuitem id="adm_menu_language_level"
+        parent="adm_menu_configurations" name="Language levels"
+        action="action_language_level" />
+        
+    <menuitem id="adm_menu_contact_time"
+        parent="adm_menu_configurations" name="Contact times"
+        action="action_contact_time" />
+    <menuitem id="adm_menu_degree_program"
+        parent="adm_menu_configurations" name="Degree programs"
+        action="action_degree_program" />
+    
+    <!-- Website Tab -->
+    <record id="website_menu_adm_inquiry" model="website.menu">
+        <field name="name">Inquiry</field>
+        <field name="url">/admission/inquiry</field>
+        <field name="parent_id" ref="website.main_menu" />
+        <field name="sequence" type="int">40</field>
+    </record>
+
+    <template id="website_menuitem_application" inherit_id="website.layout" name="header application menu">
+           <xpath expr="//a[@id='o_logout']" position="before">
+               <a href="/admission/applications" role="menuitem" class="dropdown-item">Application</a>
+           </xpath>
+    </template>
+
+
+</odoo>

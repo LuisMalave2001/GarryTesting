@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="admission_inquiry_kanban">
+        <field name="name">Inquiry Kanban</field>
+        <field name="model">adm.inquiry</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status_id" edit="false"
+                class="o_kanban_small_column o_kanban_project_tasks" disable_drag_drop_record="true"
+                disable_sort_column="true">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click oe_semantic_html_override oe_kanban_card">
+                            <div t-attf-class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name" />
+                                        </strong>
+                                        <br />
+                                    </div>
+                                    <div class="o_dropdown_kanban dropdown">
+                                        <a role="button" class="dropdown-toogle o-no-caret btn" data-toggle="dropdown"
+                                            data-display="static" href="#" aria-label="Dropdown menu"
+                                            title="Dropdown menu">
+                                            <span class="fa fa-ellipsis-v" />
+                                        </a>
+                                        <div class="dropdown-menu" role="menu">
+                                            <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                            <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <script>
+                    </script>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_inquiry_status_tree">
+        <field name="name">Status Tree</field>
+        <field name="model">adm.inquiry.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id" />
+                <field name="name" />
+                <field name="sequence" widget='handle' />
+            </tree>
+        </field>
+    </record>
+
+    <!--Form View for inquiries -->
+    <record model="ir.ui.view" id="view_inquiry_form">
+        <field name="name">Inquiry Form</field>
+        <field name="model">adm.inquiry</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status_type" attrs="{'invisible': 1}" />
+                    <button name="move_to_next_status" string="NEXT STATUS" type="object"
+                        class="btn-primary oe_read_only" attrs="{'invisible': [('status_type', '!=', 'stage')]}" />
+                    <button name="cancel" string="CANCEL" type="object" class="btn-danger oe_read_only"
+                        attrs="{'invisible': [('status_type', '=', 'cancelled')]}" />
+                    <button name="force_back" string="FORCE BACK STATUS" type="object"
+                        class="btn-warning oe_read_only" />
+                    <button name="force_next" string="FORCE NEXT STATUS" type="object"
+                        class="btn-warning oe_read_only" />
+
+                    <field name="status_id" widget="statusbar" options="{'fold_field': 'fold'}" />
+                </header>
+                <sheet>
+                    <group>
+                        <h1>
+                            <field name="name" force_save="1" />
+                        </h1>
+                        <field name="preferred_degree_program" />
+                        <field name="partner_id" />
+
+                        <group colspan="1">
+<!--                             <field name="status_id" /> -->
+                            <field name="first_name" />
+                            <field name="middle_name" />
+                            <field name="last_name" />
+                            <field name="current_grade_level_id" />
+                            <field name="grade_level_id" />
+                            <field name="responsible_id" mode="kanban"/>
+                        </group>
+                        <group colspan="1">
+                            <field name="gender" />
+                            <field name="status_type"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tasks">
+                            <field name="state_tasks" attrs="{'invisible': True}" />
+                            <field name="task_ids" widget="many2many_checkboxes"
+                                domain="[('id', 'in', state_tasks)]" />
+                        </page>
+                        <page string="Contact">
+                            <group>
+                                <field name="email" string="Email" widget="email" /> 
+                                <field name="phone" widget="phone" />
+                            </group>
+                        </page>
+                    <!--    <page string="Location">
+                            <group>
+                                <label for="street" string="Address" />
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street..." class="o_address_street" />
+                                    <field name="city" placeholder="City" class="o_address_city" />
+                                    <field name="state_id" class="o_address_state" placeholder="State"
+                                        domain="[('country_id', '=', country_id)]" />
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip" />
+                                    <field name="country_id" placeholder="Country" class="o_address_country" />
+                                </div>
+                            </group>
+                        </page>-->
+                        <page string="School Information">
+                            <group>
+                                <field name="current_school" />
+                                <field name="street" />
+                                <field name="reference_family_1" />
+                                <field name="reference_family_2" />
+                                <field name="congregation_member" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <div class="oe_chatter" modifiers="{}">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}" />
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_inquiry_status_form">
+        <field name="name">Inquiry status Form</field>
+        <field name="model">adm.inquiry.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="description" />
+                    </group>
+                    <group>
+                        <group colspan="1">
+                            <field name="fold" />
+                        </group>
+                        <group colspan="1">
+                            <field name="type_id" widget="radio" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tasks">
+                            <field name="task_ids">
+                                <tree editable="bottom">
+                                    <field name="name" />
+                                    <field name="description" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

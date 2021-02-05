@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="account_move_report_matrix" name="Journal Entry Matrix">
+        <t t-call="web.html_container">
+            <t t-set="company" t-value="self.env.company"/>
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <t t-if="journals">
+                        <t t-foreach="journals" t-as="journal">
+                            <t t-set="total_debit" t-value="0"/>
+                            <t t-set="total_credit" t-value="0"/>
+                            <h3 t-esc="journal.name"/>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <tr>
+                                            <th t-foreach="fields" t-as="field">
+                                                <span t-esc="field.name or field.field_id.field_description"/>
+                                            </th>
+                                        </tr>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="docs.filtered(lambda d: d.journal_id.id == journal.id)" t-as="o">
+                                        <tr t-foreach="o.line_ids" t-as="line">
+                                            <td t-foreach="fields" t-as="field">
+                                                <t t-if="field.field_id.model_id.model == 'account.move'">
+                                                    <t t-set="rec" t-value="line.move_id"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-set="rec" t-value="line"/>
+                                                </t>
+                                                <t t-if="field.field_id.ttype == 'many2one'">
+                                                    <span t-esc="getattr(rec, field.field_id.name).display_name"/>
+                                                </t>
+                                                <t t-if="field.field_id.ttype in ['many2many','one2many']">
+                                                    <span t-esc="', '.join(getattr(rec, field.field_id.name).mapped('display_name'))"/>
+                                                </t>
+                                                <t t-if="field.field_id.ttype not in ['many2one','many2many','one2many']">
+                                                    <t t-set="value" t-value="getattr(rec, field.field_id.name)"/>
+                                                    <t t-if="field.field_id.ttype in ['integer','float','monetary']">
+                                                        <span style="display:block;" class="text-right" t-esc="value if field.field_id.ttype == 'integer' else '%.2f' % value"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-esc="value"/>
+                                                    </t>
+                                                    <t t-if="field.field_id.name == 'debit'">
+                                                        <t t-set="total_debit" t-value="total_debit + value"/>
+                                                    </t>
+                                                    <t t-if="field.field_id.name == 'credit'">
+                                                        <t t-set="total_credit" t-value="total_credit + value"/>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td t-foreach="fields" t-as="field">
+                                            <strong>
+                                                <t t-if="field.field_id.name == 'debit'">
+                                                    <span style="display:block;" class="text-right" t-esc="total_debit" t-options="{'widget': 'monetary', 'display_currency': company.currency_id}"/>
+                                                </t>
+                                                <t t-if="field.field_id.name == 'credit'">
+                                                    <span style="display:block;" class="text-right" t-esc="total_credit" t-options="{'widget': 'monetary', 'display_currency': company.currency_id}"/>
+                                                </t>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <t t-set="total_debit" t-value="0"/>
+                        <t t-set="total_credit" t-value="0"/>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <tr>
+                                        <th t-foreach="fields" t-as="field">
+                                            <span t-esc="field.name or field.field_id.field_description"/>
+                                        </th>
+                                    </tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs" t-as="o">
+                                    <tr t-foreach="o.line_ids" t-as="line">
+                                        <td t-foreach="fields" t-as="field">
+                                            <t t-if="field.field_id.model_id.model == 'account.move'">
+                                                <t t-set="rec" t-value="line.move_id"/>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-set="rec" t-value="line"/>
+                                            </t>
+                                            <t t-if="field.field_id.ttype == 'many2one'">
+                                                <span t-esc="getattr(rec, field.field_id.name).display_name"/>
+                                            </t>
+                                            <t t-if="field.field_id.ttype in ['many2many','one2many']">
+                                                <span t-esc="', '.join(getattr(rec, field.field_id.name).mapped('display_name'))"/>
+                                            </t>
+                                            <t t-if="field.field_id.ttype not in ['many2one','many2many','one2many']">
+                                                <t t-set="value" t-value="getattr(rec, field.field_id.name)"/>
+                                                <t t-if="field.field_id.ttype in ['integer','float','monetary']">
+                                                    <span style="display:block;" class="text-right" t-esc="value if field.field_id.ttype == 'integer' else '%.2f' % value"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span t-esc="value"/>
+                                                </t>
+                                                <t t-if="field.field_id.name == 'debit'">
+                                                    <t t-set="total_debit" t-value="total_debit + value"/>
+                                                </t>
+                                                <t t-if="field.field_id.name == 'credit'">
+                                                    <t t-set="total_credit" t-value="total_credit + value"/>
+                                                </t>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td t-foreach="fields" t-as="field">
+                                        <strong>
+                                            <t t-if="field.field_id.name == 'debit'">
+                                                <span style="display:block;" class="text-right" t-esc="total_debit" t-options="{'widget': 'monetary', 'display_currency': company.currency_id}"/>
+                                            </t>
+                                            <t t-if="field.field_id.name == 'credit'">
+                                                <span style="display:block;" class="text-right" t-esc="total_credit" t-options="{'widget': 'monetary', 'display_currency': company.currency_id}"/>
+                                            </t>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

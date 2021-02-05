@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payment_receipt_inherit" inherit_id="account.report_payment_receipt">
+        <xpath expr="//t[@t-foreach='docs']" position="inside">
+            <div t-if="print_with_journal_entry" style="page-break-before: always">
+                <h5>Journal Entry</h5>
+                <table class="table table-sm">
+                    <tr>
+                        <th>Account</th>
+                        <th>Label</th>
+                        <th class="text-right">Debit</th>
+                        <th class="text-right">Credit</th>
+                    </tr>
+                    <tr t-foreach="o.move_line_ids" t-as="line">
+                        <td>
+                            <span t-field="line.account_id" />
+                        </td>
+                        <td>
+                            <span t-field="line.name" />
+                        </td>
+                        <td class="text-right">
+                            <span t-field="line.debit"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="line.credit"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_payment_receipt_with_journal_entry">
+        <t t-set="print_with_journal_entry" t-value="True"/>
+        <t t-call="account.report_payment_receipt_with_journal_entry"/>
+    </template>
+</odoo>
