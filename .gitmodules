@@ -7,3 +7,8 @@
 	path = eduwebgroup2/odoo-modules
 	url = git@github.com:eduwebgroup/odoo-modules.git
 	branch = 13.0-LuisMalave2001
+
+[submodule "eduwebgroup3/odoo-modules"]
+	path = eduwebgroup3/odoo-modules
+	url = git@github.com:eduwebgroup/odoo-modules.git
+	branch = 13.0-LuisMalave2001
