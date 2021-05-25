@@ -1,0 +1,4 @@
+[submodule "eduwebgroup/odoo-modules"]
+	path = eduwebgroup/odoo-modules
+	url = git@github.com:eduwebgroup/odoo-modules.git
+	branch = 13.0
