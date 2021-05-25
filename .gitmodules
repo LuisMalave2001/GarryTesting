@@ -12,3 +12,8 @@
 	path = eduwebgroup3/odoo-modules
 	url = git@github.com:eduwebgroup/odoo-modules.git
 	branch = 13.0-LuisMalave2001
+
+[submodule "LuisMalave2001/TestOdoo"]
+	path = LuisMalave2001/TestOdoo
+	url = git@github.com:LuisMalave2001/TestOdoo.git
+	branch = master
